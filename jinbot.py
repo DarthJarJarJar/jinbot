@@ -66,7 +66,7 @@ class PsnProfile:
         assert checkParam == None, "Input psn profile parameter is invalid."
         foptions = webdriver.FirefoxOptions()
         foptions.add_argument('-headless')
-        browser = webdriver.Firefox(executable_path=r'geckodriver', options=foptions)
+        browser = webdriver.Firefox(executable_path=r'jinbot/geckodriver', options=foptions)
         browser.get(f"https://psnprofiles.com/{self.profile_name}")
         # Grabbing Rare Trophies
         rare_trophy_tr = browser.find_elements_by_xpath("/html/body/div[6]/div[3]/div/div[2]/div[2]/div[4]/table/tbody/tr")
