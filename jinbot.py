@@ -155,4 +155,4 @@ async def welcome(ctx):
 
       
 
-client.run('ODcyMTk0NzA3MTE0MDQ1NDQw.YQmUng.LyGuLuvwZuRiPuzf25n1kBOh4hQ')
+client.run('ODcyMTk0NzA3MTE0MDQ1NDQw.YQmUng.NX93HMWlDNvAmPPMQVqix1kasNg')
