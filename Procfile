@@ -1,1 +1,1 @@
-worker: python3 jinbot.py
+worker: python3 jin.py
