@@ -1,8 +1,6 @@
 import discord
 from discord.ext import commands, tasks
 from discord.utils import get
-from psnp import *
-import json
 from discord import asset
 from discord.user import User
 import levelsys
