@@ -3,7 +3,7 @@ from discord.ext import commands, tasks
 from discord.utils import get
 from discord import asset
 from discord.user import User
-import levelsys.py
+import levelsys
 
 intents = discord.Intents(messages=True, guilds=True, reactions=True, members=True, presences=True)
 client = commands.Bot(command_prefix='*', intents=intents)
