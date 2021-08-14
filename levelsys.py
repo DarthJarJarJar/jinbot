@@ -128,12 +128,14 @@ class levelsys(commands.Cog):
 
 
     @commands.command()
+    @commands.has_role('tamper xp')
     async def addxp(self,ctx,ussr : discord.User, num):
         stats = levelling.find_one({"id": ussr.id})
         xp = stats["xp"] + int(num)
         levelling.update_one({"id": ussr.id}, {"$set": {"xp": xp}})
 
     @commands.command()
+    @commands.has_role('tamper xp')
     async def removexp(self, ctx, ussr : discord.User, num):
         stats = levelling.find_one({"id": ussr.id})
         xp = stats["xp"] - int(num)
