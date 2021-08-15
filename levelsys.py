@@ -45,6 +45,7 @@ class levelsys(commands.Cog):
                 if xp == 1250:
                     await message.author.add_roles(discord.utils.get(message.author.guild.roles, name="Bronze 3"))
                     await message.author.remove_roles(discord.utils.get(message.author.guild.roles, name="Bronze 2"))
+                    await message.channel.send(f"{message.author.mention} has levelled up!")
                 elif xp == 2500:
                     await message.author.add_roles(discord.utils.get(message.author.guild.roles, name="Silver 1"))
                     await message.author.remove_roles(discord.utils.get(message.author.guild.roles, name="Bronze 3"))
