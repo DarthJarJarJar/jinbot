@@ -38,10 +38,12 @@ class levelsys(commands.Cog):
                 lvl = 0
                 if xp == 250:
                     await message.author.add_roles(discord.utils.get(message.author.guild.roles, name="Bronze 1"))
+                    await message.channel.send(f"{message.author.mention} has levelled up!")
                     
                 elif xp == 500:
                     await message.author.add_roles(discord.utils.get(message.author.guild.roles, name="Bronze 2"))
                     await message.author.remove_roles(discord.utils.get(message.author.guild.roles, name="Bronze 1"))
+                    await message.channel.send(f"{message.author.mention} has levelled up!")
                 if xp == 1250:
                     await message.author.add_roles(discord.utils.get(message.author.guild.roles, name="Bronze 3"))
                     await message.author.remove_roles(discord.utils.get(message.author.guild.roles, name="Bronze 2"))
@@ -49,24 +51,31 @@ class levelsys(commands.Cog):
                 elif xp == 2500:
                     await message.author.add_roles(discord.utils.get(message.author.guild.roles, name="Silver 1"))
                     await message.author.remove_roles(discord.utils.get(message.author.guild.roles, name="Bronze 3"))
+                    await message.channel.send(f"{message.author.mention} has levelled up!")
                 elif xp == 5000:
                     await message.author.add_roles(discord.utils.get(message.author.guild.roles, name="Silver 2"))
                     await message.author.remove_roles(discord.utils.get(message.author.guild.roles, name="Silver 1"))
+                    await message.channel.send(f"{message.author.mention} has levelled up!")
                 elif xp == 7500:
                     await message.author.add_roles(discord.utils.get(message.author.guild.roles, name="Silver 3"))
                     await message.author.remove_roles(discord.utils.get(message.author.guild.roles, name="Silver 2"))
+                    await message.channel.send(f"{message.author.mention} has levelled up!")
                 elif xp == 10000:
                     await message.author.add_roles(discord.utils.get(message.author.guild.roles, name="Gold 1"))
                     await message.author.remove_roles(discord.utils.get(message.author.guild.roles, name="Silver 3"))
+                    await message.channel.send(f"{message.author.mention} has levelled up!")
                 elif xp == 15000:
                     await message.author.add_roles(discord.utils.get(message.author.guild.roles, name="Gold 2"))
                     await message.author.remove_roles(discord.utils.get(message.author.guild.roles, name="Gold 1"))
+                    await message.channel.send(f"{message.author.mention} has levelled up!")
                 elif xp == 20000:
                     await message.author.add_roles(discord.utils.get(message.author.guild.roles, name="Gold 3"))
                     await message.author.remove_roles(discord.utils.get(message.author.guild.roles, name="Gold 2"))
+                    await message.channel.send(f"{message.author.mention} has levelled up!")
                 elif xp == 30000:
                     await message.author.add_roles(discord.utils.get(message.author.guild.roles, name="Platinum"))
                     await message.author.remove_roles(discord.utils.get(message.author.guild.roles, name="Gold 2"))
+                    await message.channel.send(f"{message.author.mention} has levelled up!")
 
     @commands.command()
     async def xp(self, ctx):
