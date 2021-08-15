@@ -126,7 +126,7 @@ class levelsys(commands.Cog):
             try:
                 temp = ctx.guild.get_member(x["id"])
                 tempxp = x["xp"]
-                embed.add_field(name=f"{i}: {temp.name}", value=f"**{tempxp}**")
+                embed.add_field(name=f"{i}: {temp.name}  {tempxp}", value=f" ")
                 i += 1
             except:
                 pass
