@@ -87,8 +87,8 @@ async def playstation(ctx):
 async def rickroll(ctx):
     await ctx.send('https://tenor.com/view/dance-moves-dancing-singer-groovy-gif-17029825')
     
-@client.command(aliases=['r&c 2016'])
-async def rnc(ctx):
+@client.command()
+async def ratchetandclank(ctx):
     await ctx.send("They took the great story of the first game and completely cut out the interesting socioeconomic commentary and themes and satire of corporatism and shoved in the villain from the other franchise's games")
 
 @client.command()
