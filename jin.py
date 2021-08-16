@@ -65,6 +65,17 @@ async def jin(ctx):
 @client.command()
 async def xbox(ctx):
     await ctx.send('better')
+    
+
+@client.command()
+async def fortnite(ctx):
+    await ctx.send('https://tenor.com/view/kratos-kratos-fortnite-fortnite-fortnite-dance-kratos-fortnite-dance-gif-19435698')
+    
+    
+@client.command()
+async def gamepass(ctx):
+    await ctx.send('game pass has over 300 games to play at a low fee of $15 a month and your first 3 months are only a dollar for new members')
+    
 
 
 @client.command()
