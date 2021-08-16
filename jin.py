@@ -4,7 +4,7 @@ from discord.utils import get
 from discord import asset
 from discord.user import User
 import levelsys
-import psnp
+
 
 intents = discord.Intents(messages=True, guilds=True, reactions=True, members=True, presences=True)
 client = commands.Bot(command_prefix='*', intents=intents)
@@ -115,21 +115,6 @@ async def welcome(ctx):
 
 
 
-# PSNProfile related bot stuff
-@client.command(name='psn', help="Grabs your profile data from Psnprofile")
-async def get_psnprofile(ctx, profileName: str):
-    if ctx.author == client.user:
-        return
-    newProfile = PsnProfile(profileName)
-    await ctx.channel.send("Please wait a moment...")
-    newProfile.scrape_psnprofile()
-    titleCard = profileName + "'s PSNProfile"
-    gameData, rareData = newProfile.get_profile()
-    newEmbed = discord.Embed(title=titleCard, url=newProfile.profile_url, description=gameData, color=0x2565c4)
-    await ctx.channel.send(embed=newEmbed)
-
-    # await ctx.channel.send(gameData)
-    # await ctx.channel.send(rareData)
 
 
 client.run('ODcyMTk0NzA3MTE0MDQ1NDQw.YQmUng.NX93HMWlDNvAmPPMQVqix1kasNg')
