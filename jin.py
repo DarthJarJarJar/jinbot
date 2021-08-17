@@ -112,8 +112,9 @@ async def welcome(ctx):
     await ctx.send(
         "<:Wjin:865274048988184588><:Ejin:865274113174405131><:Ljin:865274170157432843><:Cjin:865274259353370634><:Ojin:865274346129850408><:Mjin:865274436168450058><:Ejin:865274113174405131>")
 
-
-
+@client.command()
+async def electro(ctx):
+    await ctx.send('https://tenor.com/view/amazing-spiderman2vomit-electro-amazing-spiderman2-spiderman-vomit-sex-gif-13866212')
 
 
 
