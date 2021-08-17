@@ -70,7 +70,7 @@ async def on_member_remove(member):
 
 @client.command()
 async def jin(ctx, num=1):
-    for i in range num:
+    for i in range(num):
         
         await ctx.send('<:jinhappy1:835921639551008818>')
 
