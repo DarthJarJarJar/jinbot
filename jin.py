@@ -15,6 +15,7 @@ welcome = "<:Wjin:865274048988184588><:Ejin:865274113174405131><:Ljin:8652741701
 @client.event
 async def on_ready():
     print('never gonna give you up')
+    await client.change_presence(activity=discord.Game(name="Jin of Jinshima"))
 
 
 
