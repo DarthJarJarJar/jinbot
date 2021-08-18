@@ -79,6 +79,15 @@ async def jin(ctx, num=1):
         else:
             for i in range(num):
                 await ctx.send("<:jinhappy1:835921639551008818>")
+    else:
+        if num>5:
+            await ctx.send("Please use a value less than 5")
+        elif num<0:
+            await ctx.send("Please use a positive value")
+        else:
+            for i in range(num):
+                await ctx.send("<:jinhappy1:835921639551008818>")
+        
      
 
 
