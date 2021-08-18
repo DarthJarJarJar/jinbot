@@ -71,12 +71,21 @@ async def on_member_remove(member):
 
 @client.command()
 async def jin(ctx, num=1):
-    if num>25:
-        await ctx.send("Please use a value less than 25")
-    else:
-        for i in range(num):
+    if ctx.channel == 834406006351462420:
+        if num>100:
+        await ctx.send("Please use a value less than 100")
+        else:
+            for i in range(num):
         
-            await ctx.send('<:jinhappy1:835921639551008818>')
+                await ctx.send('<:jinhappy1:835921639551008818>')
+
+    else:   
+        if num>25:
+            await ctx.send("Please use a value less than 25")
+        else:
+            for i in range(num):
+        
+                await ctx.send('<:jinhappy1:835921639551008818>')
 
 
 @client.command()
