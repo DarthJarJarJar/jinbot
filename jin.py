@@ -71,7 +71,7 @@ async def on_member_remove(member):
 
 @client.command()
 async def jin(ctx, num=1):
-    if ctx.channel == 834406006351462420:
+    if ctx.channel.name == ("jin-chain"):
         if num>100:
         await ctx.send("Please use a value less than 100")
         else:
