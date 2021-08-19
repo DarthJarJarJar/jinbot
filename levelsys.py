@@ -33,7 +33,7 @@ class levelsys(commands.Cog):
                 newuser = {"id" : message.author.id, "xp" : 0}
                 levelling.insert_one(newuser)
             else:
-                xp = stats["xp"] + 1
+                xp = stats["xp"] + 2
                 levelling.update_one({"id" : message.author.id}, {"$set" : {"xp" : xp}})
                 lvl = 0
                 if xp == 250:
