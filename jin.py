@@ -185,7 +185,7 @@ async def get_psnprofile(ctx, profileName: str):
     titleCard = profileName + "'s PSNProfile"
     gameData, rareData = newProfile.get_profile()
     newEmbed = discord.Embed(title=titleCard, url=newProfile.profile_url, description=gameData, color=0x2565c4)
-    await msg.edit(embed=newEmbed)
+    await msg1.edit(embed=newEmbed)
 
 
 
