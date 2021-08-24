@@ -4,7 +4,11 @@ from discord.utils import get
 from discord import asset
 from discord.user import User
 import levelsys
-import psnp
+import requests
+from bs4 import BeautifulSoup
+from selenium import webdriver
+
+import re
 
 intents = discord.Intents(messages=True, guilds=True, reactions=True, members=True, presences=True)
 client = commands.Bot(command_prefix='*', intents=intents)
