@@ -60,7 +60,7 @@ class PsnProfile:
         assert checkParam == None, "Input psn profile parameter is invalid."
         foptions = webdriver.FirefoxOptions()
         foptions.add_argument('-headless')
-        browser = webdriver.Firefox(executable_path=r"/usr/local/Cellar/geckodriver/0.29.1/bin/geckodriver"
+        browser = webdriver.Firefox(executable_path=r"/app/vendor/geckodriver/geckodriver"
 ,
                                     options=foptions)
         browser.get(f"https://psnprofiles.com/{self.profile_name}")
