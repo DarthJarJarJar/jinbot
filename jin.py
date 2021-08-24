@@ -86,6 +86,9 @@ class PsnProfile:
         checkParam = re.search("[~!#$%^&*()_+{}:;\\']", self.profile_name)
         assert checkParam == None, "Input psn profile parameter is invalid."
         foptions = webdriver.FirefoxOptions()
+        foptions.binary_location = r'/app/vendor/firefox/firefox'
+                
+
         foptions.add_argument('-headless')
         browser = webdriver.Firefox(executable_path=r"/app/vendor/geckodriver/geckodriver"
 ,
