@@ -180,12 +180,12 @@ async def get_psnprofile(ctx, profileName: str):
     if ctx.author == client.user:
         return
     newProfile = PsnProfile(profileName)
-    await ctx.channel.send("Please wait a moment...")
+    msg1 = await ctx.channel.send("Please wait a moment...")
     newProfile.scrape_psnprofile()
     titleCard = profileName + "'s PSNProfile"
     gameData, rareData = newProfile.get_profile()
     newEmbed = discord.Embed(title=titleCard, url=newProfile.profile_url, description=gameData, color=0x2565c4)
-    await ctx.channel.send(embed=newEmbed)
+    await msg.edit(embed=newEmbed)
 
 
 
