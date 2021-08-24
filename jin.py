@@ -4,7 +4,7 @@ from discord.utils import get
 from discord import asset
 from discord.user import User
 import levelsys
-import psnp
+import psnp.py
 
 intents = discord.Intents(messages=True, guilds=True, reactions=True, members=True, presences=True)
 client = commands.Bot(command_prefix='*', intents=intents)
