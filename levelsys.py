@@ -126,39 +126,24 @@ class levelsys(commands.Cog):
         embed.set_author(name=ctx.author.name, icon_url=ctx.author.avatar_url)
 
         await ctx.channel.send(embed=embed)
+
+        
     @commands.command()
-    async def leaderboard(self,ctx, lnum=1):
+    async def leaderboard(self,ctx):
         rankings = levelling.find().sort("xp",-1)
-        if lnum == 1:
-            i = 1
-            embed = discord.Embed(title="Leaderboard")
-            for x in rankings:
-                try:
-                    temp = ctx.guild.get_member(x["id"])
-                    tempxp = x["xp"]
-                    embed.add_field(name=f"{i}: {temp.name}", value=f"{tempxp}", inline=False)
-                    i += 1
-                except:
-                    pass
-                if i == 11:
-                    break
-            await ctx.channel.send(embed=embed)
-        elif lnum == 2:
-            i = 11
-            embed = discord.Embed(title="Leaderboard")
-            for x in rankings:
-                try:
-                    temp = ctx.guild.get_member(x["id"])
-                    tempxp = x["xp"]
-                    embed.add_field(name=f"{i}: {temp.name}", value=f"{tempxp}", inline=False)
-                    i += 1
-                except:
-                    pass
-                if i == 21:
-                    break
-            await ctx.channel.send(embed=embed)
-        else:
-            await ctx.channel.send("Leaderboard out of range")
+        i = 1
+        embed = discord.Embed(title="Leaderboard",color=discord.Color.green())
+        for x in rankings:
+            try:
+                temp = ctx.guild.get_member(x["id"])
+                tempxp = x["xp"]
+                embed.add_field(name=f"{i}: {temp.name}", value=f"{tempxp}", inline=False)
+                i += 1
+            except:
+                pass
+            if i == 11:
+                break
+        await ctx.channel.send(embed=embed)
 
 
     @commands.command()
