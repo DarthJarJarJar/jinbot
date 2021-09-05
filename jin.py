@@ -282,6 +282,10 @@ async def electro(ctx):
 @client.command()
 async def freeping(ctx):
     await ctx.send(f"Here's your free ping! {ctx.author.mention}")
+    
+@client.command()
+async def language(ctx):
+    await ctx.send("من فضلك لا تستخدم أي لغة أخرى غير Jin")
 
 
 client.run('ODcyMTk0NzA3MTE0MDQ1NDQw.YQmUng.NX93HMWlDNvAmPPMQVqix1kasNg')
