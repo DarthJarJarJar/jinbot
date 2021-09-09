@@ -232,6 +232,14 @@ async def jin(ctx, num=1):
         else:
             for i in range(num):
                 await ctx.send("<:jinhappy1:835921639551008818>")
+                
+                
+ 
+@client.command
+@command.has_any_role("Jinderator", "Adjin")
+async def mute(ctx, ussr : discord.User)
+    await await ussr.add_roles(discord.utils.get(ussr.guild.roles, name="Mute"))
+    await ctx.send("User was muted")
         
      
 
