@@ -236,7 +236,7 @@ async def jin(ctx, num=1):
                 
  
 @client.command
-@command.has_any_role("Jinderator", "Adjin")
+@commands.has_any_role("Jinderator", "Adjin")
 async def mute(ctx, ussr : discord.User):
     await ussr.add_roles(discord.utils.get(ussr.guild.roles, name="Mute"))
     await ctx.send("User was muted")
