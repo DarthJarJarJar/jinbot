@@ -80,7 +80,7 @@ class PsnProfile:
         self.bronze_count = 0
         self.rare_trophies = []
         self.games = []
-        self.profile_url = fr"https:/psnprofiles.com/{self.profile_name}"
+        self.profile_url = f"https://psnprofiles.com/{self.profile_name}"
 
     def scrape_psnprofile(self):
         checkParam = re.search("[~!#$%^&*()_+{}:;\\']", self.profile_name)
