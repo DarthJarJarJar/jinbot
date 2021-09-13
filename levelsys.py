@@ -102,7 +102,7 @@ class levelsys(commands.Cog):
             usrlevel = "Gold 1"
         elif xp>15000 and xp<20000:
             usrlevel = "Gold 2"
-        elif xp>20000 and xp<3000:
+        elif xp>20000 and xp<30000:
             usrlevel = "Gold 3"
         elif xp>30000 :
             usrlevel = "Platinum"
