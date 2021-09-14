@@ -320,19 +320,19 @@ async def mute(ctx, member: discord.Member=None, time=None, *, reason=None):
    			reason="No reason given"
     	#Now timed mute manipulation
     	try:
-    		seconds = time[:-1] #Gets the numbers from the time argument, start to -1
-        	duration = time[-1] #Gets the timed maniulation, s, m, h, d
-        	if duration == "s":
-        		seconds = seconds * 1
-        	elif duration == "m":
-        		seconds = seconds * 60
-        	elif duration == "h":
-        		seconds = seconds * 60 * 60
-        	elif duration == "d":
-        		seconds = seconds * 86400
-        	else:
-        		await ctx.send("Invalid duration input")
-          		return
+    	    seconds = time[:-1] #Gets the numbers from the time argument, start to -1
+            duration = time[-1] #Gets the timed maniulation, s, m, h, d
+            if duration == "s":
+        	    seconds = seconds * 1
+            elif duration == "m":
+        	    seconds = seconds * 60
+            elif duration == "h":
+        	    seconds = seconds * 60 * 60
+            elif duration == "d":
+        	    seconds = seconds * 86400
+            else:
+                await ctx.send("Invalid duration input")
+          	return
     	except Exception as e:
     		print(e)
         	await ctx.send("Invalid time input")
