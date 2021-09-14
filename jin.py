@@ -305,14 +305,14 @@ async def language(ctx):
 @client.command()
 @commands.has_permissions(manage_messages=True)
 async def mute(ctx, member : discord.Member):
-    mutedrole = discord.utilis.get(ctx.guild.roles, name="Mute")
+    mutedrole = discord.utils.get(ctx.guild.roles, name="Mute")
     await member.add_roles(mutedrole)
     await ctx.send("User was muted")
     
 @client.command()
 @commands.has_permissions(manage_messages=True)
 async def unmute(ctx, member : discord.Member):
-    mutedrole = discord.utilis.get(ctx.guild.roles, name="Mute")
+    mutedrole = discord.utils.get(ctx.guild.roles, name="Mute")
     await member.remove_roles(mutedrole)
     await ctx.send("User was unmuted")
 
