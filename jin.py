@@ -236,11 +236,7 @@ async def jin(ctx, num=1):
                 
                 
  
-@client.command
-@commands.has_any_role("Jinderator", "Adjin")
-async def mute(ctx, ussr : discord.User):
-    await ussr.add_roles(discord.utils.get(ussr.guild.roles, name="Mute"))
-    await ctx.send("User was muted")
+
         
      
 
@@ -306,7 +302,19 @@ async def freeping(ctx):
 async def language(ctx):
     await ctx.send("من فضلك لا تستخدم أي لغة أخرى غير Jin")
     
-
+@client.command()
+@commands.has_permissions(manage_messages=True)
+async def mute(ctx, member : discord.Member):
+    mutedrole = discord.utilis.get(ctx.guild.roles, name="Mute")
+    await member.add_roles(mutedrole)
+    await ctx.send("User was muted")
+    
+@client.command()
+@commands.has_permissions(manage_messages=True)
+async def unmute(ctx, member : discord.Member):
+    mutedrole = discord.utilis.get(ctx.guild.roles, name="Mute")
+    await member.remove_roles(mutedrole)
+    await ctx.send("User was unmuted")
 
                                          
                                  
