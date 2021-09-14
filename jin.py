@@ -247,6 +247,11 @@ async def mute(ctx, ussr : discord.User):
 @client.command()
 async def xbox(ctx):
     await ctx.send('better')
+
+@client.command()
+async def regret(ctx):
+    await ctx.send('Today I am filled with regret to inform that we have had to remove a member of our community due to leaking sensitive information.')
+
     
 
 @client.command()
