@@ -268,6 +268,12 @@ async def gamepass(ctx):
 @client.command()
 async def playstation(ctx):
     await ctx.send('<:sony:858204031067357195>')
+    
+    
+@client.command()
+async def tasm2(ctx):
+    await ctx.send("Some day, humanity will reach self individualization. Some day we'll move beyond petty scrabbles over the three poisons of life (greed, ignorance, and hatred). Some day, we will have reached a state where we're enlightened enough to watch TASM2 without calamity befalling us.
+")
 
 
 @client.command()
