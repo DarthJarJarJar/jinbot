@@ -17,7 +17,7 @@ import random
 import datetime
 
 
-import youtube_dl
+
 from async_timeout import timeout
   
 
