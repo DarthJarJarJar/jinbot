@@ -444,7 +444,7 @@ async def countdown(ctx,yy,m,d):
  
   await ctx.send(fr"Time until {yy}/{m}/{d}: {eldentime}")
  
-@client.command
+@client.command()
 async def jincast(ctx,flag=True):
     if flag==True:
       jincast = discord.utils.get(ctx.guild.roles, name="Jincast Follower")
