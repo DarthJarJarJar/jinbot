@@ -10,6 +10,16 @@ from selenium import webdriver
 import asyncio
 
 import re
+import functools
+import itertools
+import math
+import random
+import datetime
+
+
+import youtube_dl
+from async_timeout import timeout
+  
 
 intents = discord.Intents(messages=True, guilds=True, reactions=True, members=True, presences=True)
 client = commands.Bot(command_prefix='*', intents=intents)
@@ -198,10 +208,14 @@ async def get_psnprofile(ctx, profileName: str):
 async def on_member_join(member):
     print(f'welcome {member}')
     channel = client.get_channel(854247382086189066)
+    jinchain = client.get_channel(834406006351462420)
+    jinrules = client.get_channel(893929998614925322)
     await channel.send(
         "<:Wjin:865274048988184588><:Ejin:865274113174405131><:Ljin:865274170157432843><:Cjin:865274259353370634><:Ojin:865274346129850408><:Mjin:865274436168450058><:Ejin:865274113174405131>")
-    embed1 = discord.Embed(title=f"Welcome {member}!", description=f"Contribute to #jin-chain to get started!")
+    embed1 = discord.Embed(title=f"Welcome {member}!", description=f"Contribute to {jinchain.mention} and check out {jinrules.mention} to get started! Remember to flame on and on and on and on")
+    await channel.send(member.mention)
     await channel.send(embed=embed1)
+    await channel.send('https://media.discordapp.net/attachments/826766972204744767/885951474109149274/tumblr_ovbx1zq11b1vo889bo8_400.gifv.gif')
     role = get(member.guild.roles, id=833781809128669265)
     await member.add_roles(role)
 
@@ -213,6 +227,13 @@ async def on_member_join(member):
 @client.event
 async def on_member_remove(member):
     print(f'goodbye {member}')
+    
+    
+    
+@client.command()
+async def jumbo(ctx, emoji: discord.Emoji):
+    await ctx.send(emoji.url)
+   
 
 
 @client.command()
@@ -283,7 +304,9 @@ async def ratchetandclank(ctx):
 @client.command()
 async def rule16(ctx):
     await ctx.send('https://tenor.com/view/dead-chat-passione-admin-passione-jojolion-gif-19211422')
-
+@client.command()
+async def mole(ctx):
+    await ctx.send(" I'm going to reveal the truth.\n\n I am the mole.\n\n I in truth actually work with the aquatic animal in American spy ops to keep our country safe, and the government has declared this server a danger of the highest degree. It is to this end that I must monitor this server to make sure it doesn't invoke a third world war. It was for my country. It was for my duty.\n\nGod bless America.")
 
 @client.command()
 async def welcome(ctx):
@@ -295,12 +318,25 @@ async def electro(ctx):
     await ctx.send('https://tenor.com/view/amazing-spiderman2vomit-electro-amazing-spiderman2-spiderman-vomit-sex-gif-13866212')
     
 @client.command()
+async def electrocursed(ctx):
+    await ctx.send('https://cdn.discordapp.com/attachments/826766972204744767/888332410046001182/resize.gif')
+    
+@client.command()
 async def freeping(ctx):
     await ctx.send(f"Here's your free ping! {ctx.author.mention}")
     
 @client.command()
 async def language(ctx):
     await ctx.send("من فضلك لا تستخدم أي لغة أخرى غير Jin")
+    
+@client.command()
+async def chatting(ctx):
+    await ctx.send("Hey man, so I was thinking what if we make a server that is dedicated to chatting? As this one always seems to be dead :skull: @DarthJinJin")
+    
+    
+@client.command()
+async def flameon(ctx):
+    await ctx.send("https://media.discordapp.net/attachments/826766972204744767/888296963517333564/flameon.gif")
     
 @client.command()
 @commands.has_permissions(manage_messages=True)
@@ -316,7 +352,145 @@ async def unmute(ctx, member : discord.Member):
     await member.remove_roles(mutedrole)
     await ctx.send("User was unmuted")
 
+@client.command()
+async def tsunami(ctx):
+    await ctx.send(r"https://cdn.discordapp.com/attachments/826766972204744767/888799786818502656/ezgif-6-f8d0eca0573f.mp4")
                                          
-                                 
+
+        
+@client.command()
+async def avatar(ctx, avamember : discord.Member=None):
+    if avamember == None:
+      avamember = ctx.author
+    userAvatarUrl = avamember.avatar_url
+    await ctx.send(userAvatarUrl)        
+        
+                
+@client.command(aliases=['lemons'])
+async def lemon(ctx):
+    await ctx.send("All right, I've been thinking when life gives you lemons, don't make lemonade! Make life take the lemons back! Get mad! I don't want your damn lemons! What am I supposed to do with these? Demand to see life's manager. Make life rue the day it thought it could give Cave Johnson lemons! Do you know who I am? I'm the man who's gonna burn your house down- with those lemons! I'm gonna get my engineers to invent a combustible lemon that burns down your house")        
+        
+                        
+@client.command()
+async def ill(ctx):
+    await ctx.send(r'https://cdn.discordapp.com/attachments/316188354255519744/891745760406814720/unknown.png')        
+        
+        
+@client.command()
+async def jin34(ctx):
+    await ctx.send("did you know that in ghost of tsushima, the game engine renders the main character, jin sakai at 34 fps but renders the rest of the game world at 30 fps? the reason this was implemented was because gameplay felt much smoother when the player character was rendered at a higher framerate than the rest of the game world. to learn more google 'jin sakai rule 34' ")
+
+@client.command(aliases=['colour'])
+@commands.has_any_role('Gold 1', 'Gold 2', 'Gold 3', 'Platinum', 'Jin Booster')
+async def color(ctx, color = None):
+    colorlist = ['blue','green','purple','orange','vomit']
+    if color == None:
+        await ctx.send(f"Please specify a valid color. Available colors: {colorlist}")
+    else:
+        #checking the color argument
+        if color not in colorlist:
+            await ctx.send(f"Please specify a valid color. Available colors: {colorlist}")
+        else:
+            #checking if author already has a color role
+            for role in ctx.author.roles:
+                for i in colorlist:
+                    current_color_role = discord.utils.get(ctx.guild.roles, name=i)
+                    if role == current_color_role:
+                        await ctx.author.remove_roles(current_color_role)
+                        break
+
+
+            
+            color_role = discord.utils.get(ctx.guild.roles, name=color)
+            await ctx.author.add_roles(color_role)
+            await ctx.send(f'Colors updated. Set color to {color}')
+                
+
+@client.command()
+async def eldenring(ctx):
+  
+  delta = datetime.datetime(2022,2,25,0,0)-datetime.datetime.now()
+  eldendays=str(delta.days)+" days "
+  count = 0
+  for i in range(len(str(delta))-1):
+      if str(delta)[i]==",":
+          count = i+2
+  x=str(delta)[count:]
+  y=x.split(":")
+
+  eldenhours = f"{y[0]} hours {y[1]} minutes {round(float(y[2]))} seconds"
+  eldentime=eldendays+eldenhours
+ 
+  await ctx.send(f"Time until Elden Ring: {eldentime}")
+  
+  
+  
+
+
+@client.command()
+async def countdown(ctx,yy,m,d):
+  
+  delta = datetime.datetime(int(yy),int(m),int(d),0,0)-datetime.datetime.now()
+  eldendays=str(delta.days)+" days "
+  count = 0
+  for i in range(len(str(delta))-1):
+      if str(delta)[i]==",":
+          count = i+2
+  x=str(delta)[count:]
+  y=x.split(":")
+
+  eldenhours = f"{y[0]} hours {y[1]} minutes {round(float(y[2]))} seconds"
+  eldentime=eldendays+eldenhours
+ 
+  await ctx.send(fr"Time until {yy}/{m}/{d}: {eldentime}")
+ 
+@client.command
+async def jincast(ctx,flag=True):
+    if flag==True:
+      jincast = discord.utils.get(ctx.guild.roles, name="Jincast Follower")
+      if jincast in ctx.author.roles:
+        await ctx.send("You already have the Jincast Follower role")
+      else:
+        await ctx.author.add_roles(jincast)
+        await ctx.send("Added the Jincast Follower role")
+    elif flag=="remove":
+      jincast = discord.utils.get(ctx.guild.roles, name="Jincast Follower")
+      if jincast in ctx.author.roles:
+        await ctx.author.remove_roles(jincast)
+        await ctx.send("Removed the Jincast Follower role")
+      else:
+        await ctx.send("You don't have the Jincast Follower role")
+    else:
+      await ctx.send("Enter a valid argument")
+        
+    
+  
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
                                  
 client.run('ODcyMTk0NzA3MTE0MDQ1NDQw.YQmUng.NX93HMWlDNvAmPPMQVqix1kasNg')
