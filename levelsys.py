@@ -27,6 +27,8 @@ class levelsys(commands.Cog):
 
     @commands.Cog.listener()
     async def on_message(self,message):
+        if 'sus' in message.content:
+            await message.channel.send("Is this a possible remark with a hidden connection to the video game Among Us (2018) developed by InnerSloth LLC which has gained recent popularity?")
         stats = levelling.find_one({"id" : message.author.id})
         if not message.author.bot:
             if stats is None:
