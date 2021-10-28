@@ -143,7 +143,7 @@ class levelsys(commands.Cog):
                 i += 1
             except:
                 pass
-            if i == 11:
+            if i == 21:
                 break
         await ctx.channel.send(embed=embed)
 
