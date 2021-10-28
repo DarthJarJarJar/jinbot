@@ -131,22 +131,37 @@ class levelsys(commands.Cog):
 
         
     @commands.command()
-    async def leaderboard(self,ctx):
-        rankings = levelling.find().sort("xp",-1)
-        i = 1
-        embed = discord.Embed(title="Leaderboard",color=discord.Color.green())
-        for x in rankings:
-            try:
-                temp = ctx.guild.get_member(x["id"])
-                tempxp = x["xp"]
-                embed.add_field(name=f"{i}: {temp.name}", value=f"{tempxp}", inline=False)
-                i += 1
-            except:
-                pass
-            if i == 21:
-                break
-        await ctx.channel.send(embed=embed)
-
+    async def leaderboard(self,ctx, num=1):
+        if num == 1:
+            rankings = levelling.find().sort("xp",-1)
+            i = 1
+            embed = discord.Embed(title="Leaderboard",color=discord.Color.green())
+            for x in rankings:
+                try:
+                    temp = ctx.guild.get_member(x["id"])
+                    tempxp = x["xp"]
+                    embed.add_field(name=f"{i}: {temp.name}", value=f"{tempxp}", inline=False)
+                    i += 1
+                except:
+                    pass
+                if i == 11:
+                    break
+            await ctx.channel.send(embed=embed)
+        elif num==2:
+            rankings = levelling.find().sort("xp",-1)
+            i = 11
+            embed = discord.Embed(title="Leaderboard",color=discord.Color.green())
+            for x in rankings[10:]:
+                try:
+                    temp = ctx.guild.get_member(x["id"])
+                    tempxp = x["xp"]
+                    embed.add_field(name=f"{i}: {temp.name}", value=f"{tempxp}", inline=False)
+                    i += 1
+                except:
+                    pass
+                if i == 21:
+                    break
+            await ctx.channel.send(embed=embed)
 
     @commands.command()
     @commands.has_role('tamper xp')
