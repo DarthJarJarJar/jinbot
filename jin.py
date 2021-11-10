@@ -591,7 +591,23 @@ async def eldenring(ctx):
   eldentime=eldendays+eldenhours
  
   await ctx.send(f"Time until Elden Ring: {eldentime}")
-        
+  
+@slash.slash(name="countdown", description="Shows time remaining until a certain date",guild_ids=guilds, options=[create_option(name="yyyy",description="Year", option_type=4,required=True),create_option(name="mm",description="Month",option_type=4,required=True),create_option(name="dd",description="Date",option_type=4,required=True)])
+async def countdown(ctx,yyyy,mm,dd):
+  
+  delta = datetime.datetime(int(yyyy),int(mm),int(dd),0,0)-datetime.datetime.now()
+  eldendays=str(delta.days)+" days "
+  count = 0
+  for i in range(len(str(delta))-1):
+      if str(delta)[i]==",":
+          count = i+2
+  x=str(delta)[count:]
+  y=x.split(":")
+
+  eldenhours = f"{y[0]} hours {y[1]} minutes {round(float(y[2]))} seconds"
+  eldentime=eldendays+eldenhours
+ 
+  await ctx.send(fr"Time until {yyyy}/{mm}/{dd}: {eldentime}")        
         
         
         
