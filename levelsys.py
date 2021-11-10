@@ -2,7 +2,7 @@ import discord
 from discord.ext import commands
 from pymongo import MongoClient
 from discord.utils import get
-
+from discord_slash import cog_ext, SlashContext
 
 
 import urllib.parse
@@ -114,11 +114,7 @@ class levelsys(commands.Cog):
 
         lvl = 0
         rank = 0
-     #   while True:
-           # if xp < ((50 * lvl ** 2) + (50 * (lvl - 1))):
-           #     break
-          #  lvl += 1
-   #     xp -= ((50 * lvl ** 2) + (50 * (lvl - 1)))
+     
         rankings = levelling.find().sort("xp", -1)
         for x in rankings:
             rank+=1
@@ -129,7 +125,52 @@ class levelsys(commands.Cog):
 
         await ctx.channel.send(embed=embed)
 
-        
+    @cog_ext.cog_slash(name="rank",description="Shows your current xp and rank",guild_ids=[826766972204744764]) 
+        async def xp(self, ctx:SlashContext):
+        stats = levelling.find_one({"id": ctx.author.id})
+        xp = stats["xp"]
+        if xp<250:
+            usrlevel = "No Level"
+        elif xp>1250 and xp<2500:
+            usrlevel = "Bronze 3"
+        elif xp>500 and xp<1250:
+            usrlevel = "Bronze 2"
+        elif xp>250 and xp<500:
+            usrlevel = "Bronze 1"
+
+        elif xp>2500 and xp<5000:
+            usrlevel = "Silver 1"
+        elif xp>5000 and xp<7500:
+            usrlevel = "Silver 2"
+        elif xp>5000 and xp<7500:
+            usrlevel = "Silver 2"
+        elif xp>7500 and xp<10000:
+            usrlevel = "Silver 3"
+        elif xp>10000 and xp<15000:
+            usrlevel = "Gold 1"
+        elif xp>15000 and xp<20000:
+            usrlevel = "Gold 2"
+        elif xp>20000 and xp<30000:
+            usrlevel = "Gold 3"
+        elif xp>30000 :
+            usrlevel = "Platinum"
+
+
+
+
+        lvl = 0
+        rank = 0
+     
+        rankings = levelling.find().sort("xp", -1)
+        for x in rankings:
+            rank+=1
+            if stats["id"]==x["id"]:
+                break
+        embed = discord.Embed(title=f'**Level: {usrlevel}** (Rank {rank})', description=f"{xp} XP", color=discord.Color.green())
+        embed.set_author(name=ctx.author.name, icon_url=ctx.author.avatar_url)
+
+        await ctx.channel.send(embed=embed)
+    
     @commands.command()
     async def leaderboard(self,ctx, num=1):
         if num == 1:
