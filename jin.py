@@ -614,13 +614,14 @@ async def _select(ctx:SlashContext):
     select = create_select(options=[create_select_option("Electro", value="electro"),create_select_option('Flame On!',value="flameon"),create_select_option("Jin", value="jin")],placeholder="Choose an option",max_values=1)
     
     await ctx.send("test", components=[create_actionrow(select)])
-    button_ctx: ComponentContext = await wait_for_component(client, components=select)
-    if button_ctx.selected_options[0]=="electro":
-        await button_ctx.edit_origin(content=f"https://tenor.com/view/amazing-spiderman2vomit-electro-amazing-spiderman2-spiderman-vomit-sex-gif-13866212")
-    if button_ctx.selected_options[0]=="flameon":
-        await button_ctx.edit_origin(content=f"https://media.discordapp.net/attachments/826766972204744767/888296963517333564/flameon.gif")
-    if button_ctx.selected_options[0]=="jin":
-        await button_ctx.edit_origin(content=f"https://cdn.discordapp.com/emojis/835921639551008818.png")
+    while True:
+        button_ctx: ComponentContext = await wait_for_component(client, components=select)
+        if button_ctx.selected_options[0]=="electro":
+            await button_ctx.edit_origin(content=f"https://tenor.com/view/amazing-spiderman2vomit-electro-amazing-spiderman2-spiderman-vomit-sex-gif-13866212")
+        if button_ctx.selected_options[0]=="flameon":
+            await button_ctx.edit_origin(content=f"https://media.discordapp.net/attachments/826766972204744767/888296963517333564/flameon.gif")
+        if button_ctx.selected_options[0]=="jin":
+            await button_ctx.edit_origin(content=f"https://cdn.discordapp.com/emojis/835921639551008818.png")
         
 
         
