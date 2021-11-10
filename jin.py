@@ -575,7 +575,22 @@ async def chatting(ctx):
 async def flameon(ctx):
     await ctx.send("https://media.discordapp.net/attachments/826766972204744767/888296963517333564/flameon.gif")
     
+@slash.slash(name='eldenring',description="Shows time left until the release of Elden Jin",guild_ids=guilds)
+async def eldenring(ctx):
+  
+  delta = datetime.datetime(2022,2,25,0,0)-datetime.datetime.now()
+  eldendays=str(delta.days)+" days "
+  count = 0
+  for i in range(len(str(delta))-1):
+      if str(delta)[i]==",":
+          count = i+2
+  x=str(delta)[count:]
+  y=x.split(":")
 
+  eldenhours = f"{y[0]} hours {y[1]} minutes {round(float(y[2]))} seconds"
+  eldentime=eldendays+eldenhours
+ 
+  await ctx.send(f"Time until Elden Ring: {eldentime}")
         
         
         
