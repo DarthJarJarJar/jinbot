@@ -608,9 +608,15 @@ async def countdown(ctx,yyyy,mm,dd):
   eldentime=eldendays+eldenhours
  
   await ctx.send(fr"Time until {yyyy}/{mm}/{dd}: {eldentime}")        
-        
-        
-        
+                
+@slash.slash(name="select")
+async def _select(ctx:SlashContext):
+    select = create_select(options=[create_select_option(name="test 1", value="test1"),create_select_option(name='test 2',value="test2"),create_select_option(name="test 3", value="test3")],placeholder="Choose an option")
+    await ctx.send("test", components=[create_actionrow(select)])
+
+@client.event
+async def on_component(ctx:ComponentContext):
+    await ctx.send(content=f"You selected {ctx.selected_options}")        
         
         
         
