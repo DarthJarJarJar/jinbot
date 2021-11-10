@@ -169,7 +169,7 @@ class levelsys(commands.Cog):
         embed = discord.Embed(title=f'**Level: {usrlevel}** (Rank {rank})', description=f"{xp} XP", color=discord.Color.green())
         embed.set_author(name=ctx.author.name, icon_url=ctx.author.avatar_url)
 
-        await ctx.channel.send(embed=embed)
+        await ctx.send(embed=embed)
     
     @commands.command()
     async def leaderboard(self,ctx, num=1):
