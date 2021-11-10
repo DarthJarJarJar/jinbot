@@ -22,7 +22,7 @@ from discord_slash.utils.manage_components import create_button, create_actionro
 from discord_slash.model import ButtonStyle
 import sys
 from discord_slash.utils.manage_components import wait_for_component
-
+from discord_slash.utils.manage_components import create_select, create_select_option, create_actionrow
 
 
 from async_timeout import timeout
