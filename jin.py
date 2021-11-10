@@ -15,6 +15,13 @@ import itertools
 import math
 import random
 import datetime
+from discord_slash import SlashCommand,SlashContext, client,ComponentContext
+import discord_slash
+from discord_slash.utils.manage_commands import create_option
+from discord_slash.utils.manage_components import create_button, create_actionrow
+from discord_slash.model import ButtonStyle
+import sys
+from discord_slash.utils.manage_components import wait_for_component
 
 
 
@@ -23,6 +30,8 @@ from async_timeout import timeout
 
 intents = discord.Intents(messages=True, guilds=True, reactions=True, members=True, presences=True)
 client = commands.Bot(command_prefix='*', intents=intents)
+slash = SlashCommand(client, sync_commands=True)
+guilds = [826766972204744764]
 
 welcome = "<:Wjin:865274048988184588><:Ejin:865274113174405131><:Ljin:865274170157432843><:Cjin:865274259353370634><:Ojin:865274346129850408><:Mjin:865274436168450058><:Ejin:865274113174405131>"
 
@@ -466,8 +475,107 @@ async def jincast(ctx,flag=True):
     
   
         
+ ######SLASH COMMANDS#######
+
+@slash.slash(name="echo", description="echoes what you said", guild_ids=guilds,options=[create_option(name="text", description='text you wish to echo',required=True,option_type=3)])
+async def echo(ctx : SlashCommand, text : str):
+    await ctx.send(text)
+
+
+
+
+@slash.slash(name="button", description="buttons test", guild_ids=guilds)
+async def button(ctx:SlashContext):
+    buttons = [
+        create_button(style=ButtonStyle.blue, label="Electro",custom_id="electrovomit"),
+        create_button(style=ButtonStyle.red, label="Flame on",custom_id="flameonandon")
         
-        
+    ]
+    action_row = create_actionrow(*buttons)
+    await ctx.send("Choose one",components=[action_row])
+    while True:
+        button_ctx: ComponentContext = await wait_for_component(client, components=action_row)
+        if button_ctx.custom_id=="electrovomit":
+            await button_ctx.edit_origin(content="https://tenor.com/view/amazing-spiderman2vomit-electro-amazing-spiderman2-spiderman-vomit-sex-gif-13866212")
+        elif button_ctx.custom_id=="flameonandon":
+            await button_ctx.edit_origin(content="https://media.discordapp.net/attachments/826766972204744767/888296963517333564/flameon.gif")
+
+
+@slash.slash(name="jin", description="sends jins", guild_ids=guilds,options=[create_option(name='number', description='number of jins', required=True, option_type=4)])
+async def jin(ctx:SlashContext,number):
+    if number>5:
+        await ctx.send("Please use a value less than 5", hidden=True)
+    elif number<0:
+        await ctx.send("Please enter a valid number", hidden=True)
+    else:
+        for i in range(number):
+            await ctx.send('<:jinhappy1:835921639551008818>')
+    
+
+@slash.slash(name='xbox',guild_ids=guilds)
+async def xbox(ctx):
+    await ctx.send('better')
+
+@slash.slash(name='regret',guild_ids=guilds)
+async def regret(ctx):
+    await ctx.send('Today I am filled with regret to inform that we have had to remove a member of our community due to leaking sensitive information.')
+
+    
+
+@slash.slash(name='fortnite',guild_ids=guilds)
+async def fortnite(ctx):
+    await ctx.send('https://tenor.com/view/kratos-kratos-fortnite-fortnite-fortnite-dance-kratos-fortnite-dance-gif-19435698')
+    
+    
+@slash.slash(name='gamepass',guild_ids=guilds)
+async def gamepass(ctx):
+    await ctx.send('game pass has over 300 games to play at a low fee of $15 a month and your first 3 months are only a dollar for new members')
+    
+@slash.slash(name='tasm2',guild_ids=guilds)
+async def tasm2(ctx):
+    await ctx.send("Some day, humanity will reach self individualization. Some day we'll move beyond petty scrabbles over the three poisons of life (greed, ignorance, and hatred). Some day, we will have reached a state where we're enlightened enough to watch TASM2 without calamity befalling us.")
+
+@slash.slash(name='rickroll',guild_ids=guilds)
+async def rickroll(ctx):
+    await ctx.send('https://tenor.com/view/dance-moves-dancing-singer-groovy-gif-17029825')
+    
+@slash.slash(name='ratchetandclank',guild_ids=guilds)
+async def ratchetandclank(ctx):
+    await ctx.send("They took the great story of the first game and completely cut out the interesting socioeconomic commentary and themes and satire of corporatism and shoved in the villain from the other franchise's games")
+
+@slash.slash(name='rule16',guild_ids=guilds)
+async def rule16(ctx):
+    await ctx.send('https://tenor.com/view/dead-chat-passione-admin-passione-jojolion-gif-19211422')
+@slash.slash(name='mole',guild_ids=guilds)
+async def mole(ctx):
+    await ctx.send(" I'm going to reveal the truth.\n\n I am the mole.\n\n I in truth actually work with the aquatic animal in American spy ops to keep our country safe, and the government has declared this server a danger of the highest degree. It is to this end that I must monitor this server to make sure it doesn't invoke a third world war. It was for my country. It was for my duty.\n\nGod bless America.")
+
+@slash.slash(name='electro',guild_ids=guilds)
+async def electro(ctx):
+    await ctx.send('https://tenor.com/view/amazing-spiderman2vomit-electro-amazing-spiderman2-spiderman-vomit-sex-gif-13866212')
+    
+@slash.slash(name='electrocursed',guild_ids=guilds)
+async def electrocursed(ctx):
+    await ctx.send('https://cdn.discordapp.com/attachments/826766972204744767/888332410046001182/resize.gif')
+    
+@slash.slash(name='freeping',guild_ids=guilds)
+async def freeping(ctx):
+    await ctx.send(f"Here's your free ping! {ctx.author.mention}")
+    
+@slash.slash(name='language',guild_ids=guilds)
+async def language(ctx):
+    await ctx.send("من فضلك لا تستخدم أي لغة أخرى غير Jin")
+    
+@slash.slash(name='chatting',guild_ids=guilds)
+async def chatting(ctx):
+    await ctx.send("Hey man, so I was thinking what if we make a server that is dedicated to chatting? As this one always seems to be dead :skull: @DarthJinJin")
+    
+    
+@slash.slash(name='flameon',description="Flame on and on and on and on!",guild_ids=guilds)
+async def flameon(ctx):
+    await ctx.send("https://media.discordapp.net/attachments/826766972204744767/888296963517333564/flameon.gif")
+    
+
         
         
         
