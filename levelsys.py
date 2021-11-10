@@ -78,7 +78,7 @@ class levelsys(commands.Cog):
                     await message.author.add_roles(discord.utils.get(message.author.guild.roles, name="Platinum"))
                     await message.author.remove_roles(discord.utils.get(message.author.guild.roles, name="Gold 2"))
                     await message.channel.send(f"{message.author.mention} has levelled up to Platinum!")
-
+#ssssssssssss
     @commands.command()
     async def xp(self, ctx):
         stats = levelling.find_one({"id": ctx.author.id})
@@ -126,7 +126,7 @@ class levelsys(commands.Cog):
         await ctx.channel.send(embed=embed)
 
     @cog_ext.cog_slash(name="rank",description="Shows your current xp and rank",guild_ids=[826766972204744764]) 
-        async def xp(self, ctx:SlashContext):
+    async def xp(self, ctx:SlashContext):
         stats = levelling.find_one({"id": ctx.author.id})
         xp = stats["xp"]
         if xp<250:
