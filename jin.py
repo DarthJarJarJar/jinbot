@@ -613,6 +613,8 @@ async def countdown(ctx,yyyy,mm,dd):
 async def _select(ctx:SlashContext):
     select = create_select(options=[create_select_option("test 1", value="test1"),create_select_option('test 2',value="test2"),create_select_option("test 3", value="test3")],placeholder="Choose an option")
     await ctx.send("test", components=[create_actionrow(select)])
+    button_ctx: ComponentContext = await wait_for_component(client, components=select)
+    await button_ctx.edit_origin(content=f"You selected {ctx.selected_options}")
 
 
         
