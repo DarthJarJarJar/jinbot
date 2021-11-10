@@ -611,7 +611,7 @@ async def countdown(ctx,yyyy,mm,dd):
                 
 @slash.slash(name="select",guild_ids=guilds)
 async def _select(ctx:SlashContext):
-    select = create_select(options=[create_select_option(name="test 1", value="test1"),create_select_option(name='test 2',value="test2"),create_select_option(name="test 3", value="test3")],placeholder="Choose an option")
+    select = create_select(options=[create_select_option("test 1", value="test1"),create_select_option('test 2',value="test2"),create_select_option("test 3", value="test3")],placeholder="Choose an option")
     await ctx.send("test", components=[create_actionrow(select)])
 
 @client.event
