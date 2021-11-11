@@ -665,7 +665,7 @@ async def _colour(ctx:SlashContext):
 
 
 @slash.slash(name="avatar",description="Shows user avatar",guild_ids=guilds, options=[create_option(name="user",description="Select user",option_type=6,required=False)])
-async def _avatar(ctx:SlashContext, user : discord.User):
+async def _avatar(ctx:SlashContext, user : discord.Member = None):
     if user == None:
         await ctx.send(ctx.author.avatar_url)
     else:
