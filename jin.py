@@ -664,6 +664,13 @@ async def _colour(ctx:SlashContext):
     await button_ctx.edit_origin(content="Added the color role!")
 
 
+@slash.slash(name="avatar",description="Shows user avatar", options=[create_option(name="user",description="Select user",option_type=6)])
+async def _avatar(ctx:SlashContext, user : discord.User):
+    if user == None:
+        await ctx.send(ctx.author.avatar_url)
+    else:
+        await ctx.send(user.avatar_url)
+
     
 
     
