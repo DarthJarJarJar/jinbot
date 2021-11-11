@@ -627,9 +627,18 @@ async def _select(ctx:SlashContext):
 @slash.slash(name="jin34", description="Interesting trivia about the hit PS exclusive Ghost of Tsushima!")
 async def jin34(ctx):
     await ctx.send("did you know that in ghost of tsushima, the game engine renders the main character, jin sakai at 34 fps but renders the rest of the game world at 30 fps? the reason this was implemented was because gameplay felt much smoother when the player character was rendered at a higher framerate than the rest of the game world. to learn more google 'jin sakai rule 34' ")
-        
-        
-        
+
+@slash.slash(name="jincast", description="Adds the Jincast follower role", guild_ids=guilds)
+async def _jincast(ctx:SlashContext):
+    jincastRole = discord.utils.get(ctx.guild.roles, name = "Jincasr Follower")
+    if jincastRole in ctx.author.roles:
+        await ctx.send("You already have the Jincast Follower role!", hidden=True)
+    else:
+        await ctx.author.add_roles(jincastRole)     
+
+@slash.slash(name="color", description="Adds a color role", guild_ids=guilds, options=[create_select_option("blue",description="adds blue color role",value="blue"),create_select_option("green",description="adds green color role",value="green"),create_select_option("vomit",description="adds vomit color role",value="vomit"),create_select_option("purple",description="adds purple color role",value="purple"),create_select_option("orange",description="adds orange color role",value="orange")]) 
+async def _test(ctx:SlashContext):
+    await ctx.send("test", hidden=True)  
         
         
         
