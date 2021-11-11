@@ -76,7 +76,7 @@ class levelsys(commands.Cog):
                     await message.channel.send(f"{message.author.mention} has levelled up to Gold 3!")
                 elif xp == 30000:
                     await message.author.add_roles(discord.utils.get(message.author.guild.roles, name="Platinum"))
-                    await message.author.remove_roles(discord.utils.get(message.author.guild.roles, name="Gold 2"))
+                    await message.author.remove_roles(discord.utils.get(message.author.guild.roles, name="Gold 3"))
                     await message.channel.send(f"{message.author.mention} has levelled up to Platinum!")
 #ssssssssssss
     @commands.command()
