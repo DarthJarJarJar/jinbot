@@ -414,7 +414,7 @@ async def color(ctx, color = None):
             color_role = discord.utils.get(ctx.guild.roles, name=color)
             await ctx.author.add_roles(color_role)
             await ctx.send(f'Colors updated. Set color to {color}')
-                
+                   
 
 @client.command()
 async def eldenring(ctx):
