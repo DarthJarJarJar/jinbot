@@ -126,7 +126,7 @@ class levelsys(commands.Cog):
         await ctx.channel.send(embed=embed)
 
     @cog_ext.cog_slash(name="rank",description="Shows your current xp and rank",guild_ids=[826766972204744764]) 
-    async def xp(self, ctx:SlashContext):
+    async def _xp(self, ctx:SlashContext):
         stats = levelling.find_one({"id": ctx.author.id})
         xp = stats["xp"]
         if xp<250:
