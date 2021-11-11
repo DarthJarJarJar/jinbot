@@ -8,6 +8,7 @@ import requests
 from bs4 import BeautifulSoup
 from selenium import webdriver
 import asyncio
+import math
 
 import re
 import functools
@@ -623,7 +624,9 @@ async def _select(ctx:SlashContext):
         if button_ctx.selected_options[0]=="jin":
             await button_ctx.edit_origin(content=f"https://cdn.discordapp.com/emojis/835921639551008818.png")
         
-
+@slash.slash(name="jin34", description="Interesting trivia about the hit PS exclusive Ghost of Tsushima!")
+async def jin34(ctx):
+    await ctx.send("did you know that in ghost of tsushima, the game engine renders the main character, jin sakai at 34 fps but renders the rest of the game world at 30 fps? the reason this was implemented was because gameplay felt much smoother when the player character was rendered at a higher framerate than the rest of the game world. to learn more google 'jin sakai rule 34' ")
         
         
         
