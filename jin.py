@@ -630,7 +630,7 @@ async def jin34(ctx):
 
 @slash.slash(name="jincast", description="Adds the Jincast follower role", guild_ids=guilds)
 async def _jincast(ctx:SlashContext):
-    jincastRole = discord.utils.get(ctx.guild.roles, name = "Jincasr Follower")
+    jincastRole = discord.utils.get(ctx.guild.roles, name = "Jincast Follower")
     if jincastRole in ctx.author.roles:
         await ctx.send("You already have the Jincast Follower role!", hidden=True)
     else:
