@@ -634,8 +634,28 @@ async def _jincast(ctx:SlashContext):
     if jincastRole in ctx.author.roles:
         await ctx.send("You already have the Jincast Follower role!", hidden=True)
     else:
-        await ctx.author.add_roles(jincastRole)     
+        await ctx.author.add_roles(jincastRole)   
 
+  
+@slash.slash(name="select",guild_ids=guilds)
+async def _select(ctx:SlashContext):
+    select = create_select(options=[create_select_option("blue", value="blue",description="Adds the blue color role"),create_select_option('green',value="green",description="Adds the green color role"),create_select_option("vomit", value="vomit",description="Adds the vomit color role"),create_select_option("orange",value="orange",description="Adds the orange color role"),create_select_option("purple",value="purple",description="Adds the purple color role")],placeholder="Choose an color",max_values=1)
+    
+    await ctx.send("Select a color to add", components=[create_actionrow(select)])
+    button_ctx: ComponentContext = await wait_for_component(client, components=select)
+    colorlist = ['blue','green','purple','orange','vomit']
+    for role in ctx.author.roles:
+                for i in colorlist:
+                    current_color_role = discord.utils.get(ctx.guild.roles, name=i)
+                    if role == current_color_role:
+                        await ctx.author.remove_roles(current_color_role)
+                        break
+    colorRole = discord.utils.get(ctx.guild.roles, name=button_ctx.selected_options[0])
+    await ctx.author.add_roles(colorRole)
+    await button_ctx.edit_origin(content="Added the color role!")
+
+    
+        
         
         
         
