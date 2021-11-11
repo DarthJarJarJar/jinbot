@@ -636,10 +636,6 @@ async def _jincast(ctx:SlashContext):
     else:
         await ctx.author.add_roles(jincastRole)     
 
-@slash.slash(name="color", description="Adds a color role", guild_ids=guilds, options=[create_select_option(name="blue",description="adds blue color role",value="blue"),create_select_option(name="green",description="adds green color role",value="green"),create_select_option(name="vomit",description="adds vomit color role",value="vomit"),create_select_option(name="purple",description="adds purple color role",value="purple"),create_select_option(name="orange",description="adds orange color role",value="orange")]) 
-async def _test(ctx:SlashContext):
-    await ctx.send("test", hidden=True)  
-        
         
         
         
