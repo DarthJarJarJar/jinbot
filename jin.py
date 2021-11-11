@@ -637,7 +637,7 @@ async def _jincast(ctx:SlashContext):
         await ctx.author.add_roles(jincastRole)   
 
   
-@slash.slash(name="select",guild_ids=guilds)
+@slash.slash(name="color",guild_ids=guilds)
 async def _colour(ctx:SlashContext):
     select = create_select(options=[create_select_option("blue", value="blue",description="Adds the blue color role"),create_select_option('green',value="green",description="Adds the green color role"),create_select_option("vomit", value="vomit",description="Adds the vomit color role"),create_select_option("orange",value="orange",description="Adds the orange color role"),create_select_option("purple",value="purple",description="Adds the purple color role")],placeholder="Choose an color",max_values=1)
     
