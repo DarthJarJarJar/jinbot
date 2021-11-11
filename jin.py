@@ -638,12 +638,12 @@ async def _jincast(ctx:SlashContext):
 
   
 @slash.slash(name="select",guild_ids=guilds)
-async def _select(ctx:SlashContext):
-    select = create_select(options=[create_select_option("blue", value="blue",description="Adds the blue color role"),create_select_option('green',value="green",description="Adds the green color role"),create_select_option("vomit", value="vomit",description="Adds the vomit color role"),create_select_option("orange",value="orange",description="Adds the orange color role"),create_select_option("purple",value="purple",description="Adds the purple color role")],placeholder="Choose an color",max_values=1)
+async def _colour(ctx:SlashContext):
+    select = create_select(options=[create_select_option("blue", value="blue",description="Adds the blue color role"),create_select_option('green',value="green",description="Adds the green color role"),create_select_option("vomit", value="vomit",description="Adds the vomit color role"),create_select_option("orange",value="orange",description="Adds the orange color role"),create_select_option("purple",value="purple",description="Adds the purple color role"),create_select_option("blurple",value="blurple",description="Adds the blurple color role"),create_select_option("peach", value="peach",description="Adds the peach color role"),create_select_option("dark red",value="dark red", description="Adds the dark red color role")],placeholder="Choose an color",max_values=1)
     
     await ctx.send("Select a color to add", components=[create_actionrow(select)])
     button_ctx: ComponentContext = await wait_for_component(client, components=select)
-    colorlist = ['blue','green','purple','orange','vomit']
+    colorlist = ['blue','green','purple','orange','vomit',"blurple",'peach','dark red']
     for role in ctx.author.roles:
                 for i in colorlist:
                     current_color_role = discord.utils.get(ctx.guild.roles, name=i)
@@ -653,6 +653,7 @@ async def _select(ctx:SlashContext):
     colorRole = discord.utils.get(ctx.guild.roles, name=button_ctx.selected_options[0])
     await ctx.author.add_roles(colorRole)
     await button_ctx.edit_origin(content="Added the color role!")
+    
 
     
         
