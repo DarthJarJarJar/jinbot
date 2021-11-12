@@ -692,15 +692,15 @@ async def _avatar(ctx:SlashContext, user : discord.Member = None):
  create_option(name="date",description="The date of the timestamp(dd)",option_type=4,required=True),
  create_option(name="hours", description="Hours of the timestamp(24h format, dd)",option_type=4,required=True),
  create_option(name="minutes",description="The minutes of the timestamp",option_type=4,required=True),
- create_option(name="timezone",description="Your timezone",option_type=4,required=True,choices=[create_choice(name="est",value='est'),create_choice(name="ist",value='ist'),create_choice(name="gmt",value='gmt')])] )
+ create_option(name="timezone",description="Your timezone",option_type=4,required=True,choices=[create_choice(name="est",value=0),create_choice(name="ist",value=1),create_choice(name="gmt",value=2)])] )
 async def _time(ctx:SlashContext,year:int,month:int,date:int,hours:int,minutes:int,timezone:str):
     d = datetime.datetime(year,month,date,hours,minutes)
     unixtime = time.mktime(d.timetuple())
-    if timezone=="est":
+    if timezone==0:
         timediff = -1800
-    if timezone=="ist":
+    if timezone==1:
         timediff = +19800
-    if timezone=="gmt":
+    if timezone==2:
         timediff = 0
     
     loctime = unixtime+timediff
