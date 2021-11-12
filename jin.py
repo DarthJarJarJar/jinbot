@@ -695,7 +695,7 @@ async def _avatar(ctx:SlashContext, user : discord.Member = None):
 async def _time(ctx:SlashContext,year:int,month:int,date:int,hours:int,minutes:int):
     d = datetime.datetime(year,month,date,hours,minutes)
     unixtime = time.mktime(d.timetuple())
-    await ctx.send(f'<t:{unixtime}>')
+    await ctx.send(f'<t:{int(unixtime)}>')
 
     
 
