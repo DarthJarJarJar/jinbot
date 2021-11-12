@@ -18,7 +18,7 @@ import random
 import datetime
 from discord_slash import SlashCommand,SlashContext, client,ComponentContext
 import discord_slash
-from discord_slash.utils.manage_commands import create_option
+from discord_slash.utils.manage_commands import create_choice, create_option
 from discord_slash.utils.manage_components import create_button, create_actionrow
 from discord_slash.model import ButtonStyle
 import sys
@@ -691,11 +691,20 @@ async def _avatar(ctx:SlashContext, user : discord.Member = None):
  create_option(name="month",description="The month of the timestamp(mm)",required=True,option_type=4),
  create_option(name="date",description="The date of the timestamp(dd)",option_type=4,required=True),
  create_option(name="hours", description="Hours of the timestamp(24h format, dd)",option_type=4,required=True),
- create_option(name="minutes",description="The minutes of the timestamp",option_type=4,required=True)] )
-async def _time(ctx:SlashContext,year:int,month:int,date:int,hours:int,minutes:int):
+ create_option(name="minutes",description="The minutes of the timestamp",option_type=4,required=True),
+ create_option(name="timezone",description="Your timezone",option_type=4,required=True,choices=[create_choice(name="est",value='est'),create_choice(name="ist",value='ist'),create_choice(name="gmt",value='gmt')])] )
+async def _time(ctx:SlashContext,year:int,month:int,date:int,hours:int,minutes:int,timezone:str):
     d = datetime.datetime(year,month,date,hours,minutes)
     unixtime = time.mktime(d.timetuple())
-    await ctx.send(f'<t:{int(unixtime)}>')
+    if timezone=="est":
+        timediff = -1800
+    if timezone=="ist":
+        timediff = +19800
+    if timezone=="gmt":
+        timediff = 0
+    
+    loctime = unixtime+timediff
+    await ctx.send(f'<t:{int(loctime)}>')
 
     
 
