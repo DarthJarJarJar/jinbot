@@ -662,7 +662,7 @@ async def _colour(ctx:SlashContext):
                         if role == current_color_role:
                             await ctx.author.remove_roles(current_color_role)
                             break
-        await button_ctx.edit_origin("Removed your color role!")
+        await button_ctx.edit_origin(content="Removed your color role!")
     else:
         for role in ctx.author.roles:
                     for i in colorlist:
