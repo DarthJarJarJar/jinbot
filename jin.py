@@ -694,14 +694,17 @@ async def _avatar(ctx:SlashContext, user : discord.Member = None):
  create_option(name="minutes",description="The minutes of the timestamp",option_type=4,required=True),
  create_option(name="timezone",description="Your timezone",option_type=4,required=True,choices=[create_choice(name="est",value=0),create_choice(name="ist",value=1),create_choice(name="gmt",value=2)])] )
 async def _time(ctx:SlashContext,year:int,month:int,date:int,hours:int,minutes:int,timezone:str):
-    d = datetime.datetime(year,month,date,hours,minutes)
-    unixtime = time.mktime(d.timetuple())
+    
     if timezone==0:
-        timediff = -18000
+        hours -= 5
     if timezone==1:
-        timediff = +19800
+        hours += 5
+        minutes +=30
     if timezone==2:
         timediff = 0
+    d = datetime.datetime(year,month,date,hours,minutes)
+    unixtime = time.mktime(d.timetuple())
+    
     
     loctime = unixtime+timediff
     await ctx.send(f'<t:{int(loctime)}>')
