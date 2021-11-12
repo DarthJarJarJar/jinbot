@@ -24,6 +24,8 @@ from discord_slash.model import ButtonStyle
 import sys
 from discord_slash.utils.manage_components import wait_for_component
 from discord_slash.utils.manage_components import create_select, create_select_option, create_actionrow
+import time
+
 
 
 from async_timeout import timeout
@@ -681,6 +683,19 @@ async def _avatar(ctx:SlashContext, user : discord.Member = None):
         await ctx.send(ctx.author.avatar_url)
     else:
         await ctx.send(user.avatar_url)
+
+@slash.slash(name="time",
+ description="Formats the timestamp you input so that it reflects as local time for other users", 
+ guild_ids=guilds,
+ options=[create_option(name="Year",description="The year of the timestamp(yyyy)",option_type=4,required=True),
+ create_option(name="Month",description="The month of the timestamp(mm)",required=True,option_type=4),
+ create_option(name="Date",description="The date of the timestamp(dd)",option_type=4,required=True),
+ create_option(name="Hours", description="Hours of the timestamp(24h format, dd)",option_type=4,required=True),
+ create_option(name="Minutes",description="The minutes of the timestamp",option_type=4,required=True)] )
+async def _time(ctx:SlashContext,Year:int,Month:int,Date:int,Hours:int,Minutes:int):
+    d = datetime.datetime(Year,Month,Date,Hours,Minutes)
+    unixtime = time.mktime(d.timetuple())
+    await ctx.send(f'<t:{unixtime}>')
 
     
 
