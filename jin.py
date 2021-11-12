@@ -697,7 +697,7 @@ async def _time(ctx:SlashContext,year:int,month:int,date:int,hours:int,minutes:i
     d = datetime.datetime(year,month,date,hours,minutes)
     unixtime = time.mktime(d.timetuple())
     if timezone==0:
-        timediff = -1800
+        timediff = -18000
     if timezone==1:
         timediff = +19800
     if timezone==2:
