@@ -146,8 +146,8 @@ class PsnProfile:
         game_tr = browser.find_elements_by_xpath("/html/body/div[6]/div[3]/div/div[2]/div[1]/div[3]/table[2]/tbody/tr")
         count = 0
         for tr2 in game_tr:
-            if count == 10:
-                break
+            #if count == 10:
+             #   break
             tds = tr2.find_elements_by_tag_name('td')
             gameName = tds[1].find_element_by_class_name('title').text
             gameTrophyCount = tds[1].find_element_by_class_name('small-info').text.replace("<b>", " ").replace("</b>",
