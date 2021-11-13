@@ -107,7 +107,7 @@ class PsnProfile:
         self.profile_url = f"https://psnprofiles.com/{self.profile_name}"
 
     def scrape_psnprofile(self):
-        checkParam = re.search("[~!#$%^&*()_+{}:;\\']", self.profile_name)
+        checkParam = re.search("[~!#$%^&*()+{}:;\\']", self.profile_name)
         assert checkParam == None, "Input psn profile parameter is invalid."
         foptions = webdriver.FirefoxOptions()
         foptions.binary_location = r'/app/vendor/firefox/firefox'
