@@ -9,6 +9,7 @@ from bs4 import BeautifulSoup
 from selenium import webdriver
 import asyncio
 import math
+from dateutil import tz
 
 import re
 import functools
@@ -696,18 +697,19 @@ async def _avatar(ctx:SlashContext, user : discord.Member = None):
 async def _time(ctx:SlashContext,year:int,month:int,date:int,hours:int,minutes:int,timezone:str):
     
     if timezone==0:
-        hours -= 5
+        abc = tz.gettz('US/Eastern')
     if timezone==1:
-        hours += 5
+        abc = tz.gettz('Asia/Kolkata')
         minutes +=30
     if timezone==2:
-        timediff = 0
-    d = datetime.datetime(year,month,date,hours,minutes)
+        timediff = tz.gettz('Europe/Belfast')
+    
+    d = datetime.datetime(year,month,date,hours,minutes,tzinfo=abc)
     unixtime = time.mktime(d.timetuple())
     
     
-    loctime = unixtime+timediff
-    await ctx.send(f'<t:{int(loctime)}>')
+    #loctime = unixtime+timediff
+    await ctx.send(f'<t:{int(unixtime)}>')
 
     
 
