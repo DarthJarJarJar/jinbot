@@ -32,7 +32,7 @@ class levelsys(commands.Cog):
         stats = levelling.find_one({"id" : message.author.id})
         if not message.author.bot:
             if stats is None:
-                newuser = {"id" : message.author.id, "xp" : 0}
+                newuser = {"id" : message.author.id, "xp" : 0, "credit" : 0}
                 levelling.insert_one(newuser)
             else:
                 xp = stats["xp"] + 1
