@@ -146,8 +146,8 @@ class PsnProfile:
         game_tr = browser.find_elements_by_xpath("/html/body/div[6]/div[3]/div/div[2]/div[1]/div[3]/table[2]/tbody/tr")
         count = 0
         for tr2 in game_tr:
-            #if count == 10:
-             #   break
+            if count == 10:
+                break
             tds = tr2.find_elements_by_tag_name('td')
             gameName = tds[1].find_element_by_class_name('title').text
             gameTrophyCount = tds[1].find_element_by_class_name('small-info').text.replace("<b>", " ").replace("</b>",
@@ -210,6 +210,20 @@ async def get_psnprofile(ctx, profileName: str):
     gameData, rareData = newProfile.get_profile()
     newEmbed = discord.Embed(title=titleCard, url=newProfile.profile_url, description=gameData, color=0x2565c4)
     await msg1.edit(embed=newEmbed)
+
+
+@slash.slash(name="psn", description="Grabs your profile data from Psnprofile",guild_ids=guilds,options=[create_option(name="psn",description="Your psn",required=True,option_type=3)])
+async def get_psnprofile(ctx, psn: str):
+    if ctx.author == client.user:
+        return
+    newProfile = PsnProfile(psn)
+    msg1 = await ctx.channel.send("Please wait a moment...")
+    newProfile.scrape_psnprofile()
+    titleCard = psn + "'s PSNProfile"
+    gameData, rareData = newProfile.get_profile()
+    newEmbed = discord.Embed(title=titleCard, url=newProfile.profile_url, description=gameData, color=0x2565c4)
+    await msg1.edit(embed=newEmbed)
+    
 
 
 
