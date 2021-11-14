@@ -50,7 +50,7 @@ class tags(commands.Cog):
      
 
 
-    @commands.command()
+    @commands.command(name='xbox')
     async def xbox(self,ctx):
         await ctx.send('better')
 
