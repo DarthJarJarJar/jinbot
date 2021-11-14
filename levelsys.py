@@ -249,51 +249,52 @@ class levelsys(commands.Cog):
     @commands.has_role('Super Adjin')
     async def credinit(self,ctx):
         for member in ctx.guild.members:
-            bronze1 = discord.utils.get(ctx.guild.roles,name="Bronze 1")
-            bronze2 = discord.utils.get(ctx.guild.roles,name="Bronze 2")
-            bronze3 = discord.utils.get(ctx.guild.roles,name="Bronze 3")
-            silver1 = discord.utils.get(ctx.guild.roles,name="Silver 1")
-            silver2 = discord.utils.get(ctx.guild.roles,name="Silver 2")
-            silver3 = discord.utils.get(ctx.guild.roles,name="Silver 3")
-            gold1 = discord.utils.get(ctx.guild.roles,name="Gold 1")
-            gold2 = discord.utils.get(ctx.guild.roles,name="Gold 2")
-            gold3 = discord.utils.get(ctx.guild.roles,name="Gold 2")
-            plat = discord.utils.get(ctx.guild.roles,name="Platinum")
+            if not member.bot:
+                bronze1 = discord.utils.get(ctx.guild.roles,name="Bronze 1")
+                bronze2 = discord.utils.get(ctx.guild.roles,name="Bronze 2")
+                bronze3 = discord.utils.get(ctx.guild.roles,name="Bronze 3")
+                silver1 = discord.utils.get(ctx.guild.roles,name="Silver 1")
+                silver2 = discord.utils.get(ctx.guild.roles,name="Silver 2")
+                silver3 = discord.utils.get(ctx.guild.roles,name="Silver 3")
+                gold1 = discord.utils.get(ctx.guild.roles,name="Gold 1")
+                gold2 = discord.utils.get(ctx.guild.roles,name="Gold 2")
+                gold3 = discord.utils.get(ctx.guild.roles,name="Gold 2")
+                plat = discord.utils.get(ctx.guild.roles,name="Platinum")
 
-            stats = levelling.find_one({"id": member.id})
-            print(member.id)
+                stats = levelling.find_one({"id": member.id})
+                print(member.id)
             
 
-            if bronze1 in member.roles:
-                x = 100
-            elif bronze2 in member.roles:
-                x = 200
-            elif bronze3 in member.roles:
-                x = 300
-            elif silver1 in member.roles:
-                x=500
-            elif silver2 in member.roles:
-                x=750
-            elif silver3 in member.roles:
-                x=1000
-            elif gold1 in member.roles:
-                x=1500
-            elif gold2 in member.roles:
-                x=2000
-            elif gold3 in member.roles:
-                x=2500
-            elif plat in member.roles:
-                x=3500
-            else:
-                x=0
+                if bronze1 in member.roles:
+                    x = 100
+                elif bronze2 in member.roles:
+                    x = 200
+                elif bronze3 in member.roles:
+                    x = 300
+                elif silver1 in member.roles:
+                    x=500
+                elif silver2 in member.roles:
+                    x=750
+                elif silver3 in member.roles:
+                    x=1000
+                elif gold1 in member.roles:
+                    x=1500
+                elif gold2 in member.roles:
+                    x=2000
+                elif gold3 in member.roles:
+                    x=2500
+                elif plat in member.roles:
+                    x=3500
+                else:
+                    x=0
 
             
-            credit = stats["credit"] + x
+                credit = stats["credit"] + x
                 
-            levelling.update_one({"id" : member.id}, {"$set" : {"credit" : credit}})
+                levelling.update_one({"id" : member.id}, {"$set" : {"credit" : credit}})
 
 
-            await ctx.send("initialised")
+                await ctx.send("initialised")
 
 
             
