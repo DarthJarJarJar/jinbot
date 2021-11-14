@@ -261,6 +261,7 @@ class levelsys(commands.Cog):
             plat = discord.utils.get(ctx.guild.roles,name="Bronze")
 
             stats = levelling.find_one({"id": member.id})
+            print(member.id)
             
 
             if bronze1 in member.roles:
