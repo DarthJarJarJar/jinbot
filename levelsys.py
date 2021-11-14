@@ -244,6 +244,59 @@ class levelsys(commands.Cog):
         stats = levelling.find_one({"id": ctx.author.id})
         credit = stats["credit"] 
         await ctx.send(f'Your jincord social credit is {credit}')
+    
+    @commands.command(name="init")
+    @commands.has_role('Super Adjin')
+    async def credinit(self,ctx):
+        for member in ctx.guild.members:
+            bronze1 = discord.utils.get(ctx.guild.roles,name="Bronze 1")
+            bronze2 = discord.utils.get(ctx.guild.roles,name="Bronze 2")
+            bronze3 = discord.utils.get(ctx.guild.roles,name="Bronze 3")
+            silver1 = discord.utils.get(ctx.guild.roles,name="Silver 1")
+            silver2 = discord.utils.get(ctx.guild.roles,name="Silver 2")
+            silver3 = discord.utils.get(ctx.guild.roles,name="Silver 3")
+            gold1 = discord.utils.get(ctx.guild.roles,name="Gold 1")
+            gold2 = discord.utils.get(ctx.guild.roles,name="Gold 2")
+            gold3 = discord.utils.get(ctx.guild.roles,name="Gold 2")
+            plat = discord.utils.get(ctx.guild.roles,name="Bronze")
+
+            stats = levelling.find_one({"id": member.id})
+            
+
+            if bronze1 in member.roles:
+                x = 100
+            if bronze2 in member.roles:
+                x = 200
+            if bronze3 in member.roles:
+                x = 300
+            if silver1 in member.roles:
+                x=500
+            if silver2 in member.roles:
+                x=750
+            if silver3 in member.roles:
+                x=1000
+            if gold1 in member.roles:
+                x=1500
+            if gold2 in member.roles:
+                x=2000
+            if gold3 in member.roles:
+                x=2500
+            if plat in member.roles:
+                x=3500
+
+            memcredit = stats["credit"]+x
+            levelling.update_one({"id" : member.id}, {"$set" : {"credit" : memcredit}})
+
+            await ctx.send("initialised")
+
+
+            
+
+
+
+
+
+    
 
 
 
