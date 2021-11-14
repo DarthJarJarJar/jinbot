@@ -26,6 +26,7 @@ import sys
 from discord_slash.utils.manage_components import wait_for_component
 from discord_slash.utils.manage_components import create_select, create_select_option, create_actionrow
 import time
+import credit
 
 
 
@@ -50,7 +51,7 @@ async def on_ready():
 
 
 
-cogs = [levelsys]
+cogs = [levelsys,credit]
 
 for i in range(len(cogs)):
     cogs[i].setup(client)
