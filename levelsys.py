@@ -239,6 +239,23 @@ class levelsys(commands.Cog):
         levelling.update_one({"id": ussr.id}, {"$set": {"xp": xp}})
 
     @commands.command()
+    
+    async def gift(self,ctx,ussr : discord.User, num:int):
+    
+        stats = levelling.find_one({"id": ctx.author.id})
+        if num>stats["credit"]:
+            await ctx.channel.send("You can't gift more credits than what you have")
+        else:
+            giftercredit = stats["credit"] - int(num)
+            levelling.update_one({"id": ctx.author.id}, {"$set": {"credit": giftercredit}})
+            stats2 = levelling.find_one({"id": ctx.author.id})
+            gifteecredit = stats2["credit"] + int(num)
+            levelling.update_one({"id": ussr.id}, {"$set": {"credit": gifteecredit}})
+            await ctx.channel.send(f"Gifted {num} jincord social credits to {ussr.name}")
+
+
+
+    @commands.command()
     @commands.has_role('tamper xp')
     async def removexp(self, ctx, ussr : discord.User, num):
         stats = levelling.find_one({"id": ussr.id})
