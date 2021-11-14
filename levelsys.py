@@ -250,6 +250,40 @@ class levelsys(commands.Cog):
         stats = levelling.find_one({"id": ctx.author.id})
         credit = stats["credit"] 
         await ctx.send(f'Your jincord social credit is {credit}')
+
+    @commands.command()
+    async def creditboard(self,ctx, num=1):
+        if num == 1:
+            rankings = levelling.find().sort("credit",-1)
+            i = 1
+            embed = discord.Embed(title="Jincord Credits Leaderboard",color=discord.Color.green())
+            for x in rankings:
+                try:
+                    temp = ctx.guild.get_member(x["id"])
+                    tempxp = x["credit"]
+                    embed.add_field(name=f"{i}: {temp.name}", value=f"{tempxp}", inline=False)
+                    i += 1
+                except:
+                    pass
+                if i == 11:
+                    break
+            await ctx.channel.send(embed=embed)
+        elif num==2:
+            rankings = levelling.find().sort("credit",-1)
+            i = 11
+            embed = discord.Embed(title="Jincord Credits Leaderboard",color=discord.Color.green())
+            for x in rankings[10:]:
+                try:
+                    temp = ctx.guild.get_member(x["id"])
+                    tempxp = x["credit"]
+                    embed.add_field(name=f"{i}: {temp.name}", value=f"{tempxp}", inline=False)
+                    i += 1
+                except:
+                    pass
+                if i == 21:
+                    break
+            await ctx.channel.send(embed=embed)
+
     
 ''' @commands.command(name="init")
     @commands.has_role('Super Adjin')
