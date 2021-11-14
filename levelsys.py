@@ -37,6 +37,15 @@ class levelsys(commands.Cog):
             else:
                 xp = stats["xp"] + 1
                 levelling.update_one({"id" : message.author.id}, {"$set" : {"xp" : xp}})
+                socialcredit = 10
+                for emoji in message.guild.emojis:
+                    if emoji in message.content:
+                        socialcredit = 20
+                        break
+                credit = stats["credit"] + socialcredit
+                levelling.update_one({"id" : message.author.id}, {"$set" : {"credit" : credit}})
+
+
                 lvl = 0
                 if xp == 250:
                     await message.author.add_roles(discord.utils.get(message.author.guild.roles, name="Bronze 1"))
