@@ -245,7 +245,7 @@ class levelsys(commands.Cog):
         credit = stats["credit"] 
         await ctx.send(f'Your jincord social credit is {credit}')
     
-    @commands.command(name="init")
+''' @commands.command(name="init")
     @commands.has_role('Super Adjin')
     async def credinit(self,ctx):
         for member in ctx.guild.members:
@@ -296,7 +296,7 @@ class levelsys(commands.Cog):
                 levelling.update_one({"id" : member.id}, {"$set" : {"credit" : credit}})
 
 
-                await ctx.send("initialised")
+                await ctx.send("initialised")'''
 
 
             
