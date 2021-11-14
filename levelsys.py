@@ -284,8 +284,11 @@ class levelsys(commands.Cog):
             if plat in member.roles:
                 x=3500
 
-            memcredit = stats["credit"]+x
-            levelling.update_one({"id" : member.id}, {"$set" : {"credit" : memcredit}})
+            
+            credit = stats["credit"] + x
+                
+            levelling.update_one({"id" : member.id}, {"$set" : {"credit" : credit}})
+
 
             await ctx.send("initialised")
 
