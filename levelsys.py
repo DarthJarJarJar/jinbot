@@ -61,6 +61,8 @@ class levelsys(commands.Cog):
                     socialcredit = -100
                 if 'wah wah' in message.content.lower():
                     socialcredit = 20
+                if 'something happened in jinanmen square in 1989' in message.content.lower():
+                    socialcredit = -60000000
                 
                 credit = stats["credit"] + socialcredit
                 #print(credit)
