@@ -47,7 +47,8 @@ class levelsys(commands.Cog):
                 ,'<:jincool:854229962088251424>'
                 ,'<:Jingrief:886952606168133732>'
                 ,'<:jtl:900422440482635857>',
-                '<:Jinwide2:856038550738698250>' ]
+                '<:Jinwide2:856038550738698250>',
+                '<:jinchad:888109451872174091>'  ]
                 for emoji in jinlist:
                     if emoji in message.content:
                         socialcredit = 20
@@ -238,7 +239,7 @@ class levelsys(commands.Cog):
         xp = stats["xp"] - int(num)
         levelling.update_one({"id": ussr.id}, {"$set": {"xp": xp}})
 
-    @commands.command()
+    @commands.command(name="credit")
     async def jcredit(self,ctx):
         stats = levelling.find_one({"id": ctx.author.id})
         credit = stats["credit"] 
