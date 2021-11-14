@@ -37,12 +37,10 @@ class levelsys(commands.Cog):
             else:
                 xp = stats["xp"] + 1
                 levelling.update_one({"id" : message.author.id}, {"$set" : {"xp" : xp}})
-                socialcredit = 10
-                for emoji in message.guild.emojis:
-                    if emoji in message.content:
-                        socialcredit = 20
-                        break
-                credit = stats["credit"] + socialcredit
+                #socialcredit = 10
+                
+                credit = stats["credit"] + 10
+                print(credit)
                 levelling.update_one({"id" : message.author.id}, {"$set" : {"credit" : credit}})
 
 
