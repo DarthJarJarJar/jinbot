@@ -37,10 +37,23 @@ class levelsys(commands.Cog):
             else:
                 xp = stats["xp"] + 1
                 levelling.update_one({"id" : message.author.id}, {"$set" : {"xp" : xp}})
-                #socialcredit = 10
-                
-                credit = stats["credit"] + 10
-                print(credit)
+                socialcredit = 10
+                jinlist = ['<:jinhappy1:835921639551008818>',
+                '<:jintroll:887239493856423947>',
+                '<:jintrol:900420574893981698>',
+                '<:jinhollow:887994492903383080',
+                'jinwolloh:890624462561624144>'
+                ,'<:jinhype:883393914143387699>'
+                ,'<:jincool:854229962088251424>'
+                ,'<:Jingrief:886952606168133732>'
+                ,'<:jtl:900422440482635857>',
+                '<:Jinwide2:856038550738698250>' ]
+                for emoji in jinlist:
+                    if emoji in message.content:
+                        socialcredit = 20
+                        break
+                credit = stats["credit"] + socialcredit
+                #print(credit)
                 levelling.update_one({"id" : message.author.id}, {"$set" : {"credit" : credit}})
 
 
@@ -224,6 +237,13 @@ class levelsys(commands.Cog):
         stats = levelling.find_one({"id": ussr.id})
         xp = stats["xp"] - int(num)
         levelling.update_one({"id": ussr.id}, {"$set": {"xp": xp}})
+
+    @commands.command
+    async def jcredit(self,ctx):
+        stats = levelling.find_one({"id": ctx.author.id})
+        credit = stats["credit"] 
+        await ctx.send(f'Your jincord social credit is {credit}')
+
 
 
 
