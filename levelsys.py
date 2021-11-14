@@ -266,24 +266,26 @@ class levelsys(commands.Cog):
 
             if bronze1 in member.roles:
                 x = 100
-            if bronze2 in member.roles:
+            elif bronze2 in member.roles:
                 x = 200
-            if bronze3 in member.roles:
+            elif bronze3 in member.roles:
                 x = 300
-            if silver1 in member.roles:
+            elif silver1 in member.roles:
                 x=500
-            if silver2 in member.roles:
+            elif silver2 in member.roles:
                 x=750
-            if silver3 in member.roles:
+            elif silver3 in member.roles:
                 x=1000
-            if gold1 in member.roles:
+            elif gold1 in member.roles:
                 x=1500
-            if gold2 in member.roles:
+            elif gold2 in member.roles:
                 x=2000
-            if gold3 in member.roles:
+            elif gold3 in member.roles:
                 x=2500
-            if plat in member.roles:
+            elif plat in member.roles:
                 x=3500
+            else:
+                x=0
 
             
             credit = stats["credit"] + x
