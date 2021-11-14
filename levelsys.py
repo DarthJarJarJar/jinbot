@@ -53,6 +53,12 @@ class levelsys(commands.Cog):
                     if emoji in message.content:
                         socialcredit = 20
                         break
+                if 'jai hind' in message.content.lower():
+                    socialcredit = 20
+                if 'jai jind' in message.content.lower():
+                    socialcredit = 20
+                if 'jin sucks' in message.content.lower():
+                    socialcredit = -100
                 credit = stats["credit"] + socialcredit
                 #print(credit)
                 levelling.update_one({"id" : message.author.id}, {"$set" : {"credit" : credit}})
