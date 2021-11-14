@@ -23,7 +23,7 @@ class levelsys(commands.Cog):
 
     @commands.Cog.listener()
     async def on_ready(self):
-        print('never gonna run around')
+        print('never gonna let you down')
 
     @commands.Cog.listener()
     async def on_message(self,message):

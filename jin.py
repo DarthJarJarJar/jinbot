@@ -27,6 +27,7 @@ from discord_slash.utils.manage_components import wait_for_component
 from discord_slash.utils.manage_components import create_select, create_select_option, create_actionrow
 import time
 import credit
+import tags
 
 
 
@@ -51,7 +52,7 @@ async def on_ready():
 
 
 
-cogs = [levelsys,credit]
+cogs = [levelsys,credit,tags]
 
 for i in range(len(cogs)):
     cogs[i].setup(client)
@@ -265,108 +266,7 @@ async def jumbo(ctx, emoji: discord.Emoji):
    
 
 
-@client.command()
-async def jin(ctx, num=1):
-    if ctx.channel.name == ("jin-chain"):
-        if num>25:
-            await ctx.send("Please use a value less than 25")
-        elif num<0:
-            await ctx.send("Please use a positive value")
-        else:
-            for i in range(num):
-                await ctx.send("<:jinhappy1:835921639551008818>")
-    else:
-        if num>5:
-            await ctx.send("Please use a value less than 5")
-        elif num<0:
-            await ctx.send("Please use a positive value")
-        else:
-            for i in range(num):
-                await ctx.send("<:jinhappy1:835921639551008818>")
-                
-                
- 
 
-        
-     
-
-
-@client.command()
-async def xbox(ctx):
-    await ctx.send('better')
-
-@client.command()
-async def regret(ctx):
-    await ctx.send('Today I am filled with regret to inform that we have had to remove a member of our community due to leaking sensitive information.')
-
-    
-
-@client.command()
-async def fortnite(ctx):
-    await ctx.send('https://tenor.com/view/kratos-kratos-fortnite-fortnite-fortnite-dance-kratos-fortnite-dance-gif-19435698')
-    
-    
-@client.command()
-async def gamepass(ctx):
-    await ctx.send('game pass has over 300 games to play at a low fee of $15 a month and your first 3 months are only a dollar for new members')
-    
-
-
-@client.command()
-async def playstation(ctx):
-    await ctx.send('<:sony:858204031067357195>')
-    
-    
-@client.command()
-async def tasm2(ctx):
-    await ctx.send("Some day, humanity will reach self individualization. Some day we'll move beyond petty scrabbles over the three poisons of life (greed, ignorance, and hatred). Some day, we will have reached a state where we're enlightened enough to watch TASM2 without calamity befalling us.")
-
-
-@client.command()
-async def rickroll(ctx):
-    await ctx.send('https://tenor.com/view/dance-moves-dancing-singer-groovy-gif-17029825')
-    
-@client.command()
-async def ratchetandclank(ctx):
-    await ctx.send("They took the great story of the first game and completely cut out the interesting socioeconomic commentary and themes and satire of corporatism and shoved in the villain from the other franchise's games")
-
-@client.command()
-async def rule16(ctx):
-    await ctx.send('https://tenor.com/view/dead-chat-passione-admin-passione-jojolion-gif-19211422')
-@client.command()
-async def mole(ctx):
-    await ctx.send(" I'm going to reveal the truth.\n\n I am the mole.\n\n I in truth actually work with the aquatic animal in American spy ops to keep our country safe, and the government has declared this server a danger of the highest degree. It is to this end that I must monitor this server to make sure it doesn't invoke a third world war. It was for my country. It was for my duty.\n\nGod bless America.")
-
-@client.command()
-async def welcome(ctx):
-    await ctx.send(
-        "<:Wjin:865274048988184588><:Ejin:865274113174405131><:Ljin:865274170157432843><:Cjin:865274259353370634><:Ojin:865274346129850408><:Mjin:865274436168450058><:Ejin:865274113174405131>")
-
-@client.command()
-async def electro(ctx):
-    await ctx.send('https://tenor.com/view/amazing-spiderman2vomit-electro-amazing-spiderman2-spiderman-vomit-sex-gif-13866212')
-    
-@client.command()
-async def electrocursed(ctx):
-    await ctx.send('https://cdn.discordapp.com/attachments/826766972204744767/888332410046001182/resize.gif')
-    
-@client.command()
-async def freeping(ctx):
-    await ctx.send(f"Here's your free ping! {ctx.author.mention}")
-    
-@client.command()
-async def language(ctx):
-    await ctx.send("من فضلك لا تستخدم أي لغة أخرى غير Jin")
-    
-@client.command()
-async def chatting(ctx):
-    await ctx.send("Hey man, so I was thinking what if we make a server that is dedicated to chatting? As this one always seems to be dead :skull: @DarthJinJin")
-    
-    
-@client.command()
-async def flameon(ctx):
-    await ctx.send("https://media.discordapp.net/attachments/826766972204744767/888296963517333564/flameon.gif")
-    
 @client.command()
 @commands.has_permissions(manage_messages=True)
 async def mute(ctx, member : discord.Member):
@@ -381,10 +281,7 @@ async def unmute(ctx, member : discord.Member):
     await member.remove_roles(mutedrole)
     await ctx.send("User was unmuted")
 
-@client.command()
-async def tsunami(ctx):
-    await ctx.send(r"https://cdn.discordapp.com/attachments/826766972204744767/888799786818502656/ezgif-6-f8d0eca0573f.mp4")
-                                         
+       
 
         
 @client.command()
@@ -395,19 +292,6 @@ async def avatar(ctx, avamember : discord.Member=None):
     await ctx.send(userAvatarUrl)        
         
                 
-@client.command(aliases=['lemons'])
-async def lemon(ctx):
-    await ctx.send("All right, I've been thinking when life gives you lemons, don't make lemonade! Make life take the lemons back! Get mad! I don't want your damn lemons! What am I supposed to do with these? Demand to see life's manager. Make life rue the day it thought it could give Cave Johnson lemons! Do you know who I am? I'm the man who's gonna burn your house down- with those lemons! I'm gonna get my engineers to invent a combustible lemon that burns down your house")        
-        
-                        
-@client.command()
-async def ill(ctx):
-    await ctx.send(r'https://cdn.discordapp.com/attachments/316188354255519744/891745760406814720/unknown.png')        
-        
-        
-@client.command()
-async def jin34(ctx):
-    await ctx.send("did you know that in ghost of tsushima, the game engine renders the main character, jin sakai at 34 fps but renders the rest of the game world at 30 fps? the reason this was implemented was because gameplay felt much smoother when the player character was rendered at a higher framerate than the rest of the game world. to learn more google 'jin sakai rule 34' ")
 
 @client.command(aliases=['colour'])
 @commands.has_any_role('Gold 1', 'Gold 2', 'Gold 3', 'Platinum', 'Jin Booster')
@@ -521,79 +405,7 @@ async def button(ctx:SlashContext):
             await button_ctx.edit_origin(content="https://media.discordapp.net/attachments/826766972204744767/888296963517333564/flameon.gif")
 
 
-@slash.slash(name="jin", description="sends jins", guild_ids=guilds,options=[create_option(name='number', description='number of jins', required=True, option_type=4)])
-async def jin(ctx:SlashContext,number):
-    if number>5:
-        await ctx.send("Please use a value less than 5", hidden=True)
-    elif number<0:
-        await ctx.send("Please enter a valid number", hidden=True)
-    else:
-        for i in range(number):
-            await ctx.send('<:jinhappy1:835921639551008818>')
-    
 
-@slash.slash(name='xbox',guild_ids=guilds)
-async def xbox(ctx):
-    await ctx.send('better')
-
-@slash.slash(name='regret',guild_ids=guilds)
-async def regret(ctx):
-    await ctx.send('Today I am filled with regret to inform that we have had to remove a member of our community due to leaking sensitive information.')
-
-    
-
-@slash.slash(name='fortnite',guild_ids=guilds)
-async def fortnite(ctx):
-    await ctx.send('https://tenor.com/view/kratos-kratos-fortnite-fortnite-fortnite-dance-kratos-fortnite-dance-gif-19435698')
-    
-    
-@slash.slash(name='gamepass',guild_ids=guilds)
-async def gamepass(ctx):
-    await ctx.send('game pass has over 300 games to play at a low fee of $15 a month and your first 3 months are only a dollar for new members')
-    
-@slash.slash(name='tasm2',guild_ids=guilds)
-async def tasm2(ctx):
-    await ctx.send("Some day, humanity will reach self individualization. Some day we'll move beyond petty scrabbles over the three poisons of life (greed, ignorance, and hatred). Some day, we will have reached a state where we're enlightened enough to watch TASM2 without calamity befalling us.")
-
-@slash.slash(name='rickroll',guild_ids=guilds)
-async def rickroll(ctx):
-    await ctx.send('https://tenor.com/view/dance-moves-dancing-singer-groovy-gif-17029825')
-    
-@slash.slash(name='ratchetandclank',guild_ids=guilds)
-async def ratchetandclank(ctx):
-    await ctx.send("They took the great story of the first game and completely cut out the interesting socioeconomic commentary and themes and satire of corporatism and shoved in the villain from the other franchise's games")
-
-@slash.slash(name='rule16',guild_ids=guilds)
-async def rule16(ctx):
-    await ctx.send('https://tenor.com/view/dead-chat-passione-admin-passione-jojolion-gif-19211422')
-@slash.slash(name='mole',guild_ids=guilds)
-async def mole(ctx):
-    await ctx.send(" I'm going to reveal the truth.\n\n I am the mole.\n\n I in truth actually work with the aquatic animal in American spy ops to keep our country safe, and the government has declared this server a danger of the highest degree. It is to this end that I must monitor this server to make sure it doesn't invoke a third world war. It was for my country. It was for my duty.\n\nGod bless America.")
-
-@slash.slash(name='electro',guild_ids=guilds)
-async def electro(ctx):
-    await ctx.send('https://tenor.com/view/amazing-spiderman2vomit-electro-amazing-spiderman2-spiderman-vomit-sex-gif-13866212')
-    
-@slash.slash(name='electrocursed',guild_ids=guilds)
-async def electrocursed(ctx):
-    await ctx.send('https://cdn.discordapp.com/attachments/826766972204744767/888332410046001182/resize.gif')
-    
-@slash.slash(name='freeping',guild_ids=guilds)
-async def freeping(ctx):
-    await ctx.send(f"Here's your free ping! {ctx.author.mention}")
-    
-@slash.slash(name='language',guild_ids=guilds)
-async def language(ctx):
-    await ctx.send("من فضلك لا تستخدم أي لغة أخرى غير Jin")
-    
-@slash.slash(name='chatting',guild_ids=guilds)
-async def chatting(ctx):
-    await ctx.send("Hey man, so I was thinking what if we make a server that is dedicated to chatting? As this one always seems to be dead :skull: @DarthJinJin")
-    
-    
-@slash.slash(name='flameon',description="Flame on and on and on and on!",guild_ids=guilds)
-async def flameon(ctx):
-    await ctx.send("https://media.discordapp.net/attachments/826766972204744767/888296963517333564/flameon.gif")
     
 @slash.slash(name='eldenring',description="Shows time left until the release of Elden Jin",guild_ids=guilds)
 async def eldenring(ctx):

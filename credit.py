@@ -22,7 +22,7 @@ class credit(commands.Cog):
 
     @commands.Cog.listener()
     async def on_ready(self):
-        print('and desert you')
+        print('never gonna run around')
 
     @commands.Cog.listener()
     async def on_message(self,message):
