@@ -238,7 +238,7 @@ class levelsys(commands.Cog):
         xp = stats["xp"] - int(num)
         levelling.update_one({"id": ussr.id}, {"$set": {"xp": xp}})
 
-    @commands.command
+    @commands.command()
     async def jcredit(self,ctx):
         stats = levelling.find_one({"id": ctx.author.id})
         credit = stats["credit"] 
