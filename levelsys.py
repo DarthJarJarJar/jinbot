@@ -263,6 +263,8 @@ class levelsys(commands.Cog):
 
                 stats = levelling.find_one({"id": member.id})
                 print(member.id)
+                if stats is None:
+                    continue
             
 
                 if bronze1 in member.roles:
@@ -288,7 +290,7 @@ class levelsys(commands.Cog):
                 else:
                     x=0
 
-            
+                
                 credit = stats["credit"] + x
                 
                 levelling.update_one({"id" : member.id}, {"$set" : {"credit" : credit}})
