@@ -59,6 +59,9 @@ class levelsys(commands.Cog):
                     socialcredit = 20
                 if 'jin sucks' in message.content.lower():
                     socialcredit = -100
+                if 'wah wah' in message.content.lower():
+                    socialcredit = 20
+                
                 credit = stats["credit"] + socialcredit
                 #print(credit)
                 levelling.update_one({"id" : message.author.id}, {"$set" : {"credit" : credit}})
