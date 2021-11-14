@@ -258,7 +258,7 @@ class levelsys(commands.Cog):
             gold1 = discord.utils.get(ctx.guild.roles,name="Gold 1")
             gold2 = discord.utils.get(ctx.guild.roles,name="Gold 2")
             gold3 = discord.utils.get(ctx.guild.roles,name="Gold 2")
-            plat = discord.utils.get(ctx.guild.roles,name="Bronze")
+            plat = discord.utils.get(ctx.guild.roles,name="Platinum")
 
             stats = levelling.find_one({"id": member.id})
             print(member.id)
