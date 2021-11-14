@@ -43,23 +43,12 @@ class tags(commands.Cog):
                 for i in range(num):
                     await ctx.send("<:jinhappy1:835921639551008818>")
                 
-                
- 
-
-        
-     
-
-
     @commands.command(name='xbox')
     async def xbox(self,ctx):
         await ctx.send('better')
-
     @commands.command()
     async def regret(self,ctx):
         await ctx.send('Today I am filled with regret to inform that we have had to remove a member of our community due to leaking sensitive information.')
-
-        
-
     @commands.command()
     async def fortnite(self,ctx):
         await ctx.send('https://tenor.com/view/kratos-kratos-fortnite-fortnite-fortnite-dance-kratos-fortnite-dance-gif-19435698')
