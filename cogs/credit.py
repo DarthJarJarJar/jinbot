@@ -135,7 +135,7 @@ class credit(commands.Cog):
                 try:
                     temp = ctx.guild.get_member(x["id"])
                     tempxp = x["credit"]
-                    embed.add_field(name=f"{i}: {temp.name}", value=f"{tempxp}", inline=False)
+                    embed.add_field(name=f"{i}: {temp.name}", value=f"{int(tempxp)}", inline=False)
                     i += 1
                 except:
                     pass
@@ -150,7 +150,7 @@ class credit(commands.Cog):
                 try:
                     temp = ctx.guild.get_member(x["id"])
                     tempxp = x["credit"]
-                    embed.add_field(name=f"{i}: {temp.name}", value=f"{tempxp}", inline=False)
+                    embed.add_field(name=f"{i}: {temp.name}", value=f"{int(tempxp)}", inline=False)
                     i += 1
                 except:
                     pass
@@ -190,27 +190,9 @@ class credit(commands.Cog):
             else:
                 gainorlose="gained"
 
-            await ctx.send(f"New total: {gambleTuple[0]}\nMultiplier: {gambleTuple[1]}\nOriginal amount: {gambleTuple[2]}\nYou {gainorlose} {abs((change))} credits. Your new social credits total is {newcredit}")
+            await ctx.send(f"New total: {int(gambleTuple[0])}\nMultiplier: {int(gambleTuple[1])}\nOriginal amount: {int(gambleTuple[2])}\nYou {gainorlose} {int(abs((change)))} credits. Your new social credits total is {int(newcredit)}")
         
-    @cog_ext.cog_slash(name="gamble", description="Gamble your Jincord social credits!",guild_ids=guilds,options=[create_option(name="credits",description="The amount of credits you want to gamble",required=True,option_type=4)])
-    async def __gamble(self,ctx:SlashContext,credits:int):
-        stats = levelling.find_one({"id": ctx.author.id})
-        gambleTuple = gamble(credits)
-        tempcredit = stats["credit"]-credits
-        newcredit = tempcredit+gambleTuple[0]
-        levelling.update_one({"id": ctx.author.id}, {"$set": {"credit": newcredit}})
-        newAmount = gambleTuple[0]
-        multiplier = gambleTuple[1]
-        originalAmount = gambleTuple[2]
-        change = newAmount-originalAmount
-        if change>0:
-            gainorlose = "gained"
-        elif change<0:
-            gainorlose = "lost"
-        else:
-            gainorlose="gained"
-
-        await ctx.send(f"New total: {gambleTuple[0]}\nMultiplier: {gambleTuple[1]}\nOriginal amount: {gambleTuple[2]}\nYou {gainorlose} {abs((change))} credits. Your new social credits total is {newcredit}")
+    
 
         
 
