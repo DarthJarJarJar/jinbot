@@ -31,7 +31,7 @@ weights = []
 #This function simply loads the json file. You shouldn't need to use it outside of this program.
 def load_odds_json():
         #Opens the 'odds.json' file.
-        odds_file = open("jinbot/cogs/odds.json")
+        odds_file = open("/app/cogs/odds.json")
         #Loads it into a JSON object.
         data = json.load(odds_file)
         
