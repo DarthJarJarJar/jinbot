@@ -202,7 +202,7 @@ class credit(commands.Cog):
             else:
                 gainorlose="gained"
 
-            await ctx.send(f"New total: {int(gambleTuple[0])}\nMultiplier: {int(gambleTuple[1])}\nOriginal amount: {int(gambleTuple[2])}\nYou {gainorlose} {int(abs((change)))} credits. Your new social credits total is {int(newcredit)}")
+            await ctx.send(f"New total: {int(gambleTuple[0])}\nMultiplier: {gambleTuple[1]}\nOriginal amount: {int(gambleTuple[2])}\nYou {gainorlose} {int(abs((change)))} credits. Your new social credits total is {int(newcredit)}")
         
     
 
