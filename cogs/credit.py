@@ -49,7 +49,7 @@ class credit(commands.Cog):
                     if emoji in message.content:
                         socialcredit = 20
                         break
-                if 'jai hind' in message.content.lower():
+                '''if 'jai hind' in message.content.lower():
                     socialcredit = 20
                 if 'jai jind' in message.content.lower():
                     socialcredit = 20
@@ -60,7 +60,18 @@ class credit(commands.Cog):
                 if 'something happened in jinanmen square in 1989' in message.content.lower():
                     socialcredit = -60000000
                 if 'fish' in message.content.lower():
-                    socialcredit = -100000
+                    socialcredit = -100000'''
+                credwords = {
+                    'jai hind' : 20,
+                    'jai jind' : 20,
+                    'jin sucks' : -100,
+                    'wah wah' : 20,
+                    'something happened in jinanmen square in 1989' : -60000000,
+                    'fish' : -100000
+                }
+                for word in credwords:
+                    if word in message.content.lower():
+                        socialcredit = credwords[word]
                 
                 credit = stats["credit"] + socialcredit
                 
