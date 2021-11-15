@@ -162,7 +162,7 @@ class credit(commands.Cog):
             await ctx.channel.send(embed=embed)
 
     @commands.command(name='gamble')
-    async def _gamble(self,ctx,n):
+    async def _gamble(self,ctx,n:str):
         stats = levelling.find_one({"id": ctx.author.id})
         
         
@@ -177,9 +177,9 @@ class credit(commands.Cog):
             await ctx.send("You cannot gamble negative credits")
         else:
             if n=='all':
-                number = stats["credit"]
+                number = int(stats["credit"])
             elif n=='half':
-                number = stats["credit"]/2
+                number = int(int(stats["credit"])/2)
             else:
                 number = int(n)
             gambleTuple = gamble(number)
