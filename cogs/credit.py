@@ -3,6 +3,8 @@ from discord.ext import commands
 from pymongo import MongoClient
 from discord.utils import get
 from discord_slash import cog_ext, SlashContext
+import json
+import random
 
 
 import urllib.parse
@@ -15,6 +17,39 @@ cluster = MongoClient('mongodb+srv://%s:%s@cluster0.u6uh4.mongodb.net/myFirstDat
 guilds = [826766972204744764]
 
 levelling = cluster["discord"]["levelling"]
+
+
+
+
+
+
+#These are the lists where the possible outcomes are stored.
+posibilities = []
+weights = []
+
+#This function simply loads the json file. You shouldn't need to use it outside of this program.
+def load_odds_json():
+        #Opens the 'odds.json' file.
+        odds_file = open("odds.json")
+        #Loads it into a JSON object.
+        data = json.load(odds_file)
+        
+        #For every entry in the JSON file...
+        for x in data:
+            #Add the properties to their respective list.
+            posibilities.append(x["multiplier"])
+            weights.append(x["weight"])
+        
+        print("Odds loaded successfully!")
+
+#This function handles the mathmatics of the gambling here. Returns a tuplet containing the the new amount, the multiplier, and the original amount.
+def gamble(n):
+    multiplier = random.choices(posibilities, weights)[0]
+    
+    return (n*multiplier, multiplier, n)
+
+load_odds_json()
+
 
 class credit(commands.Cog):
     def __init__(self, client):
@@ -49,18 +84,7 @@ class credit(commands.Cog):
                     if emoji in message.content:
                         socialcredit = 20
                         break
-                '''if 'jai hind' in message.content.lower():
-                    socialcredit = 20
-                if 'jai jind' in message.content.lower():
-                    socialcredit = 20
-                if 'jin sucks' in message.content.lower():
-                    socialcredit = -100
-                if 'wah wah' in message.content.lower():
-                    socialcredit = 20
-                if 'something happened in jinanmen square in 1989' in message.content.lower():
-                    socialcredit = -60000000
-                if 'fish' in message.content.lower():
-                    socialcredit = -100000'''
+                
                 credwords = {
                     'jai hind' : 20,
                     'jai jind' : 20,
@@ -131,6 +155,16 @@ class credit(commands.Cog):
                 if i == 21:
                     break
             await ctx.channel.send(embed=embed)
+
+    @commands.command(name='gamble')
+    async def _gamble(ctx,n:int):
+        stats = levelling.find_one({"id": ctx.author.id})
+        gambleTuple = gamble(n)
+        tempcredit = stats["credit"]-n
+        newcredit = tempcredit+gambleTuple[0]
+        levelling.update_one({"id": ctx.author.id}, {"$set": {"credit": newcredit}})
+        await ctx.send(f"New total: {gambleTuple[0]}\nMultiplier: {gambleTuple[1]}\nOriginal amount: {gambleTuple[2]}")
+        
 
 
 
