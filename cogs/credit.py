@@ -121,7 +121,7 @@ class credit(commands.Cog):
     async def jcredit(self,ctx):
         stats = levelling.find_one({"id": ctx.author.id})
         credit = stats["credit"] 
-        await ctx.send(f'Your jincord social credit is {credit}')
+        await ctx.send(f'Your jincord social credit is {int(credit)}')
 
 
     @commands.command()
@@ -164,7 +164,19 @@ class credit(commands.Cog):
         tempcredit = stats["credit"]-n
         newcredit = tempcredit+gambleTuple[0]
         levelling.update_one({"id": ctx.author.id}, {"$set": {"credit": newcredit}})
+        newAmount = gambleTuple[0]
+        multiplier = gambleTuple[1]
+        originalAmount = gambleTuple[2]
+        change = newAmount-originalAmount
+        if change>0:
+            gainorlose = "gained"
+        elif change<0:
+            gainorlose = "lost"
+        else:
+            gainorlose="gained"
+
         await ctx.send(f"New total: {gambleTuple[0]}\nMultiplier: {gambleTuple[1]}\nOriginal amount: {gambleTuple[2]}")
+        await ctx.send(f"You {gainorlose} {abs(int(change))} credits. Your new social credits total is {newcredit}")
         
 
 
