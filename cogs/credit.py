@@ -177,14 +177,12 @@ class credit(commands.Cog):
             await ctx.send("You cannot gamble negative credits")
         else:
             
-            
-            try:
-                number = int(n)
-            except ValueError:
-                if n=="all":
-                    number = stats["credit"]
-                if n=="half":
-                    number = stats["credit"]/2
+            if n == "all":
+                number=stats["credit"]
+            elif n == "half":
+                number = stats["credit"]
+            else:
+                number=int(n)
             gambleTuple = gamble(number)
             tempcredit = stats["credit"]-number
             newcredit = tempcredit+gambleTuple[0]
