@@ -106,10 +106,13 @@ class credit(commands.Cog):
     @commands.command()
     
     async def gift(self,ctx,ussr : discord.User, num:int):
+
     
         stats = levelling.find_one({"id": ctx.author.id})
         if num>stats["credit"]:
             await ctx.channel.send("You can't gift more credits than what you have")
+        if num<0:
+            await ctx.send("You can't gift negative credits")
         else:
             giftercredit = stats["credit"] - int(num)
             levelling.update_one({"id": ctx.author.id}, {"$set": {"credit": giftercredit}})
@@ -172,6 +175,8 @@ class credit(commands.Cog):
             await ctx.send("You cannot gamble more than what you have")
         if stats["credit"]<0:
             await ctx.send("You cannot gamble if your credits are negative")
+        if number<0:
+            await ctx.send("You cannot gamble negative credits")
         else:
         
             gambleTuple = gamble(number)
