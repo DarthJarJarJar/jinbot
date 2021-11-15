@@ -159,10 +159,15 @@ class credit(commands.Cog):
             await ctx.channel.send(embed=embed)
 
     @commands.command(name='gamble')
-    async def _gamble(self,ctx,n:int):
+    async def _gamble(self,ctx,n):
         stats = levelling.find_one({"id": ctx.author.id})
-        gambleTuple = gamble(n)
-        tempcredit = stats["credit"]-n
+        if n=='all':
+            number = stats["credit"]
+        else:
+            number = int(n)
+        
+        gambleTuple = gamble(number)
+        tempcredit = stats["credit"]-number
         newcredit = tempcredit+gambleTuple[0]
         levelling.update_one({"id": ctx.author.id}, {"$set": {"credit": newcredit}})
         newAmount = gambleTuple[0]
