@@ -173,9 +173,9 @@ class credit(commands.Cog):
             number = int(n)
         if number>stats['credit']:
             await ctx.send("You cannot gamble more than what you have")
-        if stats["credit"]<0:
+        elif stats["credit"]<0:
             await ctx.send("You cannot gamble if your credits are negative")
-        if number<0:
+        elif number<0:
             await ctx.send("You cannot gamble negative credits")
         else:
         
