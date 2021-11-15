@@ -183,7 +183,7 @@ class credit(commands.Cog):
             except ValueError:
                 if n=="all":
                     number = stats["credit"]
-                if n=="half"
+                if n=="half":
                     number = stats["credit"]/2
             gambleTuple = gamble(number)
             tempcredit = stats["credit"]-number
