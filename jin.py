@@ -3,7 +3,7 @@ from discord.ext import commands, tasks
 from discord.utils import get
 from discord import asset
 from discord.user import User
-import levelsys
+
 import requests
 from bs4 import BeautifulSoup
 from selenium import webdriver
@@ -26,9 +26,7 @@ import sys
 from discord_slash.utils.manage_components import wait_for_component
 from discord_slash.utils.manage_components import create_select, create_select_option, create_actionrow
 import time
-import credit
-import tags
-
+from cogs import levelsys,credit,tags
 
 
 from async_timeout import timeout
