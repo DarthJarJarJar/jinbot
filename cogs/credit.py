@@ -201,7 +201,7 @@ class credit(commands.Cog):
             
             else:
                 gainorlose="gained"
-            embed = discord.Embed(title=f"Gambled {int(originalAmount)}",color=discord.Color.green())
+            embed = discord.Embed(title=f"Gambled {int(originalAmount)} credits",color=discord.Color.green())
             embed.add_field(name="**Multiplier: **",value=multiplier,inline=True)
             embed.add_field(name="**New amount: ** ", value=int(newAmount),inline=True)
             embed.add_field(name=f"**{gainorlose}: **", value=int(abs(change)))
