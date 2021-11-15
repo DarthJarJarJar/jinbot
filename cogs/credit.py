@@ -158,7 +158,7 @@ class credit(commands.Cog):
             await ctx.channel.send(embed=embed)
 
     @commands.command(name='gamble')
-    async def _gamble(ctx,n:int):
+    async def _gamble(self,ctx,n:int):
         stats = levelling.find_one({"id": ctx.author.id})
         gambleTuple = gamble(n)
         tempcredit = stats["credit"]-n
