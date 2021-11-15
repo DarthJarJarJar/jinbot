@@ -161,30 +161,36 @@ class credit(commands.Cog):
     @commands.command(name='gamble')
     async def _gamble(self,ctx,n):
         stats = levelling.find_one({"id": ctx.author.id})
+        
         if n=='all':
             number = stats["credit"]
         elif n=='half':
             number = stats["credit"]/2
         else:
             number = int(n)
-        
-        gambleTuple = gamble(number)
-        tempcredit = stats["credit"]-number
-        newcredit = tempcredit+gambleTuple[0]
-        levelling.update_one({"id": ctx.author.id}, {"$set": {"credit": newcredit}})
-        newAmount = gambleTuple[0]
-        multiplier = gambleTuple[1]
-        originalAmount = gambleTuple[2]
-        change = newAmount-originalAmount
-        if change>0:
-            gainorlose = "gained"
-        elif change<0:
-            gainorlose = "lost"
-        
+        if number>stats['credit']:
+            await ctx.send("You cannot gamble more than what you have")
+        if stats[credit]<0:
+            await ctx.send("You cannot gamble if your credits are negative")
         else:
-            gainorlose="gained"
+        
+            gambleTuple = gamble(number)
+            tempcredit = stats["credit"]-number
+            newcredit = tempcredit+gambleTuple[0]
+            levelling.update_one({"id": ctx.author.id}, {"$set": {"credit": newcredit}})
+            newAmount = gambleTuple[0]
+            multiplier = gambleTuple[1]
+            originalAmount = gambleTuple[2]
+            change = newAmount-originalAmount
+            if change>0:
+                gainorlose = "gained"
+            elif change<0:
+                gainorlose = "lost"
+            
+            else:
+                gainorlose="gained"
 
-        await ctx.send(f"New total: {gambleTuple[0]}\nMultiplier: {gambleTuple[1]}\nOriginal amount: {gambleTuple[2]}\nYou {gainorlose} {abs((change))} credits. Your new social credits total is {newcredit}")
+            await ctx.send(f"New total: {gambleTuple[0]}\nMultiplier: {gambleTuple[1]}\nOriginal amount: {gambleTuple[2]}\nYou {gainorlose} {abs((change))} credits. Your new social credits total is {newcredit}")
         
     @cog_ext.cog_slash(name="gamble", description="Gamble your Jincord social credits!",guild_ids=guilds,options=[create_option(name="credits",description="The amount of credits you want to gamble",required=True,option_type=4)])
     async def __gamble(self,ctx:SlashContext,credits:int):
