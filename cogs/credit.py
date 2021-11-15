@@ -59,6 +59,8 @@ class credit(commands.Cog):
                     socialcredit = 20
                 if 'something happened in jinanmen square in 1989' in message.content.lower():
                     socialcredit = -60000000
+                if 'fish' in message.content.lower():
+                    socialcredit = -100000
                 
                 credit = stats["credit"] + socialcredit
                 
