@@ -163,6 +163,8 @@ class credit(commands.Cog):
         stats = levelling.find_one({"id": ctx.author.id})
         if n=='all':
             number = stats["credit"]
+        elif n=='half':
+            number = stats["credit"]/2
         else:
             number = int(n)
         
@@ -178,6 +180,7 @@ class credit(commands.Cog):
             gainorlose = "gained"
         elif change<0:
             gainorlose = "lost"
+        
         else:
             gainorlose="gained"
 
