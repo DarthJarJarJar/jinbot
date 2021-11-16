@@ -195,16 +195,17 @@ class credit(commands.Cog):
             originalAmount = gambleTuple[2]
             change = newAmount-originalAmount
             if change>0:
-                gainorlose = "Credits Gained"
+                gainorlose = "Gained"
+                embedcolor = discord.Color.green()
             elif change<0:
-                gainorlose = "Credits Lost"
+                gainorlose = "Lost"
+                embedcolor = discord.Color.red()
             
             else:
                 gainorlose="gained"
-            embed = discord.Embed(title=f"Gambled {int(originalAmount)} credits",color=discord.Color.green())
+            embed = discord.Embed(title=f"{gainorlose} {int(abs(change))} credits",color=embedcolor)
             embed.add_field(name="**Multiplier: **",value=multiplier,inline=True)
             embed.add_field(name="**New amount: ** ", value=int(newAmount),inline=True)
-            embed.add_field(name=f"**{gainorlose}: **", value=int(abs(change)))
             embed.add_field(name="**Gambler: ** ",value=ctx.author.mention,inline=True)
             embed.add_field(name="**Total Social Credits: **", value=int(newcredit),inline=True)
             #await ctx.send(f"New total: {int(gambleTuple[0])}\nMultiplier: {gambleTuple[1]}\nOriginal amount: {int(gambleTuple[2])}\nYou {gainorlose} {int(abs((change)))} credits. Your new social credits total is {int(newcredit)}")
