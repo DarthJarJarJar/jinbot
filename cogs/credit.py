@@ -116,7 +116,7 @@ class credit(commands.Cog):
         else:
             giftercredit = stats["credit"] - int(num)
             levelling.update_one({"id": ctx.author.id}, {"$set": {"credit": giftercredit}})
-            stats2 = levelling.find_one({"id": ctx.author.id})
+            stats2 = levelling.find_one({"id": ussr.id})
             gifteecredit = stats2["credit"] + int(num)
             levelling.update_one({"id": ussr.id}, {"$set": {"credit": gifteecredit}})
             await ctx.channel.send(f"Gifted {num} jincord social credits to {ussr.name}")
