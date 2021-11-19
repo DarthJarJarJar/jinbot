@@ -119,13 +119,13 @@ class credit(commands.Cog):
             stats2 = levelling.find_one({"id": ussr.id})
             gifteecredit = stats2["credit"] + int(num)
             levelling.update_one({"id": ussr.id}, {"$set": {"credit": gifteecredit}})
-            await ctx.channel.send(f"Gifted {num} jincord social credits to {ussr.name}")
+            await ctx.channel.send(f"Gifted {num:,} jincord social credits to {ussr.name}")
 
     @commands.command(name="credit")
     async def jcredit(self,ctx):
         stats = levelling.find_one({"id": ctx.author.id})
         credit = stats["credit"] 
-        await ctx.send(f'Your jincord social credit is {int(credit)}')
+        await ctx.send(f'Your jincord social credit is {int(credit):,}')
 
 
     @commands.command()
@@ -138,7 +138,7 @@ class credit(commands.Cog):
                 try:
                     temp = ctx.guild.get_member(x["id"])
                     tempxp = x["credit"]
-                    embed.add_field(name=f"{i}: {temp.name}", value=f"{int(tempxp)}", inline=False)
+                    embed.add_field(name=f"{i}: {temp.name}", value=f"{int(tempxp):,}", inline=False)
                     i += 1
                 except:
                     pass
@@ -153,7 +153,7 @@ class credit(commands.Cog):
                 try:
                     temp = ctx.guild.get_member(x["id"])
                     tempxp = x["credit"]
-                    embed.add_field(name=f"{i}: {temp.name}", value=f"{int(tempxp)}", inline=False)
+                    embed.add_field(name=f"{i}: {temp.name}", value=f"{int(tempxp):,}", inline=False)
                     i += 1
                 except:
                     pass
@@ -203,11 +203,11 @@ class credit(commands.Cog):
             
             else:
                 gainorlose="gained"
-            embed = discord.Embed(title=f"{gainorlose} {int(abs(change))} credits",color=embedcolor)
+            embed = discord.Embed(title=f"{gainorlose} {int(abs(change)):,} credits",color=embedcolor)
             embed.add_field(name="**Multiplier: **",value=multiplier,inline=True)
-            embed.add_field(name="**New amount: ** ", value=int(newAmount),inline=True)
+            embed.add_field(name="**New amount: ** ", value=f"{int(newAmount):,}",inline=True)
             embed.add_field(name="**Gambler: ** ",value=ctx.author.mention,inline=True)
-            embed.add_field(name="**Total Social Credits: **", value=int(newcredit),inline=True)
+            embed.add_field(name="**Total Social Credits: **", value=f"{int(newcredit):,}",inline=True)
             #await ctx.send(f"New total: {int(gambleTuple[0])}\nMultiplier: {gambleTuple[1]}\nOriginal amount: {int(gambleTuple[2])}\nYou {gainorlose} {int(abs((change)))} credits. Your new social credits total is {int(newcredit)}")
             await ctx.send(embed=embed)
     
