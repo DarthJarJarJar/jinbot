@@ -388,4 +388,4 @@ async def _time(ctx:SlashContext,year:int,month:int,date:int,hours:int,minutes:i
         
         
                                  
-client.run('ODcyMTk0NzA3MTE0MDQ1NDQw.YQmUng.NX93HMWlDNvAmPPMQVqix1kasNg')
+client.run('ODcyMTk0NzA3MTE0MDQ1NDQw.YQmUng.ZUFMj_ZzY17w-nDKPkxwyLFX6Pg')
