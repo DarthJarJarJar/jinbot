@@ -23,7 +23,9 @@ levelling = cluster["discord"]["levelling"]
 
 
 
-
+'''
+contribution by yogurt#6767
+'''
 
 #These are the lists where the possible outcomes are stored.
 posibilities = []
@@ -51,7 +53,9 @@ def gamble(n):
     return (n*multiplier, multiplier, n)
 
 load_odds_json()
-
+'''
+###################################
+'''
 
 class credit(commands.Cog):
     def __init__(self, client):

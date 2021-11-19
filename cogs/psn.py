@@ -14,6 +14,11 @@ from discord_slash import cog_ext, SlashContext
 
 guilds = [826766972204744764]
 
+
+'''
+contribution by habim#9767
+'''
+
 class Game:
     '''
     Class to hold the data for each game in the main psn profile trophy page
