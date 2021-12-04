@@ -35,7 +35,7 @@ class levelsys(commands.Cog):
            
         
 
-        if "sussy" in message.content.lower():
+        if " sussy " in message.content.lower():
             await message.channel.send("Is this a possible remark with a hidden connection to the video game Among Us (2018) developed by InnerSloth LLC which has gained recent popularity?")
         if ' sus ' in message.content.lower():
             await message.channel.send("Is this a possible remark with a hidden connection to the video game Among Us (2018) developed by InnerSloth LLC which has gained recent popularity?")
