@@ -30,10 +30,13 @@ class levelsys(commands.Cog):
         suslist = ["sus","sussy"]
         for word in suslist:
             if message.content.lower()==word:
-                await ctx.send("Is this a possible remark with a hidden connection to the video game Among Us (2018) developed by InnerSloth LLC which has gained recent popularity?")
+                await message.channel.send("Is this a possible remark with a hidden connection to the video game Among Us (2018) developed by InnerSloth LLC which has gained recent popularity?")
+            
+           
         
 
-     
+        if "sussy" in message.content.lower():
+            await message.channel.send("Is this a possible remark with a hidden connection to the video game Among Us (2018) developed by InnerSloth LLC which has gained recent popularity?")
         if ' sus ' in message.content.lower():
             await message.channel.send("Is this a possible remark with a hidden connection to the video game Among Us (2018) developed by InnerSloth LLC which has gained recent popularity?")
         stats = levelling.find_one({"id" : message.author.id})
