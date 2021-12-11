@@ -372,27 +372,48 @@ async def _time(ctx:SlashContext,year:int,month:int,date:int,hours:int,minutes:i
 async def _work(ctx:SlashContext):
     await ctx.send("worked")
 
-@slash.slash(name="roletest", guild_ids=guilds, description="testing for buttons and roles")
+@slash.slash(name="rolesetup", guild_ids=guilds, description="setup for roles")
 async def _testrole(ctx:SlashContext):
     buttons = [
-        create_button(style=ButtonStyle.blue, label="role1",custom_id="role1"),
-        create_button(style=ButtonStyle.blue, label="role2",custom_id="role2")
+        create_button(style=ButtonStyle.blue, label="Announcements",custom_id="announcements"),
+        create_button(style=ButtonStyle.blue, label="Polls",custom_id="polls"),
+        create_button(style=ButtonStyle.blue, label="Games", custom_id="games"),
+        create_button(style=ButtonStyle.blue,label="Movies",custom_id="movies"),
+        create_button(style=ButtonStyle.blue,label="Fortnite",custom_id="fortnite")
         
     ]
     action_row = create_actionrow(*buttons)
-    await ctx.send("Choose role",components=[action_row])
+    embed=discord.Embed(title="Self Roles",
+    description="**Announcements:** Get notified for server announcements!\n**Movies:** Get notified when we're watching a movie!\n**Games:** Get notified when we're trying to play a game together!\n**Polls:** Get notified for polls!\n**Fortnite:** Get notified when we're playing Fortnite!")
+    await ctx.send(embed=embed,components=[action_row])
 
 
 @client.event
 async def on_component(ctx:ComponentContext):
-    if ctx.custom_id=="role1":
-            role = discord.utils.get(ctx.guild.roles, name = "role1")
+    if ctx.custom_id=="announcements":
+            role = discord.utils.get(ctx.guild.roles, name = "Announcements")
             await ctx.author.add_roles(role)
-            await ctx.send(f"added the role", hidden=True)
-    elif ctx.custom_id=="role2":
-            role = discord.utils.get(ctx.guild.roles, name = "role2")
+            await ctx.send(f"Added the announcements role!", hidden=True)
+    elif ctx.custom_id=="movies":
+            role = discord.utils.get(ctx.guild.roles, name = "Movies")
             await ctx.author.add_roles(role)
-            await ctx.send(f"added the role", hidden=True)
+            await ctx.send(f"Added the  movies role!", hidden=True)
+    elif ctx.custom_id=="games":
+            role = discord.utils.get(ctx.guild.roles, name = "Games")
+            await ctx.author.add_roles(role)
+            await ctx.send(f"Added the  games role!", hidden=True)
+
+    elif ctx.custom_id=="polls":
+            role = discord.utils.get(ctx.guild.roles, name = "Polls")
+            await ctx.author.add_roles(role)
+            await ctx.send(f"Added the  polls role!", hidden=True)
+    
+    elif ctx.custom_id=="fortnite":
+            role = discord.utils.get(ctx.guild.roles, name = "Fortnite")
+            await ctx.author.add_roles(role)
+            await ctx.send(f"Added the fortnite role!", hidden=True)
+    
+    
 
     
 
