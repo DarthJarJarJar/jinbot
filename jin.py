@@ -108,8 +108,9 @@ async def unmute(ctx, member : discord.Member):
     mutedrole = discord.utils.get(ctx.guild.roles, name="Mute")
     await member.remove_roles(mutedrole)
     await ctx.send("User was unmuted")
-
-       
+@client.command()
+async def work(ctx):
+    await ctx.send("it worked")      
 
         
 @client.command()
