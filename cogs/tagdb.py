@@ -31,13 +31,13 @@ class tagdb(commands.Cog):
             tagname = i["name"]
             taglist.append(tagname)
         print(taglist)
-        
-        for i in taglist:
-            if message.content=='!'+i:
-                tagcalled = i
-                break
-        tag1 = tag_handler.find_one({"name" : tagcalled})
-        await message.channel.send(tag1["content"])
+        if message.content.startswith('!'):
+            for i in taglist:
+                if message.content[1:]==i:
+                    tag1 = tag_handler.find_one({"name" : i})
+                    await message.channel.send(tag1["content"])
+                    break
+            
 
 
             
