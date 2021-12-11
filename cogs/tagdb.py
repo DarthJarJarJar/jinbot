@@ -52,9 +52,20 @@ class tagdb(commands.Cog):
         if action.lower()=="create":
             newtag = {"name" : name, "content" : content, "creator" : ctx.author.id}
             tag_handler.insert_one(newtag)
+            embed=discord.Embed(title="Tag created")
+            embed.add_field(name="Tag name", value=name)
+            embed.add_field(name="Content",value=content)
+            embed.add_field(name="Creator",value=ctx.author.mention)
+            await ctx.send(embed=embed)
         if action.lower()=="edit":
             tag_handler.update_one({"name" : name}, {"$set" : {"content" : content}})
-
+            taginquestion = tag_handler.find_one({"name":name})
+            
+            embed=discord.Embed(title="Tag edited")
+            embed.add_field(name="Tag name", value=name)
+            embed.add_field(name="New Content",value=content)
+            embed.add_field(name="Editor",value=ctx.author.mention)
+            await ctx.send(embed=embed)
 def setup(client):
     client.add_cog(tagdb(client))
 
