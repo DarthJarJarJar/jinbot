@@ -50,7 +50,7 @@ async def on_ready():
 
 
 
-cogs = [levelsys,credit,tags,psn]
+cogs = [levelsys,credit,tags,psn,tagdb]
 
 for i in range(len(cogs)):
     cogs[i].setup(client)
