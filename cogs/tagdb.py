@@ -21,8 +21,26 @@ class tagdb(commands.Cog):
 
     @commands.Cog.listener()
     async def on_ready(self):
-        print("never gonna make you cry")
+        print("never gonna say goodbye")
 
+
+    @commands.Cog.listener()
+    async def on_meassage(self,message):
+        taglist = []
+        for i in tag_handler:
+            tagname = i["name"]
+            taglist.append(tagname)
+        
+        for i in taglist:
+            if message.content=='*'+i:
+                tagcalled = i
+                break
+        tag1 = tag_handler.find_one({"name" : tagcalled})
+        await message.channel.send(tag1["content"])
+
+
+            
+        
     
 
 
