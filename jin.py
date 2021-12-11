@@ -26,7 +26,7 @@ import sys
 from discord_slash.utils.manage_components import wait_for_component
 from discord_slash.utils.manage_components import create_select, create_select_option, create_actionrow
 import time
-from cogs import levelsys,credit,tags,psn
+from cogs import levelsys,credit,tags,psn,tagdb
 
 
 from async_timeout import timeout
