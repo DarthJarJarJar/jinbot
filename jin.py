@@ -372,7 +372,27 @@ async def _time(ctx:SlashContext,year:int,month:int,date:int,hours:int,minutes:i
 async def _work(ctx:SlashContext):
     await ctx.send("worked")
 
-print("hello")
+@slash.slash(name="roletest", guild_ids=guilds, description="testing for buttons and roles")
+async def _testrole(ctx:SlashContext):
+    buttons = [
+        create_button(style=ButtonStyle.blue, label="role1",custom_id="role1"),
+        create_button(style=ButtonStyle.blue, label="role2",custom_id="role2")
+        
+    ]
+    action_row = create_actionrow(*buttons)
+    await ctx.send("Choose role",components=[action_row])
+
+
+@client.event
+async def on_component(ctx:ComponentContext):
+    if ctx.custom_id=="role1":
+            role = discord.utils.get(ctx.guild.roles, name = "role1")
+            await ctx.author.add_roles(role)
+            await ctx.channel.send(f"added the role", hidden=True)
+    elif ctx.custom_id=="role2":
+            role = discord.utils.get(ctx.guild.roles, name = "role2")
+            await ctx.author.add_roles(role)
+            await ctx.channel.send(f"added the role", hidden=True)
 
     
 
