@@ -372,7 +372,7 @@ async def _time(ctx:SlashContext,year:int,month:int,date:int,hours:int,minutes:i
 async def _work(ctx:SlashContext):
     await ctx.send("worked")
 
-@slash.slash(name="rolesetup", guild_ids=guilds, description="setup for roles")
+'''@slash.slash(name="rolesetup", guild_ids=guilds, description="setup for roles")
 async def _testrole(ctx:SlashContext):
     buttons = [
         create_button(style=ButtonStyle.blue, label="Announcements",custom_id="announcements"),
@@ -385,7 +385,7 @@ async def _testrole(ctx:SlashContext):
     action_row = create_actionrow(*buttons)
     embed=discord.Embed(title="Self Roles",
     description="**Announcements:** Get notified for server announcements!\n**Movies:** Get notified when we're watching a movie!\n**Games:** Get notified when we're trying to play a game together!\n**Polls:** Get notified for polls!\n**Fortnite:** Get notified when we're playing Fortnite!")
-    await ctx.send(embed=embed,components=[action_row])
+    await ctx.send(embed=embed,components=[action_row])'''
 
 
 @client.event
