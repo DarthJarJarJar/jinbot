@@ -32,7 +32,7 @@ class tagdb(commands.Cog):
             taglist.append(tagname)
         
         for i in taglist:
-            if message.content=='*'+i:
+            if message.content=='!'+i:
                 tagcalled = i
                 break
         tag1 = tag_handler.find_one({"name" : tagcalled})
