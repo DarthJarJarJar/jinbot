@@ -66,6 +66,26 @@ class tagdb(commands.Cog):
             embed.add_field(name="New Content",value=content)
             embed.add_field(name="Editor",value=ctx.author.mention)
             await ctx.send(embed=embed)
+        
+        if action.lower()=="delete":
+            tag_handler.delete_one({"name":name})
+            await ctx.send("Tag deleted")
+
+
+    @commands.command()
+    async def tags(ctx):
+        taglist = []
+        for i in tag_handler.find():
+            tagname = i["name"]
+            taglist.append(tagname)
+        tagstr = ""
+        for tag in taglist:
+            tagstr+=f"{tag} "
+        await ctx.send(f"`{tagstr}`")
+
+    
+
+
 def setup(client):
     client.add_cog(tagdb(client))
 
