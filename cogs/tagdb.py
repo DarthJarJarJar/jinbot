@@ -31,7 +31,7 @@ class tagdb(commands.Cog):
             tagname = i["name"]
             taglist.append(tagname)
         print(taglist)
-        if message.content.startswith('!'):
+        if message.content.startswith('*'):
             for i in taglist:
                 if message.content[1:]==i:
                     tag1 = tag_handler.find_one({"name" : i})
