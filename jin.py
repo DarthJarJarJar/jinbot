@@ -388,11 +388,11 @@ async def on_component(ctx:ComponentContext):
     if ctx.custom_id=="role1":
             role = discord.utils.get(ctx.guild.roles, name = "role1")
             await ctx.author.add_roles(role)
-            await ctx.channel.send(f"added the role", hidden=True)
+            await ctx.send(f"added the role", hidden=True)
     elif ctx.custom_id=="role2":
             role = discord.utils.get(ctx.guild.roles, name = "role2")
             await ctx.author.add_roles(role)
-            await ctx.channel.send(f"added the role", hidden=True)
+            await ctx.send(f"added the role", hidden=True)
 
     
 
