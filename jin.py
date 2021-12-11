@@ -368,6 +368,10 @@ async def _time(ctx:SlashContext,year:int,month:int,date:int,hours:int,minutes:i
     #loctime = unixtime+timediff
     await ctx.send(f'<t:{int(unixtime)}>')
 
+@slash.slash(name="work", description="please work", guild_ids=guilds)
+async def _work(ctx:SlashContext):
+    await ctx.send("worked")
+
     
 
     
