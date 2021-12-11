@@ -30,6 +30,7 @@ class tagdb(commands.Cog):
         for i in tag_handler:
             tagname = i["name"]
             taglist.append(tagname)
+        print(taglist)
         
         for i in taglist:
             if message.content=='!'+i:
