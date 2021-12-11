@@ -372,6 +372,8 @@ async def _time(ctx:SlashContext,year:int,month:int,date:int,hours:int,minutes:i
 async def _work(ctx:SlashContext):
     await ctx.send("worked")
 
+print("hello")
+
     
 
     
