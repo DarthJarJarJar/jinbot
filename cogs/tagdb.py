@@ -73,7 +73,7 @@ class tagdb(commands.Cog):
 
 
     @commands.command()
-    async def tags(ctx):
+    async def tags(self,ctx):
         taglist = []
         for i in tag_handler.find():
             tagname = i["name"]
