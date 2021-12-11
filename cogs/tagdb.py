@@ -27,7 +27,7 @@ class tagdb(commands.Cog):
     @commands.Cog.listener()
     async def on_message(self,message):
         taglist = []
-        for i in tag_handler:
+        for i in tag_handler.find():
             tagname = i["name"]
             taglist.append(tagname)
         print(taglist)
