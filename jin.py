@@ -1,5 +1,6 @@
 import discord
 from discord.ext import commands, tasks
+from discord.gateway import DiscordWebSocket
 from discord.utils import get
 from discord import asset
 from discord.user import User
@@ -27,7 +28,7 @@ from discord_slash.utils.manage_components import wait_for_component
 from discord_slash.utils.manage_components import create_select, create_select_option, create_actionrow
 import time
 from cogs import levelsys,credit,psn,tagdb
-
+from currency_converter import CurrencyConverter
 
 from async_timeout import timeout
   
@@ -387,6 +388,11 @@ async def _testrole(ctx:SlashContext):
     description="**Announcements:** Get notified for server announcements!\n**Movies:** Get notified when we're watching a movie!\n**Games:** Get notified when we're trying to play a game together!\n**Polls:** Get notified for polls!\n**Fortnite:** Get notified when we're playing Fortnite!")
     await ctx.send(embed=embed,components=[action_row])'''
 
+@slash.slash(name="convert", description="Currency converter command",guild_ids=guilds,options=[create_option(name="first_currency",description="Currency you want to convert form",option_type=3,required=True),create_option(name="second_currency",description="Currency you want to convert to",option_type=3,required=True),create_option(name="amount",description="Amount you want to convert",option_type=4,required=True)])
+async def _convert(ctx,first_currency:str,second_currency:str,amount):
+    c = CurrencyConverter()
+    x = c.convert(amount,first_currency.upper(),second_currency.upper())
+    await ctx.send(f"{amount} {first_currency} is {x} {second_currency}")
 
 @client.event
 async def on_component(ctx:ComponentContext):
