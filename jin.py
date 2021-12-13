@@ -402,7 +402,7 @@ async def _convert(ctx,first_currency:str,second_currency:str,amount):
     browser = webdriver.Firefox(executable_path=r"/app/vendor/geckodriver/geckodriver"
 ,
                                     options=foptions)
-    browser.get(fr"https://www.google.com/search?q={am}+{c1}+to+{c2}&rlz=1C5CHFA_enCA983CA983&oq={am}+{c1}+&aqs=chrome.0.69i59j69i57j0i67l8.1146j0j7&sourceid=chrome&ie=UTF-8")
+    browser.get(fr"https://www.google.com/search?client=firefox-b-d&q={am}+{c1}+to+{c2}")
     elem = browser.find_element_by_xpath("/html/body/div[7]/div/div[10]/div[1]/div/div[2]/div[2]/div/div/div[1]/div/div/div/div/div/div/div[1]/div[1]/div[2]/span[1]")
 
     val= elem.get_attribute("data-value")
