@@ -11,6 +11,7 @@ from selenium import webdriver
 import asyncio
 import math
 from dateutil import tz
+from selenium import webdriver
 
 import re
 import functools
@@ -390,9 +391,25 @@ async def _testrole(ctx:SlashContext):
 
 @slash.slash(name="convert", description="Currency converter command",guild_ids=guilds,options=[create_option(name="first_currency",description="Currency you want to convert form",option_type=3,required=True),create_option(name="second_currency",description="Currency you want to convert to",option_type=3,required=True),create_option(name="amount",description="Amount you want to convert",option_type=4,required=True)])
 async def _convert(ctx,first_currency:str,second_currency:str,amount):
-    c = CurrencyConverter()
-    x = c.convert(amount,first_currency.upper(),second_currency.upper())
-    await ctx.send(f"{amount} {first_currency} is {x} {second_currency}")
+    am = amount
+    c1 = first_currency
+    c2 = second_currency
+    foptions = webdriver.FirefoxOptions()
+    foptions.binary_location = r'/app/vendor/firefox/firefox'
+               
+
+    foptions.add_argument('-headless')
+    browser = webdriver.Firefox(executable_path=r"/app/vendor/geckodriver/geckodriver"
+,
+                                    options=foptions)
+    browser.get(fr"https://www.google.com/search?q={am}+{c1}+to+{c2}&rlz=1C5CHFA_enCA983CA983&oq={am}+{c1}+&aqs=chrome.0.69i59j69i57j0i67l8.1146j0j7&sourceid=chrome&ie=UTF-8")
+    elem = browser.find_element_by_xpath("/html/body/div[7]/div/div[10]/div[1]/div/div[2]/div[2]/div/div/div[1]/div/div/div/div/div/div/div[1]/div[1]/div[2]/span[1]")
+
+    val= elem.get_attribute("data-value")
+    await ctx.send(f"{am} {c1.upper()} is {val} {c2.upper()}")
+    browser.close()
+
+    
 
 @client.event
 async def on_component(ctx:ComponentContext):
