@@ -403,7 +403,7 @@ async def _convert(ctx,first_currency:str,second_currency:str,amount):
 ,
                                     options=foptions)
     browser.get(fr"https://www.google.com/search?client=firefox-b-d&q={am}+{c1}+to+{c2}")
-    elem = browser.find_element_by_xpath("/html/body/div[7]/div/div[10]/div[1]/div/div[2]/div[2]/div/div/div[1]/div/div/div/div/div/div/div[1]/div[1]/div[2]/span[1]")
+    elem = browser.find_element_by_xpath(f"/html/body/div[7]/div/div[10]/div[1]/div/div[2]/div[2]/div/div/div[1]/div/div/div/div/div/div/div[1]/div[1]/div[2]/span[1]")
 
     val= elem.get_attribute("data-value")
     await ctx.send(f"{am} {c1.upper()} is {val} {c2.upper()}")
