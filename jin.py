@@ -5,7 +5,7 @@ from discord.utils import get
 from discord import asset
 from discord.user import User
 from googlesearch import search
-
+from selenium.common.exceptions import NoSuchElementException
 import requests
 from bs4 import BeautifulSoup
 from selenium import webdriver
@@ -508,8 +508,8 @@ async def game(ctx,*,name:str):
         toggle = driver.find_element_by_css_selector(".product_summary > span:nth-child(2) > span:nth-child(1) > span:nth-child(4)")
         toggle.click()
         fulldesc = driver.find_element_by_css_selector(".inline_expanded > span:nth-child(2)")
-    except:
-        fulldesc = driver.find_element_by_css_selector(".product_summary > span:nth-child(2) > span:nth-child(1) > span:nth-child(1)")
+    except NoSuchElementException:
+        fulldesc = driver.find_element_by_css_selector(".product_summary > span:nth-child(2) > span:nth-child(1)")
 
     title = driver.find_element_by_css_selector("a.hover_none > h1:nth-child(1)")
     
