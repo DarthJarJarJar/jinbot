@@ -478,7 +478,7 @@ async def on_component(ctx:ComponentContext):
 
 
 @client.command()
-async def game(ctx,name:str):
+async def game(ctx,*,name:str):
     query =f"{name} metacritic"
 
 
@@ -503,12 +503,15 @@ async def game(ctx,name:str):
     link = driver.find_element_by_css_selector("div.must_play > img:nth-child(1)")
     val = link.get_attribute("src")
     thumbnail = val
-    desc = driver.find_element_by_css_selector(".product_summary > span:nth-child(2) > span:nth-child(1) > span:nth-child(1)")
-    description = desc.text
+    toggle = driver.find_element_by_css_selector(".product_summary > span:nth-child(2) > span:nth-child(1) > span:nth-child(4)")
+    toggle.click()
+    fulldesc = driver.find_element_by_css_selector(".inline_expanded > span:nth-child(2)")
+    title = driver.find_element_by_css_selector("a.hover_none > h1:nth-child(1)")
+    
     driver.close()
 
-    embed = discord.Embed(title=name,thumbnail=thumbnail,colour=discord.Color.green(),url=result)
-    embed.add_field(name="Game Description: ", value=description,inline=False)
+    embed = discord.Embed(title=title.text,thumbnail=thumbnail,colour=discord.Color.green(),url=result)
+    embed.add_field(name="Game Description: ", value=fulldesc,inline=False)
     embed.add_field(name="Metacritic Score: ",value=f"**{metascore}**",inline=False)
     await message.edit(content=None, embed=embed)
 
