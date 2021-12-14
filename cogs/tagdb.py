@@ -30,7 +30,7 @@ class tagdb(commands.Cog):
         for i in tag_handler.find():
             tagname = i["name"]
             taglist.append(tagname)
-        print(taglist)
+        #print(taglist)
         if message.content.startswith('*'):
             for i in taglist:
                 if message.content[1:]==i:
