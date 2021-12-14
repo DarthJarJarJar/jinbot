@@ -12,6 +12,7 @@ import asyncio
 import math
 from dateutil import tz
 from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
 
 import re
 import functools
@@ -410,8 +411,12 @@ async def __convert(ctx,amount,first_currency:str,second_currency:str):
     am = amount
     c1 = first_currency
     c2 = second_currency
+
+    chrome_options = Options()
+    chrome_options.add_argument('--no-sandbox')
+    chrome_options.add_argument('--headless')
     
-    driver = webdriver.Chrome(r'/app/.chromedriver/bin/chromedriver')
+    driver = webdriver.Chrome(r'/app/.chromedriver/bin/chromedriver',chrome_options=chrome_options)
 
 
     driver.get(fr"https://www.google.com/search?q={am}+{c1}+to+{c2}&rlz=1C5CHFA_enCA983CA983&oq={am}+{c1}+&aqs=chrome.0.69i59j69i57j0i67l8.1146j0j7&sourceid=chrome&ie=UTF-8")
