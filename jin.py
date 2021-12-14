@@ -423,6 +423,7 @@ async def __convert(ctx,amount,first_currency:str,second_currency:str):
     driver.implicitly_wait(5)
     elem = driver.find_element_by_css_selector(".SwHCTb")
     val= elem.get_attribute("data-value")
+    driver.close()
     
 
     await ctx.send(f"{am} {c1.upper()} is {val} {c2.upper()}")
