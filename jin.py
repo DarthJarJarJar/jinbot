@@ -503,15 +503,20 @@ async def game(ctx,*,name:str):
     link = driver.find_element_by_css_selector("div.must_play > img:nth-child(1)")
     val = link.get_attribute("src")
     thumbnail = val
-    toggle = driver.find_element_by_css_selector(".product_summary > span:nth-child(2) > span:nth-child(1) > span:nth-child(4)")
-    toggle.click()
-    fulldesc = driver.find_element_by_css_selector(".inline_expanded > span:nth-child(2)")
+    try: 
+        driver.implicitly_wait(3)
+        toggle = driver.find_element_by_css_selector(".product_summary > span:nth-child(2) > span:nth-child(1) > span:nth-child(4)")
+        toggle.click()
+        fulldesc = driver.find_element_by_css_selector(".inline_expanded > span:nth-child(2)")
+    except:
+        fulldesc = driver.find_element_by_css_selector(".product_summary > span:nth-child(2) > span:nth-child(1) > span:nth-child(1)")
+
     title = driver.find_element_by_css_selector("a.hover_none > h1:nth-child(1)")
     
     driver.close()
 
-    embed = discord.Embed(title=title.text,thumbnail=thumbnail,colour=discord.Color.green(),url=result)
-    embed.add_field(name="Game Description: ", value=fulldesc,inline=False)
+    embed = discord.Embed(title=title.text,thumbnail=r'{thumbnail}',colour=discord.Color.green(),url=result)
+    embed.add_field(name="Game Description: ", value=fulldesc.text,inline=False)
     embed.add_field(name="Metacritic Score: ",value=f"**{metascore}**",inline=False)
     await message.edit(content=None, embed=embed)
 
