@@ -488,7 +488,8 @@ async def game(ctx,*,name:str):
     chrome_options.add_argument('--headless')
     
     driver = webdriver.Chrome(r'/app/.chromedriver/bin/chromedriver',chrome_options=chrome_options)
-
+    driver.quit()
+    driver = webdriver.Chrome(r'/app/.chromedriver/bin/chromedriver',chrome_options=chrome_options)
     for j in search(query, tld="ca", num=10, stop=10, pause=2):
         driver.get(j)
         result = j
