@@ -513,7 +513,7 @@ async def game(ctx,*,name:str):
 
     title = driver.find_element_by_css_selector("a.hover_none > h1:nth-child(1)")
     
-    driver.quit()
+    driver.close()
 
     embed = discord.Embed(title=title.text,thumbnail=fr'{thumbnail}',colour=discord.Color.green(),url=result)
     embed.add_field(name="Game Description: ", value=fulldesc.text,inline=False)
