@@ -4,6 +4,7 @@ from discord.gateway import DiscordWebSocket
 from discord.utils import get
 from discord import asset
 from discord.user import User
+from googlesearch import search
 
 import requests
 from bs4 import BeautifulSoup
@@ -473,6 +474,45 @@ async def on_component(ctx:ComponentContext):
             role = discord.utils.get(ctx.guild.roles, name = "Fortnite")
             await ctx.author.add_roles(role)
             await ctx.send(f"Added the fortnite role!", hidden=True)
+
+
+@client.command()
+async def game(ctx,name:str):
+    query =f"{name} metacritic"
+
+
+
+    chrome_options = Options()
+    chrome_options.add_argument('--no-sandbox')
+    chrome_options.add_argument('--headless')
+    
+    driver = webdriver.Chrome(r'/app/.chromedriver/bin/chromedriver',chrome_options=chrome_options)
+
+    for j in search(query, tld="ca", num=10, stop=10, pause=2):
+        driver.get(j)
+        result = j
+        break
+    message : discord.Message = await ctx.send("Please wait...")
+    driver.implicitly_wait(5)
+
+
+
+    elem = driver.find_element_by_css_selector(".xlarge > span:nth-child(3)")
+    metascore = elem.text
+    link = driver.find_element_by_css_selector("div.must_play > img:nth-child(1)")
+    val = link.get_attribute("src")
+    thumbnail = val
+    desc = driver.find_element_by_css_selector(".product_summary > span:nth-child(2) > span:nth-child(1) > span:nth-child(1)")
+    description = desc.text
+    driver.close()
+
+    embed = discord.Embed(title=name,thumbnail=thumbnail,colour=discord.Color.green,url=result)
+    embed.add_field(name="Game Description: ", value=description,inline=False)
+    embed.add_field(name="Metacritic Score: ",value=f"**{metascore}**",inline=False)
+    await message.edit(content=None, embed=embed)
+
+
+
     
     
 
