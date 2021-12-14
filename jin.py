@@ -515,7 +515,7 @@ async def game(ctx,*,name:str):
     
     driver.close()
 
-    embed = discord.Embed(title=title.text,thumbnail=fr'{thumbnail}',colour=discord.Color.green(),url=result)
+    embed = discord.Embed(title=title.text,colour=discord.Color.green(),url=result)
     embed.add_field(name="Game Description: ", value=fulldesc.text,inline=False)
     embed.add_field(name="Metacritic Score: ",value=f"**{metascore}**",inline=False)
     await message.edit(content=None, embed=embed)
