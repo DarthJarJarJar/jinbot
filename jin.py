@@ -435,7 +435,7 @@ async def __convert(ctx,amount,first_currency:str,second_currency:str):
     browser.get(fr"https://www.google.com/search?q={am}+{c1}+to+{c2}&rlz=1C5CHFA_enCA983CA983&oq={am}+{c1}+&aqs=chrome.0.69i59j69i57j0i67l8.1146j0j7&sourceid=chrome&ie=UTF-8")
     browser.implicitly_wait(5)
     meassage = await ctx.send("wait")
-    element = browser.find_elements_by_xpath(
+    element = browser.find_element_by_xpath(
             r"/html/body/div[7]/div/div[10]/div[1]/div/div[2]/div[2]/div/div/div[1]/div/div/div/div/div/div/div[1]/div[1]/div[2]/span[1]")
 
     value = element.get_attribute("data-value")
