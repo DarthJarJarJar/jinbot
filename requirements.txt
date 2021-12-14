@@ -13,3 +13,4 @@ asyncio==3.4.3
 discord-py-slash-command==3.0.1
 python-dateutil==2.8.0
 currencyconverter==0.16.5
+google==3.0.0
