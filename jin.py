@@ -488,11 +488,14 @@ async def game(ctx,*,name:str):
 
 
 
-    chrome_options = Options()
-    chrome_options.add_argument('--no-sandbox')
-    chrome_options.add_argument('--headless')
-    
-    driver = webdriver.Chrome(r'/app/.chromedriver/bin/chromedriver',chrome_options=chrome_options)
+    foptions = webdriver.FirefoxOptions()
+    foptions.binary_location = r'/app/vendor/firefox/firefox'
+                
+
+    foptions.add_argument('-headless')
+    driver = webdriver.Firefox(executable_path=r"/app/vendor/geckodriver/geckodriver"
+,
+                                    options=foptions)
 
     for j in search(query, tld="ca", num=10, stop=10, pause=2):
         driver.get(j)
