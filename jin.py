@@ -582,7 +582,7 @@ async def gameunstable(ctx:SlashContext,*,name:str):
 
 
         buttons = [
-        create_button(style=ButtonStyle.URL, label="PS Store",custom_id="psstore",url=storelink)]
+        create_button(style=ButtonStyle.URL, label="PS Store",url=storelink)]
         action_row = create_actionrow(*buttons)
 
         embed = discord.Embed(title=title.text,thumbnail=val,colour=discord.Color.green(),url=result)
