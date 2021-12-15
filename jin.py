@@ -478,7 +478,7 @@ async def on_component(ctx:ComponentContext):
 
 
 @client.command()
-async def game(ctx,*,name:str):
+async def gameoldversion(ctx,*,name:str):
     
 
 
@@ -523,7 +523,7 @@ async def game(ctx,*,name:str):
 
 
 @client.command()
-async def testgame(ctx,*,name:str):
+async def game(ctx,*,name:str):
     query =f"{name} metacritic"
 
 
