@@ -523,7 +523,7 @@ async def game(ctx,*,name:str):
 
 
 @client.command()
-async def gameunstable(ctx,*,name:str):
+async def gameunstable(ctx:SlashContext,*,name:str):
     query =f"{name} metacritic"
 
 
@@ -564,16 +564,48 @@ async def gameunstable(ctx,*,name:str):
     except NoSuchElementException:
             fulldesc = driver.find_element_by_css_selector(".product_summary > span:nth-child(2) > span:nth-child(1)")
     
-    print(fulldesc.text)
+    if len(fulldesc.text)>1000:
+        fulldesc = driver.find_element_by_css_selector(".product_summary > span:nth-child(2) > span:nth-child(1)")
 
-    embed = discord.Embed(title=title.text,thumbnail=val,colour=discord.Color.green(),url=result)
-    embed.add_field(name="Game Description: ", value=fulldesc.text,inline=False)
+
+    if "playstation" in result:
+        new_query =f"{name} ps store"
+        #new_driver = webdriver.Chrome(r'/app/.chromedriver/bin/chromedriver',chrome_options=chrome_options)
+
+
+        for j in search(new_query, tld="com", num=10, stop=10, pause=2):
+            
+            storelink = j
+            break
+
+
+
+
+
+        buttons = [
+        create_button(style=ButtonStyle.blue, label="PS Store",custom_id="psstore",url=storelink)]
+        action_row = create_actionrow(*buttons)
+
+        embed = discord.Embed(title=title.text,thumbnail=val,colour=discord.Color.green(),url=result)
+        embed.add_field(name="Game Description: ", value=fulldesc.text,inline=False)
     
-    embed.add_field(name="Metacritic Score: ",value=f"**{ms}**",inline=False)
-    driver.implicitly_wait(15)
-    driver.close()
+        embed.add_field(name="Metacritic Score: ",value=f"**{ms}**",inline=False)
+        driver.implicitly_wait(15)
+        driver.close()
+        await message.delete()
+        await ctx.send(embed=embed,components=[action_row])
 
-    await message.edit(content=None, embed=embed)
+
+
+    else:
+        embed = discord.Embed(title=title.text,thumbnail=val,colour=discord.Color.green(),url=result)
+        embed.add_field(name="Game Description: ", value=fulldesc.text,inline=False)
+        
+        embed.add_field(name="Metacritic Score: ",value=f"**{ms}**",inline=False)
+        driver.implicitly_wait(15)
+        driver.close()
+
+        await message.edit(content=None, embed=embed)
 
 
         
