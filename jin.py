@@ -528,7 +528,12 @@ async def testgame(ctx,*,name:str):
 
 
 
-    driver = webdriver.Chrome(r'/Users/ayaanshahab/Downloads/chromedriver')
+    
+    chrome_options = Options()
+    chrome_options.add_argument('--no-sandbox')
+    chrome_options.add_argument('--headless')
+    
+    driver = webdriver.Chrome(r'/app/.chromedriver/bin/chromedriver',chrome_options=chrome_options)
 
 
     for j in search(query, tld="ca", num=10, stop=10, pause=2):
