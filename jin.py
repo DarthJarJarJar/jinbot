@@ -554,9 +554,12 @@ async def gameunstable(ctx,*,name:str):
     title = driver.find_element_by_css_selector("a.hover_none > h1:nth-child(1)")
     print(title.text)
     try: 
-            driver.implicitly_wait(3)
+            '''driver.implicitly_wait(3)
             toggle = driver.find_element_by_css_selector(".product_summary > span:nth-child(2) > span:nth-child(1) > span:nth-child(4)")
             toggle.click()
+            fulldesc = driver.find_element_by_css_selector(".inline_expanded > span:nth-child(2)")'''
+            element = driver.find_element_by_css_selector(".product_summary > span:nth-child(2) > span:nth-child(1) > span:nth-child(4)")
+            driver.execute_script("arguments[0].click();", element)
             fulldesc = driver.find_element_by_css_selector(".inline_expanded > span:nth-child(2)")
     except NoSuchElementException:
             fulldesc = driver.find_element_by_css_selector(".product_summary > span:nth-child(2) > span:nth-child(1)")
