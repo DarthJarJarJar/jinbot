@@ -522,6 +522,55 @@ async def game(ctx,*,name:str):
     await message.edit(content=None, embed=embed)
 
 
+@client.command()
+async def testgame(ctx,*,name:str):
+    query =f"{name} metacritic"
+
+
+
+    driver = webdriver.Chrome(r'/Users/ayaanshahab/Downloads/chromedriver')
+
+
+    for j in search(query, tld="ca", num=10, stop=10, pause=2):
+        driver.get(j)
+        result = j
+        break
+    message : discord.Message = await ctx.send("Please wait...")
+    driver.implicitly_wait(5)
+
+
+
+    elem = driver.find_element_by_css_selector(".xlarge > span:nth-child(3)")
+    ms = elem.text
+    link = driver.find_element_by_css_selector("div.must_play > img:nth-child(1)")
+    val = link.get_attribute("src")
+    print(val)
+
+    title = driver.find_element_by_css_selector("a.hover_none > h1:nth-child(1)")
+    print(title.text)
+    try: 
+            #driver.implicitly_wait(3)
+            toggle = driver.find_element_by_css_selector(".product_summary > span:nth-child(2) > span:nth-child(1) > span:nth-child(4)")
+            toggle.click()
+            fulldesc = driver.find_element_by_css_selector(".inline_expanded > span:nth-child(2)")
+    except NoSuchElementException:
+            fulldesc = driver.find_element_by_css_selector(".product_summary > span:nth-child(2) > span:nth-child(1)")
+    print(fulldesc.text)
+
+    embed = discord.Embed(title=title.text,thumbnail=val,colour=discord.Color.green(),url=result)
+    embed.add_field(name="Game Description: ", value=fulldesc,inline=False)
+    
+    embed.add_field(name="Metacritic Score: ",value=f"**{ms}**",inline=False)
+    driver.implicitly_wait(15)
+    driver.close()
+
+    await message.edit(content=None, embed=embed)
+
+
+        
+    
+
+
 
 
     
