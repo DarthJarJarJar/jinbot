@@ -563,7 +563,7 @@ async def testgame(ctx,*,name:str):
     print(fulldesc.text)
 
     embed = discord.Embed(title=title.text,thumbnail=val,colour=discord.Color.green(),url=result)
-    embed.add_field(name="Game Description: ", value=fulldesc,inline=False)
+    embed.add_field(name="Game Description: ", value=fulldesc.text,inline=False)
     
     embed.add_field(name="Metacritic Score: ",value=f"**{ms}**",inline=False)
     driver.implicitly_wait(15)
