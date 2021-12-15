@@ -511,10 +511,11 @@ async def game(ctx,*,name:str):
     desc = driver.find_element_by_css_selector(".product_summary > span:nth-child(2) > span:nth-child(1) > span:nth-child(1)")
     description = desc.text
     title = driver.find_element_by_css_selector("a.hover_none > h1:nth-child(1)")
-    
+    driver.implicitly_wait(5)
+    driver.close()
 
     embed = discord.Embed(title=title.text,thumbnail=thumbnail,colour=discord.Color.green(),url=result)
-    embed.add_field(name="Game Description: ", value=f"{description}",inline=False)
+    embed.add_field(name="Game Description: ", value=f"{description}...",inline=False)
     embed.add_field(name="Metacritic Score: ",value=f"**{metascore}**",inline=False)
     await message.edit(content=None, embed=embed)
 
