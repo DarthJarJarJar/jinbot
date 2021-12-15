@@ -564,9 +564,7 @@ async def gameunstable(ctx:SlashContext,*,name:str):
     except NoSuchElementException:
             fulldesc = driver.find_element_by_css_selector(".product_summary > span:nth-child(2) > span:nth-child(1)")
     
-    if len(fulldesc.text)>1000:
-        fulldesc = driver.find_element_by_css_selector(".product_summary > span:nth-child(2) > span:nth-child(1)")
-
+    
 
     if "playstation" in result:
         new_query =f"{name} ps store"
@@ -586,7 +584,11 @@ async def gameunstable(ctx:SlashContext,*,name:str):
         action_row = create_actionrow(*buttons)
 
         embed = discord.Embed(title=title.text,thumbnail=val,colour=discord.Color.green(),url=result)
-        embed.add_field(name="Game Description: ", value=fulldesc.text,inline=False)
+        if len(fulldesc.text)>1000:
+            embed.add_field(name="Game Description: ", value=f"{fulldesc.text[:1000]}...",inline=False)
+
+        else:
+            embed.add_field(name="Game Description: ", value=fulldesc.text,inline=False)
     
         embed.add_field(name="Metacritic Score: ",value=f"**{ms}**",inline=False)
         driver.implicitly_wait(15)
@@ -598,7 +600,11 @@ async def gameunstable(ctx:SlashContext,*,name:str):
 
     else:
         embed = discord.Embed(title=title.text,thumbnail=val,colour=discord.Color.green(),url=result)
-        embed.add_field(name="Game Description: ", value=fulldesc.text,inline=False)
+        if len(fulldesc.text)>1000:
+            embed.add_field(name="Game Description: ", value=f"{fulldesc.text[:1000]}...",inline=False)
+
+        else:
+            embed.add_field(name="Game Description: ", value=fulldesc.text,inline=False)
         
         embed.add_field(name="Metacritic Score: ",value=f"**{ms}**",inline=False)
         driver.implicitly_wait(15)
