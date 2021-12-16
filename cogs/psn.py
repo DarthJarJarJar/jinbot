@@ -186,8 +186,7 @@ class psn(commands.Cog):
 
     @commands.command(name='psn', help="Grabs your profile data from Psnprofile")
     async def get_psnprofile(self,ctx, profileName: str):
-        if ctx.author == client.user:
-            return
+        
         newProfile = PsnProfile(profileName)
         msg1 = await ctx.channel.send("Please wait a moment...")
         newProfile.scrape_psnprofile()
