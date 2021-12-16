@@ -11,7 +11,7 @@ from discord_slash.model import ButtonStyle
 from discord_slash.utils.manage_components import wait_for_component
 from discord_slash.utils.manage_components import create_select, create_select_option, create_actionrow
 from discord_slash import cog_ext, SlashContext
-
+from selenium.webdriver.common.keys import Keys
 guilds = [826766972204744764]
 
 
@@ -79,6 +79,15 @@ class PsnProfile:
         browser = webdriver.Firefox(executable_path=r"/app/vendor/geckodriver/geckodriver"
 ,
                                     options=foptions)
+        browser.get("https://psnprofiles.com/")
+
+        sb = browser.find_element_by_css_selector("#psnId")
+
+
+
+        sb.clear()
+        sb.send_keys(self.profile_name)
+        sb.send_keys(Keys.RETURN)
         browser.get(f"https://psnprofiles.com/{self.profile_name}")
         # Grabbing Rare Trophies
         rare_trophy_tr = browser.find_elements_by_xpath(
