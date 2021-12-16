@@ -168,7 +168,42 @@ async def eldenring(ctx):
   eldentime=eldendays+eldenhours
  
   await ctx.send(f"Time until Elden Ring: {eldentime}")
+
+@client.command()
+async def hfw(ctx):
   
+  delta = datetime.datetime(2022,2,18,0,0)-datetime.datetime.now()
+  eldendays=str(delta.days)+" days "
+  count = 0
+  for i in range(len(str(delta))-1):
+      if str(delta)[i]==",":
+          count = i+2
+  x=str(delta)[count:]
+  y=x.split(":")
+
+  eldenhours = f"{y[0]} hours {y[1]} minutes {round(float(y[2]))} seconds"
+  eldentime=eldendays+eldenhours
+ 
+  await ctx.send(f"Time until HFW: {eldentime}")
+
+@slash.slash(name="hfw",guild_ids=guilds,description="Shows time until the release of Horizon Forbidden Jin")
+async def hfw(ctx):
+  
+  delta = datetime.datetime(2022,2,18,0,0)-datetime.datetime.now()
+  eldendays=str(delta.days)+" days "
+  count = 0
+  for i in range(len(str(delta))-1):
+      if str(delta)[i]==",":
+          count = i+2
+  x=str(delta)[count:]
+  y=x.split(":")
+
+  eldenhours = f"{y[0]} hours {y[1]} minutes {round(float(y[2]))} seconds"
+  eldentime=eldendays+eldenhours
+ 
+  await ctx.send(f"Time until HFW: {eldentime}")
+  
+    
   
   
 
