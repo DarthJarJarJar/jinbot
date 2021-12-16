@@ -619,7 +619,8 @@ async def game(ctx,*,name:str):
         create_button(style=ButtonStyle.URL, label="PS Store",url=storelink)]
         action_row = create_actionrow(*buttons)
 
-        embed = discord.Embed(title=title.text,thumbnail=val,colour=discord.Color.green(),url=result)
+        embed = discord.Embed(title=title.text,colour=discord.Color.green(),url=result)
+        embed.set_thumbnail(url=val)
         if len(fulldesc.text)>1000:
             embed.add_field(name="Game Description: ", value=f"{fulldesc.text[:1000]}...",inline=False)
 
@@ -635,7 +636,8 @@ async def game(ctx,*,name:str):
 
 
     else:
-        embed = discord.Embed(title=title.text,thumbnail=val,colour=discord.Color.green(),url=result)
+        embed = discord.Embed(title=title.text,colour=discord.Color.green(),url=result)
+        embed.set_thumbnail(url=val)
         if len(fulldesc.text)>1000:
             embed.add_field(name="Game Description: ", value=f"{fulldesc.text[:1000]}...",inline=False)
 
