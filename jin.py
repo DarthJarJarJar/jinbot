@@ -560,7 +560,7 @@ async def gameold(ctx,*,name:str):
 @client.command()
 async def game(ctx,*,name:str):
     query =f"{name} metacritic"
-    message : discord.Message = await ctx.send("Please wait...")
+    message : discord.Message = await ctx.send("<a:loading:920845271892643861>")
 
 
 
