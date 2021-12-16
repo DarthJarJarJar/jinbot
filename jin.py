@@ -558,9 +558,9 @@ async def gameold(ctx,*,name:str):
 
 
 @client.command()
-async def game(ctx:ComponentContext,*,name:str):
+async def game(ctx,*,name:str):
     query =f"{name} metacritic"
-    await ctx.send("Please wait...")
+    message : discord.Message = await ctx.send("Please wait...")
 
 
 
@@ -630,7 +630,7 @@ async def game(ctx:ComponentContext,*,name:str):
         driver.implicitly_wait(15)
         driver.close()
         
-        await ctx.edit_origin(content=None,embed=embed,components=[action_row])
+        await message.edit(content=None,embed=embed,components=[action_row])
 
 
 
@@ -646,7 +646,7 @@ async def game(ctx:ComponentContext,*,name:str):
         driver.implicitly_wait(15)
         driver.close()
 
-        await ctx.edit_origin(content=None, embed=embed)
+        await message.edit(content=None, embed=embed)
 
 
         
