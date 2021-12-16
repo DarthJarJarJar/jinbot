@@ -523,8 +523,9 @@ async def gameold(ctx,*,name:str):
 
 
 @client.command()
-async def game(ctx:SlashContext,*,name:str):
+async def game(ctx:ComponentContext,*,name:str):
     query =f"{name} metacritic"
+    await ctx.send("Please wait...")
 
 
 
@@ -540,7 +541,7 @@ async def game(ctx:SlashContext,*,name:str):
         driver.get(j)
         result = j
         break
-    message : discord.Message = await ctx.send("Please wait...")
+    
     driver.implicitly_wait(5)
 
 
@@ -593,8 +594,8 @@ async def game(ctx:SlashContext,*,name:str):
         embed.add_field(name="Metacritic Score: ",value=f"**{ms}**",inline=False)
         driver.implicitly_wait(15)
         driver.close()
-        await message.delete()
-        await ctx.send(embed=embed,components=[action_row])
+        
+        await ctx.edit_origin(content=None,embed=embed,components=[action_row])
 
 
 
@@ -610,7 +611,7 @@ async def game(ctx:SlashContext,*,name:str):
         driver.implicitly_wait(15)
         driver.close()
 
-        await message.edit(content=None, embed=embed)
+        await ctx.edit_origin(content=None, embed=embed)
 
 
         
