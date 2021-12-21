@@ -123,7 +123,11 @@ async def avatar(ctx, avamember : discord.Member=None):
       avamember = ctx.author
     userAvatarUrl = avamember.avatar_url
     await ctx.send(userAvatarUrl)        
-        
+
+
+@slash.slash(name="Jin", description="Jin",guild_ids=guilds)
+async def _jin(ctx:SlashContext):
+    await ctx.send("<:jinhappy1:835921639551008818>")        
                 
 
 @client.command(aliases=['colour'])
