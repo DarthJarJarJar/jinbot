@@ -81,6 +81,8 @@ class tagdb(commands.Cog):
             tag_handler.delete_one({"name":name})
             await ctx.send("Tag deleted")
 
+        
+
         if action.lower()=="info":
             taglist = []
             for i in tag_handler.find():
@@ -90,7 +92,7 @@ class tagdb(commands.Cog):
             if name in taglist:
                 taginfo = tag_handler.find_one({"name":name})
                 embed = discord.Embed(name=name)
-                creator = ctx.message.server.get_member(taginfo["creator"])
+                creator = ctx.message.guild.get_member(taginfo["creator"])
                 embed.add_field(name="content",value=taginfo["content"])
                 embed.add_field(name="creator",value=creator.mention())
                 await ctx.send(embed=embed)
