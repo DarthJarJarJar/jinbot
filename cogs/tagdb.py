@@ -50,14 +50,24 @@ class tagdb(commands.Cog):
     @commands.command()
     async def tag(self,ctx,action:str,name:str,*,content:str=None):
         if action.lower()=="create":
-            newtag = {"name" : name, "content" : content, "creator" : ctx.author.id}
-            tag_handler.insert_one(newtag)
-            embed=discord.Embed(title="Tag created")
-            embed.add_field(name="Tag name", value=name)
-            embed.add_field(name="Content",value=content)
-            embed.add_field(name="Creator",value=ctx.author.mention)
-            await ctx.send(embed=embed)
+            taglist = []
+            for i in tag_handler.find():
+                tagname = i["name"]
+                taglist.append(tagname)
+
+            if name in taglist:
+                await ctx.send("A tag of this name already exists.")
+            else:
+
+                newtag = {"name" : name, "content" : content, "creator" : ctx.author.id}
+                tag_handler.insert_one(newtag)
+                embed=discord.Embed(title="Tag created")
+                embed.add_field(name="Tag name", value=name)
+                embed.add_field(name="Content",value=content)
+                embed.add_field(name="Creator",value=ctx.author.mention)
+                await ctx.send(embed=embed)
         if action.lower()=="edit":
+            
             tag_handler.update_one({"name" : name}, {"$set" : {"content" : content}})
             taginquestion = tag_handler.find_one({"name":name})
             
@@ -70,6 +80,24 @@ class tagdb(commands.Cog):
         if action.lower()=="delete":
             tag_handler.delete_one({"name":name})
             await ctx.send("Tag deleted")
+
+        if action.lower()=="info":
+            taglist = []
+            for i in tag_handler.find():
+                tagname = i["name"]
+                taglist.append(tagname)
+
+            if name in taglist:
+                taginfo = tag_handler.find_one({"name":name})
+                embed = discord.Embed(name=name)
+                creator : discord.Member = taginfo["creator"]
+                embed.add_field(name="content",value=taginfo["content"])
+                embed.add_field(name="creator",value=creator.mention())
+                await ctx.send(embed=embed)
+            
+            else:
+                await ctx.send("Tag not found")
+
 
 
     @commands.command()
