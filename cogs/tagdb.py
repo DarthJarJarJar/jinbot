@@ -67,7 +67,7 @@ class tagdb(commands.Cog):
                 embed.add_field(name="Creator",value=ctx.author.mention)
                 await ctx.send(embed=embed)
         if action.lower()=="edit":
-            
+
             tag_handler.update_one({"name" : name}, {"$set" : {"content" : content}})
             taginquestion = tag_handler.find_one({"name":name})
             
@@ -90,7 +90,7 @@ class tagdb(commands.Cog):
             if name in taglist:
                 taginfo = tag_handler.find_one({"name":name})
                 embed = discord.Embed(name=name)
-                creator : discord.Member = taginfo["creator"]
+                creator = ctx.message.server.get_member(taginfo["creator"])
                 embed.add_field(name="content",value=taginfo["content"])
                 embed.add_field(name="creator",value=creator.mention())
                 await ctx.send(embed=embed)
