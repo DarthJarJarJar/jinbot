@@ -118,11 +118,11 @@ async def jumbo(ctx, emoji: discord.Emoji):
 
 @client.command()
 @commands.has_permissions(manage_messages=True)
-async def mute(ctx, member : discord.User,time:str=None,*,reason:str=None):
+async def mute(ctx, member : discord.Member,time:str=None,*,reason:str=None):
     mutedrole = discord.utils.get(ctx.guild.roles, name="Mute")
     if time == None:
         await member.add_roles(mutedrole)
-        embed = discord.Embed(title=f"Muted {member.name}",color=discord.Color.green())
+        embed = discord.Embed(title=f"Muted {member.nick}",color=discord.Color.green())
         embed.set_thumbnail(member.avatar_url)
         embed.add_field(name="Time until unmute: ",value="indefinite")
         embed.add_field(name="Muted by: ",value=ctx.author.mention)
@@ -131,7 +131,7 @@ async def mute(ctx, member : discord.User,time:str=None,*,reason:str=None):
     else:
         mutedtime = convert_to_seconds(time)
         await member.add_roles(mutedrole)
-        embed = discord.Embed(title=f"Muted {member.name}",color=discord.Color.green())
+        embed = discord.Embed(title=f"Muted {member.nick}",color=discord.Color.green())
         embed.set_thumbnail(member.avatar_url)
         embed.add_field(name="Time until unmute: ",value=time)
         embed.add_field(name="Muted by: ",value=ctx.author.mention)
