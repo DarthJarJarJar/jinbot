@@ -138,7 +138,7 @@ async def mute(ctx, member : discord.Member,time:str=None,*,reason:str=None):
         embed.add_field(name="Reason: ", value=reason)
         await ctx.send(embed=embed)
 
-        asyncio.sleep(mutedtime)
+        await asyncio.sleep(mutedtime)
 
         await member.remove_roles(mutedrole)
         
