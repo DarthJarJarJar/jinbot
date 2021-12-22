@@ -141,6 +141,34 @@ async def mute(ctx, member : discord.Member,time:str=None,*,reason:str=None):
         await asyncio.sleep(mutedtime)
 
         await member.remove_roles(mutedrole)
+
+@client.command()
+@commands.has_permissions(manage_messages=True)
+async def ban(ctx, member : discord.Member,reason:str=None):
+    name = member.nick
+    await member.ban()
+    embed = discord.Embed(title=f"Banned {name}",color=discord.Color.green())
+        
+    embed.add_field(name="Banned by: ",value=ctx.author.mention)
+    
+    embed.add_field(name="Reason: ", value=reason)
+    await ctx.send(embed=embed)
+
+
+@client.command()
+@commands.has_permissions(manage_messages=True)
+async def unban(ctx, member : discord.Member,reason:str=None):
+    
+    await member.ban()
+    embed = discord.Embed(title=f"Unbanned user",color=discord.Color.green())
+        
+    embed.add_field(name="Unbanned by: ",value=ctx.author.mention)
+    
+    embed.add_field(name="Reason: ", value=reason)
+    await ctx.send(embed=embed)
+
+    
+
         
 
 
