@@ -123,7 +123,7 @@ async def mute(ctx, member : discord.Member,time:str=None,*,reason:str=None):
     if time == None:
         await member.add_roles(mutedrole)
         embed = discord.Embed(title=f"Muted {member.nick}",color=discord.Color.green())
-        embed.set_thumbnail(member.avatar_url)
+        
         embed.add_field(name="Time until unmute: ",value="indefinite")
         embed.add_field(name="Muted by: ",value=ctx.author.mention)
         embed.add_field(name="Reason: ", value=reason)
@@ -132,7 +132,7 @@ async def mute(ctx, member : discord.Member,time:str=None,*,reason:str=None):
         mutedtime = convert_to_seconds(time)
         await member.add_roles(mutedrole)
         embed = discord.Embed(title=f"Muted {member.nick}",color=discord.Color.green())
-        embed.set_thumbnail(member.avatar_url)
+        
         embed.add_field(name="Time until unmute: ",value=time)
         embed.add_field(name="Muted by: ",value=ctx.author.mention)
         embed.add_field(name="Reason: ", value=reason)
