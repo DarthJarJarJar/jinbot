@@ -14,7 +14,6 @@ import math
 from dateutil import tz
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
-
 import re
 import functools
 import itertools
@@ -32,12 +31,11 @@ from discord_slash.utils.manage_components import create_select, create_select_o
 import time
 from cogs import levelsys,credit,psn,tagdb
 from currency_converter import CurrencyConverter
-
 from async_timeout import timeout
   
 
 intents = discord.Intents(messages=True, guilds=True, reactions=True, members=True, presences=True)
-client = commands.Bot(command_prefix='*', intents=intents)
+client = commands.Bot(command_prefix='*', intents=intents,case_insensitive=True)
 slash = SlashCommand(client, sync_commands=True)
 guilds = [826766972204744764]
 
@@ -58,6 +56,25 @@ cogs = [levelsys,credit,psn,tagdb]
 
 for i in range(len(cogs)):
     cogs[i].setup(client)
+
+
+def convert_to_seconds(time:str):
+    time_int = time[:-1]
+    time_unit = time[-1:]
+    if time_unit=="s":
+        result = int(time_int)
+    if time_unit=="m":
+        result = int(time_int)*60
+    if time_unit=="d":
+        result == int(time_int)*86400
+    if time_unit=="h":
+        result = int(time_int)*3600
+    if time_unit=="y":
+        result = int(time_int)*31557600
+
+    return result
+
+    
 
 
 
@@ -101,10 +118,39 @@ async def jumbo(ctx, emoji: discord.Emoji):
 
 @client.command()
 @commands.has_permissions(manage_messages=True)
-async def mute(ctx, member : discord.Member):
+async def mute(ctx, member : discord.User,time:str=None,*,reason:str=None):
     mutedrole = discord.utils.get(ctx.guild.roles, name="Mute")
-    await member.add_roles(mutedrole)
-    await ctx.send("User was muted")
+    if time == None:
+        await member.add_roles(mutedrole)
+        embed = discord.Embed(title=f"Muted {member.name}",color=discord.Color.green())
+        embed.set_thumbnail(member.avatar_url)
+        embed.add_field(name="Time until unmute: ",value="indefinite")
+        embed.add_field(name="Muted by: ",value=ctx.author.mention)
+        embed.add_field(name="Reason: ", value=reason)
+        await ctx.send(embed=embed)
+    else:
+        mutedtime = convert_to_seconds(time)
+        await member.add_roles(mutedrole)
+        embed = discord.Embed(title=f"Muted {member.name}",color=discord.Color.green())
+        embed.set_thumbnail(member.avatar_url)
+        embed.add_field(name="Time until unmute: ",value=time)
+        embed.add_field(name="Muted by: ",value=ctx.author.mention)
+        embed.add_field(name="Reason: ", value=reason)
+        await ctx.send(embed=embed)
+
+        asyncio.sleep(mutedtime)
+
+        await member.remove_roles(mutedrole)
+        
+
+
+
+
+
+    
+
+
+    
     
 @client.command()
 @commands.has_permissions(manage_messages=True)
@@ -122,7 +168,9 @@ async def avatar(ctx, avamember : discord.Member=None):
     if avamember == None:
       avamember = ctx.author
     userAvatarUrl = avamember.avatar_url
-    await ctx.send(userAvatarUrl)        
+    await ctx.send(userAvatarUrl)      
+
+  
 
 
 @slash.slash(name="Jin", description="Jin",guild_ids=guilds)
