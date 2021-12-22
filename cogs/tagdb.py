@@ -94,7 +94,7 @@ class tagdb(commands.Cog):
                 embed = discord.Embed(name=name)
                 creator = ctx.message.guild.get_member(taginfo["creator"])
                 embed.add_field(name="content",value=taginfo["content"])
-                embed.add_field(name="creator",value=creator.mention())
+                embed.add_field(name="creator",value=creator.mention)
                 await ctx.send(embed=embed)
             
             else:
