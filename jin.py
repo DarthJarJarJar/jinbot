@@ -210,8 +210,8 @@ async def _jin(ctx:SlashContext):
 
 
             
-@client.command(aliases=["colour"])
-async def colour(ctx:SlashContext):
+@client.command()
+async def color(ctx:SlashContext):
     select = create_select(options=[
         create_select_option("blue", value="blue",description="Adds the blue color role"),
         create_select_option('green',value="green",description="Adds the green color role"),
