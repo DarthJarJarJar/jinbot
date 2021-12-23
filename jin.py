@@ -442,7 +442,7 @@ async def _colour(ctx:SlashContext):
                         if role == current_color_role:
                             await ctx.author.remove_roles(current_color_role)
                             break
-        await button_ctx.edit_origin(content="Removed your color role!")
+        await button_ctx.edit_origin(content="Removed your color role!",components=None)
     else:
         for role in ctx.author.roles:
                     for i in colorlist:
@@ -452,13 +452,13 @@ async def _colour(ctx:SlashContext):
                             break   
         colorRole = discord.utils.get(ctx.guild.roles, name=button_ctx.selected_options[0])
         await ctx.author.add_roles(colorRole)
-        await button_ctx.edit_origin(content="Added the color role!")
+        await button_ctx.edit_origin(content="Added the color role!",components=None)
 
 
 @slash.slash(name="avatar",description="Shows user avatar",guild_ids=guilds, options=[create_option(name="user",description="Select user",option_type=6,required=False)])
-async def _avatar(ctx:SlashContext, user : discord.Member = None):
+async def _avatar(ctx:SlashContext, user : discord.User = None):
     if user == None:
-        await ctx.send(ctx.author.avatar_url)
+        user = ctx.author
     else:
         await ctx.send(user.avatar_url)
 
