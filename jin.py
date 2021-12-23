@@ -427,13 +427,14 @@ async def _colour(ctx:SlashContext):
         create_select_option("blurple",value="blurple",description="Adds the blurple color role"),
         create_select_option("peach",value="peach",description="Adds the peach color role"),
         create_select_option("dark red",value="dark red",description="Adds the dark red color role"),
+        create_select_option("black",value="black",description="Adds the black color role")
         create_select_option("remove", value="remove",description="Removes any of the color role you have")
         ],
         placeholder="Choose a color",max_values=1)
     
     await ctx.send("Select a color to add", components=[create_actionrow(select)])
     button_ctx: ComponentContext = await wait_for_component(client, components=select)
-    colorlist = ['blue','green','purple','orange','vomit',"blurple",'peach','dark red']
+    colorlist = ['blue','green','purple','orange','vomit',"blurple",'peach','dark red','black']
     if button_ctx.selected_options[0]=="remove":
         for role in ctx.author.roles:
                     for i in colorlist:
