@@ -459,8 +459,8 @@ async def _colour(ctx:SlashContext):
 async def _avatar(ctx:SlashContext, user : discord.User = None):
     if user == None:
         user = ctx.author
-    else:
-        await ctx.send(user.avatar_url)
+    
+    await ctx.send(f"{user.avatar_url}")
 
 @slash.slash(name="time",
  description="Formats the timestamp you input so that it reflects as local time for other users", 
