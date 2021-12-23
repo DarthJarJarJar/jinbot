@@ -78,8 +78,13 @@ class tagdb(commands.Cog):
             await ctx.send(embed=embed)
         
         if action.lower()=="delete":
-            tag_handler.delete_one({"name":name})
-            await ctx.send("Tag deleted")
+            if ctx.author.id == 435901349306302486:
+                await ctx.send("you cant delete tags penguin <:jinlawak:894857262261235763>")
+            
+            
+            else:
+                tag_handler.delete_one({"name":name})
+                await ctx.send("Tag deleted")
 
         
 
