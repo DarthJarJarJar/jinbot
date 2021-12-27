@@ -300,7 +300,28 @@ async def hfw(ctx):
   await ctx.send(f"Time until HFW: {eldentime}")
   
     
-  
+@client.command()
+async def count(ctx,*,name:str):
+    query =f"{name} countdown igdb"
+
+
+
+    driver = webdriver.Chrome(r'/app/.chromedriver/bin/chromedriver')
+
+
+    for j in search(query, tld="ca", num=10, stop=10, pause=2):
+        driver.get(j)
+        result = j
+        break
+    
+    try: 
+            countdown_element = driver.find_element_by_xpath("/html/body/div[3]/main/div[2]/div/div/div[1]/div[1]/div/table/tbody/tr[1]/td[2]/span").text
+            driver.close()
+            await ctx.send(f"Time until release : {countdown_element}")
+
+    except:
+            await ctx.send("Game not found")
+            driver.close()
   
 
 
