@@ -91,6 +91,10 @@ class levelsys(commands.Cog):
                     await message.author.add_roles(discord.utils.get(message.author.guild.roles, name="Platinum"))
                     await message.author.remove_roles(discord.utils.get(message.author.guild.roles, name="Gold 3"))
                     await message.channel.send(f"{message.author.mention} has levelled up to Platinum!")
+                elif xp == 100000:
+                    await message.author.add_roles(discord.utils.get(message.author.guild.roles, name="Plat 2"))
+                    await message.author.remove_roles(discord.utils.get(message.author.guild.roles, name="Platinum"))
+                    await message.channel.send(f"{message.author.mention} has levelled up to Plat 2!")
 #ssssssssssss
     @commands.command()
     async def xp(self, ctx):
@@ -119,8 +123,10 @@ class levelsys(commands.Cog):
             usrlevel = "Gold 2"
         elif xp>20000 and xp<30000:
             usrlevel = "Gold 3"
-        elif xp>30000 :
+        elif xp>30000 and xp<100000 :
             usrlevel = "Platinum"
+        elif xp>100000:
+            usrlevel = "Plat 2"
 
 
 
