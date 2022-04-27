@@ -764,7 +764,8 @@ async def game(ctx,*,name:str):
             embed.add_field(name="Game Description: ", value=fulldesc.text,inline=False)
         
         embed.add_field(name="Metacritic Score: ",value=f"**{ms}**",inline=False)
-        #flameon
+        #flameonandon
+        
         driver.implicitly_wait(15)
         driver.quit()
 
