@@ -748,7 +748,7 @@ async def game(ctx,*,name:str):
     
         embed.add_field(name="Metacritic Score: ",value=f"**{ms}**",inline=False)
         driver.implicitly_wait(15)
-        driver.close()
+        driver.quit()
         
         await message.edit(content=None,embed=embed,components=[action_row])
 
