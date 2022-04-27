@@ -779,6 +779,8 @@ async def kino(ctx:SlashContext,*,film_name:str):
     chrome_options.add_argument('--no-sandbox')
     chrome_options.add_argument('--headless')
     chrome_options.add_argument("start-maximized")
+
+    
     
     driver = webdriver.Chrome(r'/app/.chromedriver/bin/chromedriver',chrome_options=chrome_options)
 
