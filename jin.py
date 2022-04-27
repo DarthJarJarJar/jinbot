@@ -780,7 +780,7 @@ async def kino(ctx:SlashContext,*,film_name:str):
     chrome_options.add_argument('--headless')
     chrome_options.add_argument("start-maximized")
 
-    
+
     
     driver = webdriver.Chrome(r'/app/.chromedriver/bin/chromedriver',chrome_options=chrome_options)
 
@@ -791,20 +791,16 @@ async def kino(ctx:SlashContext,*,film_name:str):
     num = int(numberofkino[1])
 
     if num>5:
-        result_1 = driver.find_element_by_xpath("/html/body/div[3]/div/div/section/ul/li[1]/div[2]/h2/span/a")
+        result_1 = driver.find_element_by_css_selector(".results > li:nth-child(1) > div:nth-child(2) > h2:nth-child(1) > span:nth-child(1) > a:nth-child(1)").text
         
-        result_2 = driver.find_element_by_xpath("/html/body/div[3]/div/div/section/ul/li[2]/div[2]/h2/span/a")
+        result_2 = driver.find_element_by_css_selector(".results > li:nth-child(2) > div:nth-child(2) > h2:nth-child(1) > span:nth-child(1) > a:nth-child(1)").text
         
             
-        result_3 = driver.find_element_by_xpath("/html/body/div[3]/div/div/section/ul/li[3]/div[2]/h2/span/a")
+        result_3 = driver.find_element_by_css_selector(".results > li:nth-child(3) > div:nth-child(2) > h2:nth-child(1) > span:nth-child(1) > a:nth-child(1)").text
         
-        result_4 = driver.find_element_by_xpath("/html/body/div[3]/div/div/section/ul/li[4]/div[2]/h2/span/a")
-    
-        result_5 = driver.find_element_by_xpath("/html/body/div[3]/div/div/section/ul/li[5]/div[2]/h2/span/a")
+        result_4 = driver.find_element_by_css_selector(".results > li:nth-child(4) > div:nth-child(2) > h2:nth-child(1) > span:nth-child(1) > a:nth-child(1)").text
         
-        
-        
-
+        result_5 = driver.find_element_by_css_selector(".results > li:nth-child(5) > div:nth-child(2) > h2:nth-child(1) > span:nth-child(1) > a:nth-child(1)").text
 
 
 
@@ -824,19 +820,6 @@ async def kino(ctx:SlashContext,*,film_name:str):
 
     
         
-
-
-        print(result_1.text, year_1)
-
-    
-        print(result_2.text, year_2)
-    
-        print(result_3.text, year_3)
-    
-        print(result_4.text, year_4)
-
-    
-        print(result_5.text, year_5)
 
         
 
