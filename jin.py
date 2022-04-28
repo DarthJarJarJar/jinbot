@@ -775,14 +775,13 @@ async def game(ctx,*,name:str):
 @client.command()
 async def kino(ctx:SlashContext,*,film_name:str):
     
-    foptions = webdriver.FirefoxOptions()
-    foptions.binary_location = r'/app/vendor/firefox/firefox'
-                
+    options = webdriver.ChromeOptions()
+    options.add_argument('--headless')  
+    options.add_argument('--no-sandbox')
+    options.add_argument('--disable-dev-shm-usage')
 
-    foptions.add_argument('-headless')
-    driver = webdriver.Firefox(executable_path=r"/app/vendor/geckodriver/geckodriver"
-,
-                                    options=foptions)
+# open it, go to a website, and get results
+    driver = webdriver.Chrome(options=options)
     
 
         
