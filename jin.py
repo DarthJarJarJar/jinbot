@@ -793,36 +793,16 @@ async def kino(ctx:SlashContext,*,film_name:str):
 
     if num>5:
         result_1 = driver.find_element_by_css_selector(".results > li:nth-child(1) > div:nth-child(2) > h2:nth-child(1) > span:nth-child(1) > a:nth-child(1)").text
-        
-        result_2 = driver.find_element_by_css_selector(".results > li:nth-child(2) > div:nth-child(2) > h2:nth-child(1) > span:nth-child(1) > a:nth-child(1)").text
-        
-            
+        result_2 = driver.find_element_by_css_selector(".results > li:nth-child(2) > div:nth-child(2) > h2:nth-child(1) > span:nth-child(1) > a:nth-child(1)").text   
         result_3 = driver.find_element_by_css_selector(".results > li:nth-child(3) > div:nth-child(2) > h2:nth-child(1) > span:nth-child(1) > a:nth-child(1)").text
-        
         result_4 = driver.find_element_by_css_selector(".results > li:nth-child(4) > div:nth-child(2) > h2:nth-child(1) > span:nth-child(1) > a:nth-child(1)").text
-        
         result_5 = driver.find_element_by_css_selector(".results > li:nth-child(5) > div:nth-child(2) > h2:nth-child(1) > span:nth-child(1) > a:nth-child(1)").text
 
-
-
         year_1 = driver.find_element_by_css_selector(".results > li:nth-child(1) > div:nth-child(2) > h2:nth-child(1) > span:nth-child(1) > small:nth-child(2) > a:nth-child(1)").text
-        
         year_2 = driver.find_element_by_css_selector(".results > li:nth-child(2) > div:nth-child(2) > h2:nth-child(1) > span:nth-child(1) > small:nth-child(2) > a:nth-child(1)").text
-    
         year_3 = driver.find_element_by_css_selector(".results > li:nth-child(3) > div:nth-child(2) > h2:nth-child(1) > span:nth-child(1) > small:nth-child(2) > a:nth-child(1)").text
-
-        
-        
         year_4 = driver.find_element_by_css_selector(".results > li:nth-child(4) > div:nth-child(2) > h2:nth-child(1) > span:nth-child(1) > small:nth-child(2) > a:nth-child(1)").text
-
-        
-        
         year_5 = driver.find_element_by_css_selector(".results > li:nth-child(5) > div:nth-child(2) > h2:nth-child(1) > span:nth-child(1) > small:nth-child(2) > a:nth-child(1)").text
-
-    
-        
-
-        
 
         buttons = [
         create_button(style=ButtonStyle.blue, label="1",custom_id="1"),
@@ -833,7 +813,6 @@ async def kino(ctx:SlashContext,*,film_name:str):
         ]
         action_row = create_actionrow(*buttons)
         
-
         embed=discord.Embed(title=f"Search Results for {film_name} ", color = discord.Color.green())
         embed.add_field(name=f"1. {result_1} ({year_1})",value="---", inline= False)
         embed.add_field(name=f"2. {result_2} ({year_2})",value="---", inline= False)
@@ -841,7 +820,6 @@ async def kino(ctx:SlashContext,*,film_name:str):
         embed.add_field(name=f"4. {result_4} ({year_4})",value="---",inline= False)
         embed.add_field(name=f"5. {result_5} ({year_5})",value="---", inline= False)
 
-        
         await ctx.send(embed=embed,components=[action_row])
         button_ctx: ComponentContext = await wait_for_component(client, components=action_row)
         
@@ -867,7 +845,6 @@ async def kino(ctx:SlashContext,*,film_name:str):
         if opt == 5:
             driver.get(driver.find_element_by_css_selector(".results > li:nth-child(5) > div:nth-child(2) > h2:nth-child(1) > span:nth-child(1) > a:nth-child(1)").get_attribute("href"))
 
-        print("##################")
         driver.implicitly_wait(10)
 
         print(driver.find_element_by_css_selector(".headline-1").text)
@@ -879,293 +856,234 @@ async def kino(ctx:SlashContext,*,film_name:str):
 
         embed = discord.Embed(title=driver.find_element_by_css_selector(".headline-1").text, description=f"Directed by {kino_director}, **{kino_year}**" ,colour=discord.Color.green())
         embed.set_thumbnail(url=driver.find_element_by_css_selector("div.react-component:nth-child(1) > div:nth-child(1) > img:nth-child(1)").get_attribute("src"))
-        
         embed.add_field(name="Kino Description: ", value=driver.find_element_by_css_selector(".truncate > p:nth-child(1)").text,inline=False)
-
-        
-
-
         embed.add_field(name="Average Rating: ",value=driver.find_element_by_css_selector(".display-rating").text,inline=False)
-
-        driver.implicitly_wait(15)
+  
         driver.quit()
-        
         await button_ctx.edit_origin(content=None,embed=embed,components=None)
 
         
     if num==4:
-        result_1 = driver.find_element_by_xpath("/html/body/div[3]/div/div/section/ul/li[1]/div[2]/h2/span/a")
+        result_1 = driver.find_element_by_css_selector(".results > li:nth-child(1) > div:nth-child(2) > h2:nth-child(1) > span:nth-child(1) > a:nth-child(1)").text
+        result_2 = driver.find_element_by_css_selector(".results > li:nth-child(2) > div:nth-child(2) > h2:nth-child(1) > span:nth-child(1) > a:nth-child(1)").text   
+        result_3 = driver.find_element_by_css_selector(".results > li:nth-child(3) > div:nth-child(2) > h2:nth-child(1) > span:nth-child(1) > a:nth-child(1)").text
+        result_4 = driver.find_element_by_css_selector(".results > li:nth-child(4) > div:nth-child(2) > h2:nth-child(1) > span:nth-child(1) > a:nth-child(1)").text
+       # result_5 = driver.find_element_by_css_selector(".results > li:nth-child(5) > div:nth-child(2) > h2:nth-child(1) > span:nth-child(1) > a:nth-child(1)").text
+
+        year_1 = driver.find_element_by_css_selector(".results > li:nth-child(1) > div:nth-child(2) > h2:nth-child(1) > span:nth-child(1) > small:nth-child(2) > a:nth-child(1)").text
+        year_2 = driver.find_element_by_css_selector(".results > li:nth-child(2) > div:nth-child(2) > h2:nth-child(1) > span:nth-child(1) > small:nth-child(2) > a:nth-child(1)").text
+        year_3 = driver.find_element_by_css_selector(".results > li:nth-child(3) > div:nth-child(2) > h2:nth-child(1) > span:nth-child(1) > small:nth-child(2) > a:nth-child(1)").text
+        year_4 = driver.find_element_by_css_selector(".results > li:nth-child(4) > div:nth-child(2) > h2:nth-child(1) > span:nth-child(1) > small:nth-child(2) > a:nth-child(1)").text
+       # year_5 = driver.find_element_by_css_selector(".results > li:nth-child(5) > div:nth-child(2) > h2:nth-child(1) > span:nth-child(1) > small:nth-child(2) > a:nth-child(1)").text
+
+        buttons = [
+        create_button(style=ButtonStyle.blue, label="1",custom_id="1"),
+        create_button(style=ButtonStyle.blue, label="2",custom_id="2"),
+        create_button(style=ButtonStyle.blue, label="3", custom_id="3"),
+        create_button(style=ButtonStyle.blue,label="4",custom_id="4"),
+       # create_button(style=ButtonStyle.blue,label="5",custom_id="5")
+        ]
+        action_row = create_actionrow(*buttons)
         
-        result_2 = driver.find_element_by_xpath("/html/body/div[3]/div/div/section/ul/li[2]/div[2]/h2/span/a")
+        embed=discord.Embed(title=f"Search Results for {film_name} ", color = discord.Color.green())
+        embed.add_field(name=f"1. {result_1} ({year_1})",value="---", inline= False)
+        embed.add_field(name=f"2. {result_2} ({year_2})",value="---", inline= False)
+        embed.add_field(name=f"3. {result_3} ({year_3})",value="---", inline= False)
+        embed.add_field(name=f"4. {result_4} ({year_4})",value="---",inline= False)
+      #  embed.add_field(name=f"5. {result_5} ({year_5})",value="---", inline= False)
+
+        await ctx.send(embed=embed,components=[action_row])
+        button_ctx: ComponentContext = await wait_for_component(client, components=action_row)
         
-            
-        result_3 = driver.find_element_by_xpath("/html/body/div[3]/div/div/section/ul/li[3]/div[2]/h2/span/a")
+        if button_ctx.custom_id=="1":
+            opt = 1
+        elif button_ctx.custom_id=="2":
+            opt = 2
+        elif button_ctx.custom_id=="3":
+            opt = 3
+        elif button_ctx.custom_id=="4":
+            opt = 4
+      #  elif button_ctx.custom_id=="5":
+       #     opt = 5
         
-        result_4 = driver.find_element_by_xpath("/html/body/div[3]/div/div/section/ul/li[4]/div[2]/h2/span/a")
-    
-    
-        
-        
-        
-
-
-
-
-        year_1 = driver.find_element_by_xpath("/html/body/div[3]/div/div/section/ul/li[1]/div[2]/h2/span/small/a").text
-        
-        year_2 = driver.find_element_by_xpath("/html/body/div[3]/div/div/section/ul/li[2]/div[2]/h2/span/small/a").text
-    
-        year_3 = driver.find_element_by_xpath("/html/body/div[3]/div/div/section/ul/li[3]/div[2]/h2/span/small/a").text
-
-        
-        
-        year_4 = driver.find_element_by_xpath("/html/body/div[3]/div/div/section/ul/li[4]/div[2]/h2/span/small/a").text
-
-        
-        
-        
-
-    
-
-
-
-        print(result_1.text, year_1)
-
-    
-        print(result_2.text, year_2)
-    
-        print(result_3.text, year_3)
-    
-        print(result_4.text, year_4)
-
-    
-
-        
-
-
-
-        opt = int(input("enter option number: "))
         if opt == 1:
-            driver.get(result_1.get_attribute("href"))
+            driver.get(driver.find_element_by_css_selector(".results > li:nth-child(1) > div:nth-child(2) > h2:nth-child(1) > span:nth-child(1) > a:nth-child(1)").get_attribute("href"))
         if opt == 2:
-            driver.get(result_2.get_attribute("href"))
+            driver.get(driver.find_element_by_css_selector(".results > li:nth-child(2) > div:nth-child(2) > h2:nth-child(1) > span:nth-child(1) > a:nth-child(1)").get_attribute("href"))
         if opt == 3:
-            driver.get(result_3.get_attribute("href"))
+            driver.get(driver.find_element_by_css_selector(".results > li:nth-child(3) > div:nth-child(2) > h2:nth-child(1) > span:nth-child(1) > a:nth-child(1)").get_attribute("href"))
         if opt == 4:
-            driver.get(result_4.get_attribute("href"))
-        
+            driver.get(driver.find_element_by_css_selector(".results > li:nth-child(4) > div:nth-child(2) > h2:nth-child(1) > span:nth-child(1) > a:nth-child(1)").get_attribute("href"))
+     #   if opt == 5:
+      #      driver.get(driver.find_element_by_css_selector(".results > li:nth-child(5) > div:nth-child(2) > h2:nth-child(1) > span:nth-child(1) > a:nth-child(1)").get_attribute("href"))
 
-        print("##################")
         driver.implicitly_wait(10)
 
         print(driver.find_element_by_css_selector(".headline-1").text)
-        print(driver.find_element_by_css_selector(".number > a:nth-child(1)").text)
-        print(driver.find_element_by_css_selector("span.prettify").text)
+        kino_year = driver.find_element_by_css_selector(".number > a:nth-child(1)").text
+        kino_director = driver.find_element_by_css_selector("span.prettify").text
         print(driver.find_element_by_css_selector(".truncate > p:nth-child(1)").text)
         print(driver.find_element_by_css_selector(".display-rating").text)
         print(driver.find_element_by_css_selector("div.react-component:nth-child(1) > div:nth-child(1) > img:nth-child(1)").get_attribute("src"))
+
+        embed = discord.Embed(title=driver.find_element_by_css_selector(".headline-1").text, description=f"Directed by {kino_director}, **{kino_year}**" ,colour=discord.Color.green())
+        embed.set_thumbnail(url=driver.find_element_by_css_selector("div.react-component:nth-child(1) > div:nth-child(1) > img:nth-child(1)").get_attribute("src"))
+        embed.add_field(name="Kino Description: ", value=driver.find_element_by_css_selector(".truncate > p:nth-child(1)").text,inline=False)
+        embed.add_field(name="Average Rating: ",value=driver.find_element_by_css_selector(".display-rating").text,inline=False)
+  
+        driver.quit()
+        await button_ctx.edit_origin(content=None,embed=embed,components=None)
 
     if num==3:
-        result_1 = driver.find_element_by_xpath("/html/body/div[3]/div/div/section/ul/li[1]/div[2]/h2/span/a")
+        result_1 = driver.find_element_by_css_selector(".results > li:nth-child(1) > div:nth-child(2) > h2:nth-child(1) > span:nth-child(1) > a:nth-child(1)").text
+        result_2 = driver.find_element_by_css_selector(".results > li:nth-child(2) > div:nth-child(2) > h2:nth-child(1) > span:nth-child(1) > a:nth-child(1)").text   
+        result_3 = driver.find_element_by_css_selector(".results > li:nth-child(3) > div:nth-child(2) > h2:nth-child(1) > span:nth-child(1) > a:nth-child(1)").text
+      ## result_5 = driver.find_element_by_css_selector(".results > li:nth-child(5) > div:nth-child(2) > h2:nth-child(1) > span:nth-child(1) > a:nth-child(1)").text
+
+        year_1 = driver.find_element_by_css_selector(".results > li:nth-child(1) > div:nth-child(2) > h2:nth-child(1) > span:nth-child(1) > small:nth-child(2) > a:nth-child(1)").text
+        year_2 = driver.find_element_by_css_selector(".results > li:nth-child(2) > div:nth-child(2) > h2:nth-child(1) > span:nth-child(1) > small:nth-child(2) > a:nth-child(1)").text
+        year_3 = driver.find_element_by_css_selector(".results > li:nth-child(3) > div:nth-child(2) > h2:nth-child(1) > span:nth-child(1) > small:nth-child(2) > a:nth-child(1)").text
+        #year_4 = driver.find_element_by_css_selector(".results > li:nth-child(4) > div:nth-child(2) > h2:nth-child(1) > span:nth-child(1) > small:nth-child(2) > a:nth-child(1)").text
+        #year_5 = driver.find_element_by_css_selector(".results > li:nth-child(5) > div:nth-child(2) > h2:nth-child(1) > span:nth-child(1) > small:nth-child(2) > a:nth-child(1)").text
+
+        buttons = [
+        create_button(style=ButtonStyle.blue, label="1",custom_id="1"),
+        create_button(style=ButtonStyle.blue, label="2",custom_id="2"),
+        create_button(style=ButtonStyle.blue, label="3", custom_id="3"),
+       # create_button(style=ButtonStyle.blue,label="4",custom_id="4"),
+        #create_button(style=ButtonStyle.blue,label="5",custom_id="5")
+        ]
+        action_row = create_actionrow(*buttons)
         
-        result_2 = driver.find_element_by_xpath("/html/body/div[3]/div/div/section/ul/li[2]/div[2]/h2/span/a")
+        embed=discord.Embed(title=f"Search Results for {film_name} ", color = discord.Color.green())
+        embed.add_field(name=f"1. {result_1} ({year_1})",value="---", inline= False)
+        embed.add_field(name=f"2. {result_2} ({year_2})",value="---", inline= False)
+        embed.add_field(name=f"3. {result_3} ({year_3})",value="---", inline= False)
+      #  embed.add_field(name=f"4. {result_4} ({year_4})",value="---",inline= False)
+       # embed.add_field(name=f"5. {result_5} ({year_5})",value="---", inline= False)
+
+        await ctx.send(embed=embed,components=[action_row])
+        button_ctx: ComponentContext = await wait_for_component(client, components=action_row)
         
-            
-        result_3 = driver.find_element_by_xpath("/html/body/div[3]/div/div/section/ul/li[3]/div[2]/h2/span/a")
+        if button_ctx.custom_id=="1":
+            opt = 1
+        elif button_ctx.custom_id=="2":
+            opt = 2
+        elif button_ctx.custom_id=="3":
+            opt = 3
+     
         
-    
-    
-    
-        
-        
-        
-
-
-
-
-        year_1 = driver.find_element_by_xpath("/html/body/div[3]/div/div/section/ul/li[1]/div[2]/h2/span/small/a").text
-        
-        year_2 = driver.find_element_by_xpath("/html/body/div[3]/div/div/section/ul/li[2]/div[2]/h2/span/small/a").text
-    
-        year_3 = driver.find_element_by_xpath("/html/body/div[3]/div/div/section/ul/li[3]/div[2]/h2/span/small/a").text
-
-        
-        
-    
-        
-        
-        
-
-    
-
-
-
-        print(result_1.text, year_1)
-
-    
-        print(result_2.text, year_2)
-    
-        print(result_3.text, year_3)
-    
-    
-
-    
-
-        
-
-
-
-        opt = int(input("enter option number: "))
         if opt == 1:
-            driver.get(result_1.get_attribute("href"))
+            driver.get(driver.find_element_by_css_selector(".results > li:nth-child(1) > div:nth-child(2) > h2:nth-child(1) > span:nth-child(1) > a:nth-child(1)").get_attribute("href"))
         if opt == 2:
-            driver.get(result_2.get_attribute("href"))
+            driver.get(driver.find_element_by_css_selector(".results > li:nth-child(2) > div:nth-child(2) > h2:nth-child(1) > span:nth-child(1) > a:nth-child(1)").get_attribute("href"))
         if opt == 3:
-            driver.get(result_3.get_attribute("href"))
-    
-        
-
-        print("##################")
+            driver.get(driver.find_element_by_css_selector(".results > li:nth-child(3) > div:nth-child(2) > h2:nth-child(1) > span:nth-child(1) > a:nth-child(1)").get_attribute("href"))
+      
         driver.implicitly_wait(10)
 
         print(driver.find_element_by_css_selector(".headline-1").text)
-        print(driver.find_element_by_css_selector(".number > a:nth-child(1)").text)
-        print(driver.find_element_by_css_selector("span.prettify").text)
+        kino_year = driver.find_element_by_css_selector(".number > a:nth-child(1)").text
+        kino_director = driver.find_element_by_css_selector("span.prettify").text
         print(driver.find_element_by_css_selector(".truncate > p:nth-child(1)").text)
         print(driver.find_element_by_css_selector(".display-rating").text)
         print(driver.find_element_by_css_selector("div.react-component:nth-child(1) > div:nth-child(1) > img:nth-child(1)").get_attribute("src"))
+
+        embed = discord.Embed(title=driver.find_element_by_css_selector(".headline-1").text, description=f"Directed by {kino_director}, **{kino_year}**" ,colour=discord.Color.green())
+        embed.set_thumbnail(url=driver.find_element_by_css_selector("div.react-component:nth-child(1) > div:nth-child(1) > img:nth-child(1)").get_attribute("src"))
+        embed.add_field(name="Kino Description: ", value=driver.find_element_by_css_selector(".truncate > p:nth-child(1)").text,inline=False)
+        embed.add_field(name="Average Rating: ",value=driver.find_element_by_css_selector(".display-rating").text,inline=False)
+  
+        driver.quit()
+        await button_ctx.edit_origin(content=None,embed=embed,components=None)
+
     if num==2:
-        result_1 = driver.find_element_by_xpath("/html/body/div[3]/div/div/section/ul/li[1]/div[2]/h2/span/a")
+        result_1 = driver.find_element_by_css_selector(".results > li:nth-child(1) > div:nth-child(2) > h2:nth-child(1) > span:nth-child(1) > a:nth-child(1)").text
+        result_2 = driver.find_element_by_css_selector(".results > li:nth-child(2) > div:nth-child(2) > h2:nth-child(1) > span:nth-child(1) > a:nth-child(1)").text   
+       
+        year_1 = driver.find_element_by_css_selector(".results > li:nth-child(1) > div:nth-child(2) > h2:nth-child(1) > span:nth-child(1) > small:nth-child(2) > a:nth-child(1)").text
+        year_2 = driver.find_element_by_css_selector(".results > li:nth-child(2) > div:nth-child(2) > h2:nth-child(1) > span:nth-child(1) > small:nth-child(2) > a:nth-child(1)").text
+      
+        buttons = [
+        create_button(style=ButtonStyle.blue, label="1",custom_id="1"),
+        create_button(style=ButtonStyle.blue, label="2",custom_id="2"),
+       
+        ]
+        action_row = create_actionrow(*buttons)
         
-        result_2 = driver.find_element_by_xpath("/html/body/div[3]/div/div/section/ul/li[2]/div[2]/h2/span/a")
+        embed=discord.Embed(title=f"Search Results for {film_name} ", color = discord.Color.green())
+        embed.add_field(name=f"1. {result_1} ({year_1})",value="---", inline= False)
+        embed.add_field(name=f"2. {result_2} ({year_2})",value="---", inline= False)
+       
+        await ctx.send(embed=embed,components=[action_row])
+        button_ctx: ComponentContext = await wait_for_component(client, components=action_row)
         
-            
-        
-
-    
-    
-    
-        
-        
-        
-
-
-
-
-        year_1 = driver.find_element_by_xpath("/html/body/div[3]/div/div/section/ul/li[1]/div[2]/h2/span/small/a").text
-        
-        year_2 = driver.find_element_by_xpath("/html/body/div[3]/div/div/section/ul/li[2]/div[2]/h2/span/small/a").text
-    
-        
-
-        
-        
-    
-        
-        
-        
-
-    
-
-
-
-        print(result_1.text, year_1)
-
-    
-        print(result_2.text, year_2)
-    
-    
-    
-    
-
-    
-
-        
-
-
-
-        opt = int(input("enter option number: "))
+        if button_ctx.custom_id=="1":
+            opt = 1
+        elif button_ctx.custom_id=="2":
+            opt = 2
+       
         if opt == 1:
-            driver.get(result_1.get_attribute("href"))
+            driver.get(driver.find_element_by_css_selector(".results > li:nth-child(1) > div:nth-child(2) > h2:nth-child(1) > span:nth-child(1) > a:nth-child(1)").get_attribute("href"))
         if opt == 2:
-            driver.get(result_2.get_attribute("href"))
-    
-    
-        
-
-        print("##################")
+            driver.get(driver.find_element_by_css_selector(".results > li:nth-child(2) > div:nth-child(2) > h2:nth-child(1) > span:nth-child(1) > a:nth-child(1)").get_attribute("href"))
+      
         driver.implicitly_wait(10)
 
         print(driver.find_element_by_css_selector(".headline-1").text)
-        print(driver.find_element_by_css_selector(".number > a:nth-child(1)").text)
-        print(driver.find_element_by_css_selector("span.prettify").text)
+        kino_year = driver.find_element_by_css_selector(".number > a:nth-child(1)").text
+        kino_director = driver.find_element_by_css_selector("span.prettify").text
         print(driver.find_element_by_css_selector(".truncate > p:nth-child(1)").text)
         print(driver.find_element_by_css_selector(".display-rating").text)
         print(driver.find_element_by_css_selector("div.react-component:nth-child(1) > div:nth-child(1) > img:nth-child(1)").get_attribute("src"))
+
+        embed = discord.Embed(title=driver.find_element_by_css_selector(".headline-1").text, description=f"Directed by {kino_director}, **{kino_year}**" ,colour=discord.Color.green())
+        embed.set_thumbnail(url=driver.find_element_by_css_selector("div.react-component:nth-child(1) > div:nth-child(1) > img:nth-child(1)").get_attribute("src"))
+        embed.add_field(name="Kino Description: ", value=driver.find_element_by_css_selector(".truncate > p:nth-child(1)").text,inline=False)
+        embed.add_field(name="Average Rating: ",value=driver.find_element_by_css_selector(".display-rating").text,inline=False)
+  
+        driver.quit()
+        await button_ctx.edit_origin(content=None,embed=embed,components=None)
+
     if num==1:
-        result_1 = driver.find_element_by_xpath("/html/body/div[3]/div/div/section/ul/li[1]/div[2]/h2/span/a")
+        result_1 = driver.find_element_by_css_selector(".results > li:nth-child(1) > div:nth-child(2) > h2:nth-child(1) > span:nth-child(1) > a:nth-child(1)").text
+       
+        year_1 = driver.find_element_by_css_selector(".results > li:nth-child(1) > div:nth-child(2) > h2:nth-child(1) > span:nth-child(1) > small:nth-child(2) > a:nth-child(1)").text
+       
+        buttons = [
+        create_button(style=ButtonStyle.blue, label="1",custom_id="1"),
         
-    
+        ]
+        action_row = create_actionrow(*buttons)
         
-            
+        embed=discord.Embed(title=f"Search Results for {film_name} ", color = discord.Color.green())
+        embed.add_field(name=f"1. {result_1} ({year_1})",value="---", inline= False)
+      
+        await ctx.send(embed=embed,components=[action_row])
+        button_ctx: ComponentContext = await wait_for_component(client, components=action_row)
         
-        
-    
-    
-    
-        
-        
-        
-
-
-
-
-        year_1 = driver.find_element_by_xpath("/html/body/div[3]/div/div/section/ul/li[1]/div[2]/h2/span/small/a").text
-        
-    
-        
-
-        
-        
-    
-        
-        
-        
-
-    
-
-
-
-        print(result_1.text, year_1)
-
-    
-    
-    
-    
-    
-
-    
-
-        
-
-
-
-        opt = int(input("enter option number: "))
+        if button_ctx.custom_id=="1":
+            opt = 1
+     
         if opt == 1:
-            driver.get(result_1.get_attribute("href"))
-    
-    
-        
-
-        print("##################")
+            driver.get(driver.find_element_by_css_selector(".results > li:nth-child(1) > div:nth-child(2) > h2:nth-child(1) > span:nth-child(1) > a:nth-child(1)").get_attribute("href"))
+      
         driver.implicitly_wait(10)
 
         print(driver.find_element_by_css_selector(".headline-1").text)
-        print(driver.find_element_by_css_selector(".number > a:nth-child(1)").text)
-        print(driver.find_element_by_css_selector("span.prettify").text)
+        kino_year = driver.find_element_by_css_selector(".number > a:nth-child(1)").text
+        kino_director = driver.find_element_by_css_selector("span.prettify").text
         print(driver.find_element_by_css_selector(".truncate > p:nth-child(1)").text)
         print(driver.find_element_by_css_selector(".display-rating").text)
         print(driver.find_element_by_css_selector("div.react-component:nth-child(1) > div:nth-child(1) > img:nth-child(1)").get_attribute("src"))
+
+        embed = discord.Embed(title=driver.find_element_by_css_selector(".headline-1").text, description=f"Directed by {kino_director}, **{kino_year}**" ,colour=discord.Color.green())
+        embed.set_thumbnail(url=driver.find_element_by_css_selector("div.react-component:nth-child(1) > div:nth-child(1) > img:nth-child(1)").get_attribute("src"))
+        embed.add_field(name="Kino Description: ", value=driver.find_element_by_css_selector(".truncate > p:nth-child(1)").text,inline=False)
+        embed.add_field(name="Average Rating: ",value=driver.find_element_by_css_selector(".display-rating").text,inline=False)
+  
+        driver.quit()
+        await button_ctx.edit_origin(content=None,embed=embed,components=None)
 
     driver.close()
 
