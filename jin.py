@@ -871,21 +871,22 @@ async def kino(ctx:SlashContext,*,film_name:str):
         driver.implicitly_wait(10)
 
         print(driver.find_element_by_css_selector(".headline-1").text)
-        print(driver.find_element_by_css_selector(".number > a:nth-child(1)").text)
-        print(driver.find_element_by_css_selector("span.prettify").text)
+        kino_year = driver.find_element_by_css_selector(".number > a:nth-child(1)").text
+        kino_director = driver.find_element_by_css_selector("span.prettify").text
         print(driver.find_element_by_css_selector(".truncate > p:nth-child(1)").text)
         print(driver.find_element_by_css_selector(".display-rating").text)
         print(driver.find_element_by_css_selector("div.react-component:nth-child(1) > div:nth-child(1) > img:nth-child(1)").get_attribute("src"))
 
-        embed = discord.Embed(title=driver.find_element_by_css_selector(".headline-1").text,colour=discord.Color.green())
+        embed = discord.Embed(title=driver.find_element_by_css_selector(".headline-1").text, description=f"Directed by {kino_director}, **{kino_year}**" ,colour=discord.Color.green())
         embed.set_thumbnail(url=driver.find_element_by_css_selector("div.react-component:nth-child(1) > div:nth-child(1) > img:nth-child(1)").get_attribute("src"))
         
         embed.add_field(name="Kino Description: ", value=driver.find_element_by_css_selector(".truncate > p:nth-child(1)").text,inline=False)
 
         
 
-    
+
         embed.add_field(name="Average Rating: ",value=driver.find_element_by_css_selector(".display-rating").text,inline=False)
+
         driver.implicitly_wait(15)
         driver.quit()
         
