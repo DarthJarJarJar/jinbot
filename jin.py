@@ -784,8 +784,8 @@ async def kino(ctx:SlashContext,*,film_name:str):
     driver = webdriver.Chrome(r'/app/.chromedriver/bin/chromedriver', options=options)
     
 
-        
-    driver.get(fr"https://letterboxd.com/search/films/{film_name}/")
+    search_url = fr"https://letterboxd.com/search/films/{film_name}/"
+    driver.get(search_url)
     driver.implicitly_wait(10)
     numberof = driver.find_element_by_css_selector(".col-17 > h2:nth-child(1)").text
     numberofkino = numberof.split()
@@ -813,7 +813,7 @@ async def kino(ctx:SlashContext,*,film_name:str):
         ]
         action_row = create_actionrow(*buttons)
         
-        embed=discord.Embed(title=f"Search Results for {film_name} ", color = discord.Color.green())
+        embed=discord.Embed(title=f"Search Results for {film_name} ", color = discord.Color.green(),url=search_url)
         embed.add_field(name=f"1. {result_1} ({year_1})",value="---", inline= False)
         embed.add_field(name=f"2. {result_2} ({year_2})",value="---", inline= False)
         embed.add_field(name=f"3. {result_3} ({year_3})",value="---", inline= False)
@@ -835,14 +835,19 @@ async def kino(ctx:SlashContext,*,film_name:str):
             opt = 5
         
         if opt == 1:
+            kino_url = driver.find_element_by_css_selector(".results > li:nth-child(1) > div:nth-child(2) > h2:nth-child(1) > span:nth-child(1) > a:nth-child(1)").get_attribute("href")
             driver.get(driver.find_element_by_css_selector(".results > li:nth-child(1) > div:nth-child(2) > h2:nth-child(1) > span:nth-child(1) > a:nth-child(1)").get_attribute("href"))
         if opt == 2:
+            kino_url = driver.find_element_by_css_selector(".results > li:nth-child(2) > div:nth-child(2) > h2:nth-child(1) > span:nth-child(1) > a:nth-child(1)").get_attribute("href")
             driver.get(driver.find_element_by_css_selector(".results > li:nth-child(2) > div:nth-child(2) > h2:nth-child(1) > span:nth-child(1) > a:nth-child(1)").get_attribute("href"))
         if opt == 3:
+            kino_url = driver.find_element_by_css_selector(".results > li:nth-child(3) > div:nth-child(2) > h2:nth-child(1) > span:nth-child(1) > a:nth-child(1)").get_attribute("href")
             driver.get(driver.find_element_by_css_selector(".results > li:nth-child(3) > div:nth-child(2) > h2:nth-child(1) > span:nth-child(1) > a:nth-child(1)").get_attribute("href"))
         if opt == 4:
+            kino_url = driver.find_element_by_css_selector(".results > li:nth-child(4) > div:nth-child(2) > h2:nth-child(1) > span:nth-child(1) > a:nth-child(1)").get_attribute("href")
             driver.get(driver.find_element_by_css_selector(".results > li:nth-child(4) > div:nth-child(2) > h2:nth-child(1) > span:nth-child(1) > a:nth-child(1)").get_attribute("href"))
         if opt == 5:
+            kino_url = driver.find_element_by_css_selector(".results > li:nth-child(5) > div:nth-child(2) > h2:nth-child(1) > span:nth-child(1) > a:nth-child(1)").get_attribute("href")
             driver.get(driver.find_element_by_css_selector(".results > li:nth-child(5) > div:nth-child(2) > h2:nth-child(1) > span:nth-child(1) > a:nth-child(1)").get_attribute("href"))
 
         driver.implicitly_wait(10)
@@ -854,7 +859,7 @@ async def kino(ctx:SlashContext,*,film_name:str):
         print(driver.find_element_by_css_selector(".display-rating").text)
         print(driver.find_element_by_css_selector("div.react-component:nth-child(1) > div:nth-child(1) > img:nth-child(1)").get_attribute("src"))
 
-        embed = discord.Embed(title=driver.find_element_by_css_selector(".headline-1").text, description=f"Directed by {kino_director}, **{kino_year}**" ,colour=discord.Color.green())
+        embed = discord.Embed(title=driver.find_element_by_css_selector(".headline-1").text, description=f"Directed by {kino_director}, **{kino_year}**" ,colour=discord.Color.green(),url=kino_url)
         embed.set_thumbnail(url=driver.find_element_by_css_selector("div.react-component:nth-child(1) > div:nth-child(1) > img:nth-child(1)").get_attribute("src"))
         embed.add_field(name="Kino Description: ", value=driver.find_element_by_css_selector(".truncate > p:nth-child(1)").text,inline=False)
         embed.add_field(name="Average Rating: ",value=driver.find_element_by_css_selector(".display-rating").text,inline=False)
