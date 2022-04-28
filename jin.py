@@ -775,15 +775,17 @@ async def game(ctx,*,name:str):
 @client.command()
 async def kino(ctx:SlashContext,*,film_name:str):
     
-    chrome_options = Options()
-    chrome_options.add_argument('--no-sandbox')
-    chrome_options.add_argument('--headless')
-    chrome_options.add_argument("start-maximized")
+    foptions = webdriver.FirefoxOptions()
+    foptions.binary_location = r'/app/vendor/firefox/firefox'
+                
 
-
+    foptions.add_argument('-headless')
+    driver = webdriver.Firefox(executable_path=r"/app/vendor/geckodriver/geckodriver"
+,
+                                    options=foptions)
     
-    driver = webdriver.Chrome(r'/app/.chromedriver/bin/chromedriver',chrome_options=chrome_options)
 
+        
     driver.get(fr"https://letterboxd.com/search/films/{film_name}/")
     driver.implicitly_wait(10)
     numberof = driver.find_element_by_css_selector(".col-17 > h2:nth-child(1)").text
@@ -882,7 +884,7 @@ async def kino(ctx:SlashContext,*,film_name:str):
         embed.add_field(name="Kino Description: ", value=driver.find_element_by_css_selector(".truncate > p:nth-child(1)").text,inline=False)
 
         
-        
+
     
         embed.add_field(name="Average Rating: ",value=driver.find_element_by_css_selector(".display-rating").text,inline=False)
         driver.implicitly_wait(15)
