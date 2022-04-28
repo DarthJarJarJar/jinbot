@@ -882,6 +882,7 @@ async def kino(ctx:SlashContext,*,film_name:str):
         embed.add_field(name="Kino Description: ", value=driver.find_element_by_css_selector(".truncate > p:nth-child(1)").text,inline=False)
 
         
+        
     
         embed.add_field(name="Average Rating: ",value=driver.find_element_by_css_selector(".display-rating").text,inline=False)
         driver.implicitly_wait(15)
