@@ -840,9 +840,10 @@ async def kino(ctx:SlashContext,*,film_name:str):
         embed.add_field(name=f"4. {result_4} ({year_4})",value="---",inline= False)
         embed.add_field(name=f"5. {result_5} ({year_5})",value="---", inline= False)
 
-        message = await ctx.send(embed=embed,components=[action_row])
-
+        
+        await ctx.send(embed=embed,components=[action_row])
         button_ctx: ComponentContext = await wait_for_component(client, components=action_row)
+        
         if button_ctx.custom_id=="1":
             opt = 1
         elif button_ctx.custom_id=="2":
@@ -886,7 +887,7 @@ async def kino(ctx:SlashContext,*,film_name:str):
         driver.implicitly_wait(15)
         driver.quit()
         
-        await message.edit(content=None,embed=embed,components=None)
+        await button_ctx.edit_origin(content=None,embed=embed,components=None)
 
         
     if num==4:
