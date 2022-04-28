@@ -1042,7 +1042,7 @@ async def kino(ctx:SlashContext,*,film_name:str):
         ]
         action_row = create_actionrow(*buttons)
         
-        embed=discord.Embed(title=f"Search Results for {film_name} ", color = discord.Color.green(),url=search_url)
+        embed=discord.Embed(title=f"Search Results for {film_name} ", color = discord.Color.green(),)
         embed.add_field(name=f"1. {result_1} ({year_1})",value="---", inline= False)
         embed.add_field(name=f"2. {result_2} ({year_2})",value="---", inline= False)
         embed.add_field(name=f"3. {result_3} ({year_3})",value="---", inline= False)
