@@ -834,11 +834,11 @@ async def kino(ctx:SlashContext,*,film_name:str):
         
 
         embed=discord.Embed(title=f"Search Results for {film_name} ", color = discord.Color.green())
-        embed.add_field(name=f"1. {result_1} ({year_1})",value="---")
-        embed.add_field(name=f"2. {result_2} ({year_2})",value="---")
-        embed.add_field(name=f"3. {result_3} ({year_3})",value="---")
-        embed.add_field(name=f"4. {result_4} ({year_4})",value="---")
-        embed.add_field(name=f"5. {result_5} ({year_5})",value="---")
+        embed.add_field(name=f"1. {result_1} ({year_1})",value="---", inline= False)
+        embed.add_field(name=f"2. {result_2} ({year_2})",value="---", inline= False)
+        embed.add_field(name=f"3. {result_3} ({year_3})",value="---", inline= False)
+        embed.add_field(name=f"4. {result_4} ({year_4})",value="---",inline= False)
+        embed.add_field(name=f"5. {result_5} ({year_5})",value="---", inline= False)
 
         message = await ctx.send(embed=embed,components=[action_row])
 
@@ -855,15 +855,15 @@ async def kino(ctx:SlashContext,*,film_name:str):
             opt = 5
         
         if opt == 1:
-            driver.get(result_1.get_attribute("href"))
+            driver.get(driver.find_element_by_css_selector(".results > li:nth-child(1) > div:nth-child(2) > h2:nth-child(1) > span:nth-child(1) > a:nth-child(1)").get_attribute("href"))
         if opt == 2:
-            driver.get(result_2.get_attribute("href"))
+            driver.get(driver.find_element_by_css_selector(".results > li:nth-child(2) > div:nth-child(2) > h2:nth-child(1) > span:nth-child(1) > a:nth-child(1)").get_attribute("href"))
         if opt == 3:
-            driver.get(result_3.get_attribute("href"))
+            driver.get(driver.find_element_by_css_selector(".results > li:nth-child(3) > div:nth-child(2) > h2:nth-child(1) > span:nth-child(1) > a:nth-child(1)").get_attribute("href"))
         if opt == 4:
-            driver.get(result_4.get_attribute("href"))
+            driver.get(driver.find_element_by_css_selector(".results > li:nth-child(4) > div:nth-child(2) > h2:nth-child(1) > span:nth-child(1) > a:nth-child(1)").get_attribute("href"))
         if opt == 5:
-            driver.get(result_5.get_attribute("href"))
+            driver.get(driver.find_element_by_css_selector(".results > li:nth-child(5) > div:nth-child(2) > h2:nth-child(1) > span:nth-child(1) > a:nth-child(1)").get_attribute("href"))
 
         print("##################")
         driver.implicitly_wait(10)
