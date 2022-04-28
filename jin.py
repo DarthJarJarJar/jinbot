@@ -781,7 +781,7 @@ async def kino(ctx:SlashContext,*,film_name:str):
     options.add_argument('--disable-dev-shm-usage')
 
 # open it, go to a website, and get results
-    driver = webdriver.Chrome(options=options)
+    driver = webdriver.Chrome(r'/app/.chromedriver/bin/chromedriver', options=options)
     
 
         
