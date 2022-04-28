@@ -1094,7 +1094,7 @@ async def kino(ctx:SlashContext,*,film_name:str):
         embed.add_field(name="Average Rating: ",value=driver.find_element_by_css_selector(".display-rating").text,inline=False)
   
         driver.quit()
-        await button_ctx.edit(content=None,embed=embed,components=None)
+        await button_ctx.edit_origin(content=None,embed=embed,components=None)
 
 
     driver.close()
