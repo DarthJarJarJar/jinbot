@@ -793,7 +793,7 @@ async def kino(ctx:SlashContext,*,film_name:str):
 
 
         
-    if int(num)==4:
+    if num=="4":
         result_1 = driver.find_element_by_css_selector(".results > li:nth-child(1) > div:nth-child(2) > h2:nth-child(1) > span:nth-child(1) > a:nth-child(1)").text
         result_2 = driver.find_element_by_css_selector(".results > li:nth-child(2) > div:nth-child(2) > h2:nth-child(1) > span:nth-child(1) > a:nth-child(1)").text   
         result_3 = driver.find_element_by_css_selector(".results > li:nth-child(3) > div:nth-child(2) > h2:nth-child(1) > span:nth-child(1) > a:nth-child(1)").text
@@ -864,7 +864,7 @@ async def kino(ctx:SlashContext,*,film_name:str):
         driver.quit()
         await button_ctx.edit_origin(content=None,embed=embed,components=None)
 
-    if int(num)==3:
+    if num=="3":
         result_1 = driver.find_element_by_css_selector(".results > li:nth-child(1) > div:nth-child(2) > h2:nth-child(1) > span:nth-child(1) > a:nth-child(1)").text
         result_2 = driver.find_element_by_css_selector(".results > li:nth-child(2) > div:nth-child(2) > h2:nth-child(1) > span:nth-child(1) > a:nth-child(1)").text   
         result_3 = driver.find_element_by_css_selector(".results > li:nth-child(3) > div:nth-child(2) > h2:nth-child(1) > span:nth-child(1) > a:nth-child(1)").text
@@ -927,7 +927,7 @@ async def kino(ctx:SlashContext,*,film_name:str):
         driver.quit()
         await button_ctx.edit_origin(content=None,embed=embed,components=None)
 
-    if int(num)==2:
+    if num=="2":
         result_1 = driver.find_element_by_css_selector(".results > li:nth-child(1) > div:nth-child(2) > h2:nth-child(1) > span:nth-child(1) > a:nth-child(1)").text
         result_2 = driver.find_element_by_css_selector(".results > li:nth-child(2) > div:nth-child(2) > h2:nth-child(1) > span:nth-child(1) > a:nth-child(1)").text   
        
@@ -975,7 +975,7 @@ async def kino(ctx:SlashContext,*,film_name:str):
         driver.quit()
         await button_ctx.edit_origin(content=None,embed=embed,components=None)
 
-    if int(num)==1:
+    if num=="1":
         result_1 = driver.find_element_by_css_selector(".results > li:nth-child(1) > div:nth-child(2) > h2:nth-child(1) > span:nth-child(1) > a:nth-child(1)").text
        
         year_1 = driver.find_element_by_css_selector(".results > li:nth-child(1) > div:nth-child(2) > h2:nth-child(1) > span:nth-child(1) > small:nth-child(2) > a:nth-child(1)").text
