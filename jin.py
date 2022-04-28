@@ -804,19 +804,19 @@ async def kino(ctx:SlashContext,*,film_name:str):
 
 
 
-        year_1 = driver.find_element_by_xpath("/html/body/div[3]/div/div/section/ul/li[1]/div[2]/h2/span/small/a").text
+        year_1 = driver.find_element_by_css_selector(".results > li:nth-child(1) > div:nth-child(2) > h2:nth-child(1) > span:nth-child(1) > small:nth-child(2) > a:nth-child(1)").text
         
-        year_2 = driver.find_element_by_xpath("/html/body/div[3]/div/div/section/ul/li[2]/div[2]/h2/span/small/a").text
+        year_2 = driver.find_element_by_css_selector(".results > li:nth-child(2) > div:nth-child(2) > h2:nth-child(1) > span:nth-child(1) > small:nth-child(2) > a:nth-child(1)").text
     
-        year_3 = driver.find_element_by_xpath("/html/body/div[3]/div/div/section/ul/li[3]/div[2]/h2/span/small/a").text
+        year_3 = driver.find_element_by_css_selector(".results > li:nth-child(3) > div:nth-child(2) > h2:nth-child(1) > span:nth-child(1) > small:nth-child(2) > a:nth-child(1)").text
 
         
         
-        year_4 = driver.find_element_by_xpath("/html/body/div[3]/div/div/section/ul/li[4]/div[2]/h2/span/small/a").text
+        year_4 = driver.find_element_by_css_selector(".results > li:nth-child(4) > div:nth-child(2) > h2:nth-child(1) > span:nth-child(1) > small:nth-child(2) > a:nth-child(1)").text
 
         
         
-        year_5 = driver.find_element_by_xpath("/html/body/div[3]/div/div/section/ul/li[5]/div[2]/h2/span/small/a").text
+        year_5 = driver.find_element_by_css_selector(".results > li:nth-child(5) > div:nth-child(2) > h2:nth-child(1) > span:nth-child(1) > small:nth-child(2) > a:nth-child(1)").text
 
     
         
