@@ -1039,10 +1039,10 @@ async def kino(ctx:SlashContext,*,film_name:str):
         year_5 = driver.find_element_by_css_selector(".results > li:nth-child(5) > div:nth-child(2) > h2:nth-child(1) > span:nth-child(1) > small:nth-child(2) > a:nth-child(1)").text
 
         director_1 = driver.find_element_by_css_selector(".results > li:nth-child(1) > div:nth-child(2) > p:nth-child(3) > a:nth-child(1)").text
-        director_1 = driver.find_element_by_css_selector(".results > li:nth-child(2) > div:nth-child(2) > p:nth-child(3) > a:nth-child(1)").text
-        director_1 = driver.find_element_by_css_selector(".results > li:nth-child(3) > div:nth-child(2) > p:nth-child(3) > a:nth-child(1)").text
-        director_1 = driver.find_element_by_css_selector(".results > li:nth-child(4) > div:nth-child(2) > p:nth-child(3) > a:nth-child(1)").text
-        director_1 = driver.find_element_by_css_selector(".results > li:nth-child(5) > div:nth-child(2) > p:nth-child(3) > a:nth-child(1)").text
+        director_2 = driver.find_element_by_css_selector(".results > li:nth-child(2) > div:nth-child(2) > p:nth-child(3) > a:nth-child(1)").text
+        director_3 = driver.find_element_by_css_selector(".results > li:nth-child(3) > div:nth-child(2) > p:nth-child(3) > a:nth-child(1)").text
+        director_4 = driver.find_element_by_css_selector(".results > li:nth-child(4) > div:nth-child(2) > p:nth-child(3) > a:nth-child(1)").text
+        director_5 = driver.find_element_by_css_selector(".results > li:nth-child(5) > div:nth-child(2) > p:nth-child(3) > a:nth-child(1)").text
 
         buttons = [
         create_button(style=ButtonStyle.blue, label="1",custom_id="1"),
@@ -1054,11 +1054,11 @@ async def kino(ctx:SlashContext,*,film_name:str):
         action_row = create_actionrow(*buttons)
         
         embed=discord.Embed(title=f"Search Results for {film_name} ", color = discord.Color.green(),)
-        embed.add_field(name=f"1. {result_1} ({year_1})",value="---", inline= False)
-        embed.add_field(name=f"2. {result_2} ({year_2})",value="---", inline= False)
-        embed.add_field(name=f"3. {result_3} ({year_3})",value="---", inline= False)
-        embed.add_field(name=f"4. {result_4} ({year_4})",value="---",inline= False)
-        embed.add_field(name=f"5. {result_5} ({year_5})",value="---", inline= False)
+        embed.add_field(name=f"1. {result_1} ({year_1})",value=director_1, inline= False)
+        embed.add_field(name=f"2. {result_2} ({year_2})",value=director_2, inline= False)
+        embed.add_field(name=f"3. {result_3} ({year_3})",value=director_3, inline= False)
+        embed.add_field(name=f"4. {result_4} ({year_4})",value=director_4,inline= False)
+        embed.add_field(name=f"5. {result_5} ({year_5})",value=director_5, inline= False)
 
         message = await ctx.send(embed=embed,components=[action_row])
         button_ctx: ComponentContext = await wait_for_component(client, components=action_row)
