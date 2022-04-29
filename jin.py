@@ -4,7 +4,6 @@ from discord.gateway import DiscordWebSocket
 from discord.utils import get
 from discord import asset
 from discord.user import User
-from django import views
 from googlesearch import search
 from selenium.common.exceptions import NoSuchElementException
 import requests
