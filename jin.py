@@ -1038,6 +1038,12 @@ async def kino(ctx:SlashContext,*,film_name:str):
         year_4 = driver.find_element_by_css_selector(".results > li:nth-child(4) > div:nth-child(2) > h2:nth-child(1) > span:nth-child(1) > small:nth-child(2) > a:nth-child(1)").text
         year_5 = driver.find_element_by_css_selector(".results > li:nth-child(5) > div:nth-child(2) > h2:nth-child(1) > span:nth-child(1) > small:nth-child(2) > a:nth-child(1)").text
 
+        director_1 = driver.find_element_by_css_selector(".results > li:nth-child(1) > div:nth-child(2) > p:nth-child(3) > a:nth-child(1)").text
+        director_1 = driver.find_element_by_css_selector(".results > li:nth-child(2) > div:nth-child(2) > p:nth-child(3) > a:nth-child(1)").text
+        director_1 = driver.find_element_by_css_selector(".results > li:nth-child(3) > div:nth-child(2) > p:nth-child(3) > a:nth-child(1)").text
+        director_1 = driver.find_element_by_css_selector(".results > li:nth-child(4) > div:nth-child(2) > p:nth-child(3) > a:nth-child(1)").text
+        director_1 = driver.find_element_by_css_selector(".results > li:nth-child(5) > div:nth-child(2) > p:nth-child(3) > a:nth-child(1)").text
+
         buttons = [
         create_button(style=ButtonStyle.blue, label="1",custom_id="1"),
         create_button(style=ButtonStyle.blue, label="2",custom_id="2"),
