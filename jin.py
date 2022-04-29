@@ -822,7 +822,7 @@ async def kino(ctx:SlashContext,*,film_name:str):
         embed.add_field(name=f"4. {result_4} ({year_4})",value="---",inline= False)
       #  embed.add_field(name=f"5. {result_5} ({year_5})",value="---", inline= False)
 
-        await ctx.send(embed=embed,components=[action_row])
+        message = await ctx.send(embed=embed,components=[action_row])
         button_ctx: ComponentContext = await wait_for_component(client, components=action_row)
         
         if button_ctx.custom_id=="1":
@@ -862,7 +862,8 @@ async def kino(ctx:SlashContext,*,film_name:str):
         embed.add_field(name="Average Rating: ",value=driver.find_element_by_css_selector(".display-rating").text,inline=False)
   
         driver.quit()
-        await button_ctx.edit_origin(content=None,embed=embed,components=None)
+        await message.delete()
+        await ctx.send(content=None,embed=embed)
 
     if num=="3":
         result_1 = driver.find_element_by_css_selector(".results > li:nth-child(1) > div:nth-child(2) > h2:nth-child(1) > span:nth-child(1) > a:nth-child(1)").text
@@ -892,7 +893,7 @@ async def kino(ctx:SlashContext,*,film_name:str):
       #  embed.add_field(name=f"4. {result_4} ({year_4})",value="---",inline= False)
        # embed.add_field(name=f"5. {result_5} ({year_5})",value="---", inline= False)
 
-        await ctx.send(embed=embed,components=[action_row])
+        message = await ctx.send(embed=embed,components=[action_row])
         button_ctx: ComponentContext = await wait_for_component(client, components=action_row)
         
         if button_ctx.custom_id=="1":
@@ -925,7 +926,8 @@ async def kino(ctx:SlashContext,*,film_name:str):
         embed.add_field(name="Average Rating: ",value=driver.find_element_by_css_selector(".display-rating").text,inline=False)
   
         driver.quit()
-        await button_ctx.edit_origin(content=None,embed=embed,components=None)
+        await message.delete()
+        await ctx.send(content=None,embed=embed)
 
     if num=="2":
         result_1 = driver.find_element_by_css_selector(".results > li:nth-child(1) > div:nth-child(2) > h2:nth-child(1) > span:nth-child(1) > a:nth-child(1)").text
@@ -945,7 +947,7 @@ async def kino(ctx:SlashContext,*,film_name:str):
         embed.add_field(name=f"1. {result_1} ({year_1})",value="---", inline= False)
         embed.add_field(name=f"2. {result_2} ({year_2})",value="---", inline= False)
        
-        await ctx.send(embed=embed,components=[action_row])
+        message = await ctx.send(embed=embed,components=[action_row])
         button_ctx: ComponentContext = await wait_for_component(client, components=action_row)
         
         if button_ctx.custom_id=="1":
@@ -973,7 +975,8 @@ async def kino(ctx:SlashContext,*,film_name:str):
         embed.add_field(name="Average Rating: ",value=driver.find_element_by_css_selector(".display-rating").text,inline=False)
   
         driver.quit()
-        await button_ctx.edit_origin(content=None,embed=embed,components=None)
+        await message.delete()
+        await ctx.send(content=None,embed=embed)
 
     if num=="1":
         result_1 = driver.find_element_by_css_selector(".results > li:nth-child(1) > div:nth-child(2) > h2:nth-child(1) > span:nth-child(1) > a:nth-child(1)").text
@@ -989,7 +992,7 @@ async def kino(ctx:SlashContext,*,film_name:str):
         embed=discord.Embed(title=f"Search Results for {film_name} ", color = discord.Color.green())
         embed.add_field(name=f"1. {result_1} ({year_1})",value="---", inline= False)
       
-        await ctx.send(embed=embed,components=[action_row])
+        message = await ctx.send(embed=embed,components=[action_row])
         button_ctx: ComponentContext = await wait_for_component(client, components=action_row)
         
         if button_ctx.custom_id=="1":
@@ -1013,7 +1016,8 @@ async def kino(ctx:SlashContext,*,film_name:str):
         embed.add_field(name="Average Rating: ",value=driver.find_element_by_css_selector(".display-rating").text,inline=False)
   
         driver.quit()
-        await button_ctx.edit_origin(content=None,embed=embed,components=None)
+        await message.delete()
+        await ctx.send(content=None,embed=embed)
 
     if num == "RESULTS":
         embed = discord.Embed(title="No Results", description="No search results.", color= discord.Color.green())
