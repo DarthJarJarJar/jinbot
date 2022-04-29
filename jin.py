@@ -4,6 +4,7 @@ from discord.gateway import DiscordWebSocket
 from discord.utils import get
 from discord import asset
 from discord.user import User
+from django import views
 from googlesearch import search
 from selenium.common.exceptions import NoSuchElementException
 import requests
@@ -1095,7 +1096,8 @@ async def kino(ctx:SlashContext,*,film_name:str):
         embed.add_field(name="Average Rating: ",value=driver.find_element_by_css_selector(".display-rating").text,inline=False)
   
         driver.quit()
-        await message.edit(content=None,embed=embed,components=None)
+        action_row = None
+        await message.edit(content=None,embed=embed,components=[action_row])
 
 
     driver.close()
