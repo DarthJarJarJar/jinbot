@@ -1016,7 +1016,8 @@ async def kino(ctx:SlashContext,*,film_name:str):
         await button_ctx.edit_origin(content=None,embed=embed,components=None)
 
     if num == "RESULTS":
-        embed = discord.embed(title="No Results", description="No search results.", color= discord.Color.green())
+        embed = discord.Embed(title="No Results", description="No search results.", color= discord.Color.green())
+        await ctx.send(embed=embed)
 
     
     else:
