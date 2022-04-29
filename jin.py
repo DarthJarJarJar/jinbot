@@ -982,7 +982,7 @@ async def kino(ctx:SlashContext,*,film_name:str):
         result_1 = driver.find_element_by_css_selector(".results > li:nth-child(1) > div:nth-child(2) > h2:nth-child(1) > span:nth-child(1) > a:nth-child(1)").text
        
         year_1 = driver.find_element_by_css_selector(".results > li:nth-child(1) > div:nth-child(2) > h2:nth-child(1) > span:nth-child(1) > small:nth-child(2) > a:nth-child(1)").text
-       
+        director_1 = driver.find_element_by_css_selector(".results > li:nth-child(1) > div:nth-child(2) > p:nth-child(3) > a:nth-child(1)").text
         buttons = [
         create_button(style=ButtonStyle.blue, label="1",custom_id="1"),
         
@@ -990,7 +990,7 @@ async def kino(ctx:SlashContext,*,film_name:str):
         action_row = create_actionrow(*buttons)
         
         embed=discord.Embed(title=f"Search Results for {film_name} ", color = discord.Color.green())
-        embed.add_field(name=f"1. {result_1} ({year_1})",value="---", inline= False)
+        embed.add_field(name=f"1. {result_1} ({year_1})",value=director_1, inline= False)
       
         message = await ctx.send(embed=embed,components=[action_row])
         button_ctx: ComponentContext = await wait_for_component(client, components=action_row)
