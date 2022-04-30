@@ -309,7 +309,7 @@ class levelsys(commands.Cog):
 
 
 
-def setup(client):
-    client.add_cog(levelsys(client))
+async def setup(client):
+    await client.add_cog(levelsys(client))
 
 

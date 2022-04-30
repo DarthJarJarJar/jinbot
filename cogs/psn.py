@@ -198,7 +198,7 @@ class psn(commands.Cog):
 
   
 
-def setup(client):
-    client.add_cog(psn(client))
+async def setup(client):
+    await client.add_cog(psn(client))
 
 

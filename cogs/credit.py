@@ -220,8 +220,8 @@ class credit(commands.Cog):
 
 
 
-def setup(client):
-    client.add_cog(credit(client))
+async def setup(client):
+     await client.add_cog(credit(client))
 
 
     
