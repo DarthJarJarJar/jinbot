@@ -55,10 +55,12 @@ async def on_ready():
 
 
 cogs = [levelsys,credit,psn,tagdb]
+async def cogscogs():
+    for i in range(len(cogs)):
+        await cogs[i].setup(client)
 
-for i in range(len(cogs)):
-    cogs[i].setup(client)
 
+asyncio.run(cogscogs())
 
 def convert_to_seconds(time:str):
     time_int = time[:-1]
