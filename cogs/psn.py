@@ -3,14 +3,14 @@ from discord.ext import commands, tasks
 from bs4 import BeautifulSoup
 from selenium import webdriver
 import re
-from discord_slash import SlashCommand,SlashContext, client,ComponentContext
+'''from discord_slash import SlashCommand,SlashContext, client,ComponentContext
 import discord_slash
 from discord_slash.utils.manage_commands import create_choice, create_option
 from discord_slash.utils.manage_components import create_button, create_actionrow
 from discord_slash.model import ButtonStyle
 from discord_slash.utils.manage_components import wait_for_component
 from discord_slash.utils.manage_components import create_select, create_select_option, create_actionrow
-from discord_slash import cog_ext, SlashContext
+from discord_slash import cog_ext, SlashContext'''
 from selenium.webdriver.common.keys import Keys
 guilds = [826766972204744764]
 
@@ -196,21 +196,9 @@ class psn(commands.Cog):
         await msg1.edit(embed=newEmbed)
 
 
-    @cog_ext.cog_slash(name="psn", description="Grabs your profile data from Psnprofile",guild_ids=guilds,options=[create_option(name="psn",description="Your psn",required=True,option_type=3)])
-    async def _get_psnprofile(self,ctx:SlashContext, psn: str):
-        if ctx.author == client.user:
-            return
-        newProfile = PsnProfile(psn)
-        msg1 = await ctx.send("Please wait a moment...")
-        newProfile.scrape_psnprofile()
-        titleCard = psn + "'s PSNProfile"
-        gameData, rareData = newProfile.get_profile()
-        newEmbed = discord.Embed(title=titleCard, url=newProfile.profile_url, description=gameData, color=0x2565c4)
-        await msg1.edit(embed=newEmbed)
-        
-    
+  
 
-def setup(client):
-    client.add_cog(psn(client))
+async def setup(client):
+    await client.add_cog(psn(client))
 
 

@@ -2,7 +2,7 @@ import discord
 from discord.ext import commands
 from pymongo import MongoClient
 from discord.utils import get
-from discord_slash import cog_ext, SlashContext
+#from discord_slash import cog_ext, SlashContext
 
 
 import urllib.parse
@@ -140,11 +140,11 @@ class levelsys(commands.Cog):
             if stats["id"]==x["id"]:
                 break
         embed = discord.Embed(title=f'**Level: {usrlevel}** (Rank {rank})', description=f"{xp} XP", color=discord.Color.green())
-        embed.set_author(name=ctx.author.name, icon_url=ctx.author.avatar_url)
+        embed.set_author(name=ctx.author.name, icon_url=ctx.author.avatar.url)
 
         await ctx.channel.send(embed=embed)
 
-    @cog_ext.cog_slash(name="rank",description="Shows your current xp and rank",guild_ids=[826766972204744764]) 
+    '''@cog_ext.cog_slash(name="rank",description="Shows your current xp and rank",guild_ids=[826766972204744764]) 
     async def _xp(self, ctx:SlashContext):
         stats = levelling.find_one({"id": ctx.author.id})
         xp = stats["xp"]
@@ -188,7 +188,7 @@ class levelsys(commands.Cog):
         embed = discord.Embed(title=f'**Level: {usrlevel}** (Rank {rank})', description=f"{xp} XP", color=discord.Color.green())
         embed.set_author(name=ctx.author.name, icon_url=ctx.author.avatar_url)
 
-        await ctx.send(embed=embed)
+        await ctx.send(embed=embed)'''
     
     @commands.command()
     async def leaderboard(self,ctx, num=1):
@@ -309,7 +309,7 @@ class levelsys(commands.Cog):
 
 
 
-def setup(client):
-    client.add_cog(levelsys(client))
+async def setup(client):
+    await client.add_cog(levelsys(client))
 
 
