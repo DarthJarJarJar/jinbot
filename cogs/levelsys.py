@@ -140,7 +140,7 @@ class levelsys(commands.Cog):
             if stats["id"]==x["id"]:
                 break
         embed = discord.Embed(title=f'**Level: {usrlevel}** (Rank {rank})', description=f"{xp} XP", color=discord.Color.green())
-        embed.set_author(name=ctx.author.name, icon_url=ctx.author.avatar_url)
+        embed.set_author(name=ctx.author.name, icon_url=ctx.author.avatar.url)
 
         await ctx.channel.send(embed=embed)
 
