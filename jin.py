@@ -42,7 +42,7 @@ intents = discord.Intents(messages=True, guilds=True, reactions=True, members=Tr
 client = commands.Bot(command_prefix='*', intents=intents,case_insensitive=True)
 #slash = SlashCommand(client, sync_commands=True)
 guilds = [826766972204744764]
-tree = app_commands.CommandTree(client)
+tree = client.tree
 guildid = 826766972204744764
 
 welcome = "<:Wjin:865274048988184588><:Ejin:865274113174405131><:Ljin:865274170157432843><:Cjin:865274259353370634><:Ojin:865274346129850408><:Mjin:865274436168450058><:Ejin:865274113174405131>"
