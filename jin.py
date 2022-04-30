@@ -33,14 +33,15 @@ from cogs import levelsys,credit,psn,tagdb
 from currency_converter import CurrencyConverter
 from async_timeout import timeout
 
-
+from discord import app_commands
   
 
 intents = discord.Intents(messages=True, guilds=True, reactions=True, members=True, presences=True)
 client = commands.Bot(command_prefix='*', intents=intents,case_insensitive=True)
 #slash = SlashCommand(client, sync_commands=True)
+tree = app_commands.CommandTree(client)
 guilds = [826766972204744764]
-
+guildid = 826766972204744764
 welcome = "<:Wjin:865274048988184588><:Ejin:865274113174405131><:Ljin:865274170157432843><:Cjin:865274259353370634><:Ojin:865274346129850408><:Mjin:865274436168450058><:Ejin:865274113174405131>"
 
 
@@ -117,7 +118,9 @@ async def on_member_remove(member):
 async def jumbo(ctx, emoji: discord.Emoji):
     await ctx.send(emoji.url)
    
-
+@tree.command(guild=discord.Object(id=guildid))
+async def slashcommand(interaction: discord.Interaction, number:int, string:str):
+    await interaction.response.send_message(f'{number=} {string=}', ephemeral=True)
 
 
 @client.command()
