@@ -20,33 +20,26 @@ import itertools
 import math
 import random
 import datetime
-#from discord_slash import SlashCommand,SlashContext, client,ComponentContext
-#import discord_slash
-#from discord_slash.utils.manage_commands import create_choice, create_option
-#from discord_slash.utils.manage_components import create_button, create_actionrow
-#from discord_slash.model import ButtonStyle
+from discord_slash import SlashCommand,SlashContext, client,ComponentContext
+import discord_slash
+from discord_slash.utils.manage_commands import create_choice, create_option
+from discord_slash.utils.manage_components import create_button, create_actionrow
+from discord_slash.model import ButtonStyle
 import sys
-#from discord_slash.utils.manage_components import wait_for_component
-#from discord_slash.utils.manage_components import create_select, create_select_option, create_actionrow
+from discord_slash.utils.manage_components import wait_for_component
+from discord_slash.utils.manage_components import create_select, create_select_option, create_actionrow
 import time
 from cogs import levelsys,credit,psn,tagdb
 from currency_converter import CurrencyConverter
 from async_timeout import timeout
-
-from discord import app_commands
-
-
   
 
 intents = discord.Intents(messages=True, guilds=True, reactions=True, members=True, presences=True)
 client = commands.Bot(command_prefix='*', intents=intents,case_insensitive=True)
-#slash = SlashCommand(client, sync_commands=True)
+slash = SlashCommand(client, sync_commands=True)
 guilds = [826766972204744764]
-tree = client.tree
-guildid = 826766972204744764
 
 welcome = "<:Wjin:865274048988184588><:Ejin:865274113174405131><:Ljin:865274170157432843><:Cjin:865274259353370634><:Ojin:865274346129850408><:Mjin:865274436168450058><:Ejin:865274113174405131>"
-
 
 
 @client.event
@@ -60,12 +53,10 @@ async def on_ready():
 
 
 cogs = [levelsys,credit,psn,tagdb]
-async def cogscogs():
-    for i in range(len(cogs)):
-        await cogs[i].setup(client)
 
+for i in range(len(cogs)):
+    cogs[i].setup(client)
 
-asyncio.run(cogscogs())
 
 def convert_to_seconds(time:str):
     time_int = time[:-1]
@@ -122,10 +113,6 @@ async def on_member_remove(member):
 async def jumbo(ctx, emoji: discord.Emoji):
     await ctx.send(emoji.url)
    
-@tree.command(guild=discord.Object(id=guildid))
-async def slashcommand(interaction: discord.Interaction, number:int, string:str):
-    await interaction.response.send_message(f'{number=} {string=}', ephemeral=True)
-
 
 
 
@@ -214,7 +201,7 @@ async def avatar(ctx, avamember : discord.Member=None):
   
 
 
-'''@slash.slash(name="Jin", description="Jin",guild_ids=guilds)
+@slash.slash(name="Jin", description="Jin",guild_ids=guilds)
 async def _jin(ctx:SlashContext):
     await ctx.send("<:jinhappy1:835921639551008818>")        
                 
@@ -259,7 +246,7 @@ async def color(ctx:SlashContext):
                             break   
         colorRole = discord.utils.get(ctx.guild.roles, name=button_ctx.selected_options[0])
         await ctx.author.add_roles(colorRole)
-        await button_ctx.edit_origin(content="Added the color role!",components=None)'''
+        await button_ctx.edit_origin(content="Added the color role!",components=None)
 
 @client.command()
 async def eldenring(ctx):
@@ -295,7 +282,7 @@ async def hfw(ctx):
  
   await ctx.send(f"Time until HFW: {eldentime}")
 
-'''@slash.slash(name="hfw",guild_ids=guilds,description="Shows time until the release of Horizon Forbidden Jin")
+@slash.slash(name="hfw",guild_ids=guilds,description="Shows time until the release of Horizon Forbidden Jin")
 async def hfw(ctx):
   
   delta = datetime.datetime(2022,2,18,0,0)-datetime.datetime.now()
@@ -310,7 +297,7 @@ async def hfw(ctx):
   eldenhours = f"{y[0]} hours {y[1]} minutes {round(float(y[2]))} seconds"
   eldentime=eldendays+eldenhours
  
-  await ctx.send(f"Time until HFW: {eldentime}")'''
+  await ctx.send(f"Time until HFW: {eldentime}")
   
     
 @client.command()
@@ -377,7 +364,7 @@ async def jincast(ctx,flag=True):
     
   
         
-''' ######SLASH COMMANDS#######
+ ######SLASH COMMANDS#######
 
 @slash.slash(name="echo", description="echoes what you said", guild_ids=guilds,options=[create_option(name="text", description='text you wish to echo',required=True,option_type=3)])
 async def echo(ctx : SlashCommand, text : str):
@@ -542,7 +529,7 @@ async def _time(ctx:SlashContext,year:int,month:int,date:int,hours:int,minutes:i
 async def _work(ctx:SlashContext):
     await ctx.send("worked")
 
-@slash.slash(name="rolesetup", guild_ids=guilds, description="setup for roles")
+'''@slash.slash(name="rolesetup", guild_ids=guilds, description="setup for roles")
 async def _testrole(ctx:SlashContext):
     buttons = [
         create_button(style=ButtonStyle.blue, label="Announcements",custom_id="announcements"),
@@ -555,7 +542,7 @@ async def _testrole(ctx:SlashContext):
     action_row = create_actionrow(*buttons)
     embed=discord.Embed(title="Self Roles",
     description="**Announcements:** Get notified for server announcements!\n**Movies:** Get notified when we're watching a movie!\n**Games:** Get notified when we're trying to play a game together!\n**Polls:** Get notified for polls!\n**Fortnite:** Get notified when we're playing Fortnite!")
-    await ctx.send(embed=embed,components=[action_row])
+    await ctx.send(embed=embed,components=[action_row])'''
 
 @slash.slash(name="convert", description="Currency converter command",guild_ids=guilds,options=[create_option(name="first_currency",description="Currency you want to convert form",option_type=3,required=True),create_option(name="second_currency",description="Currency you want to convert to",option_type=3,required=True),create_option(name="amount",description="Amount you want to convert",option_type=4,required=True)])
 async def _convert(ctx,first_currency:str,second_currency:str,amount):
@@ -570,7 +557,7 @@ async def _convert(ctx,first_currency:str,second_currency:str,amount):
     elem = driver.find_element_by_xpath("/html/body/div[7]/div/div[10]/div[1]/div/div[2]/div[2]/div/div/div[1]/div/div/div/div/div/div/div[1]/div[1]/div[2]/span[1]")
     val= elem.get_attribute("data-value")
 
-    await ctx.send(f"{am} {c1.upper()} is {val} {c2.upper()}")'''
+    await ctx.send(f"{am} {c1.upper()} is {val} {c2.upper()}")
 
 
 @client.command(name="convert")
@@ -617,7 +604,7 @@ async def __convert(ctx,amount,first_currency:str,second_currency:str):
 
     
 
-'''@client.event
+@client.event
 async def on_component(ctx:ComponentContext):
     if ctx.custom_id=="announcements":
             role = discord.utils.get(ctx.guild.roles, name = "Announcements")
@@ -640,7 +627,7 @@ async def on_component(ctx:ComponentContext):
     elif ctx.custom_id=="fortnite":
             role = discord.utils.get(ctx.guild.roles, name = "Fortnite")
             await ctx.author.add_roles(role)
-            await ctx.send(f"Added the fortnite role!", hidden=True)'''
+            await ctx.send(f"Added the fortnite role!", hidden=True)
 
 
 @client.command()
@@ -688,7 +675,7 @@ async def gameold(ctx,*,name:str):
     await message.edit(content=None, embed=embed)
 
 
-'''@client.command()
+@client.command()
 async def game(ctx,*,name:str):
     query =f"{name} metacritic"
     message : discord.Message = await ctx.send("<a:loading:920845271892643861>")
@@ -722,7 +709,10 @@ async def game(ctx,*,name:str):
     title = driver.find_element_by_css_selector("a.hover_none > h1:nth-child(1)")
     print(title.text)
     try: 
-           
+            '''driver.implicitly_wait(3)
+            toggle = driver.find_element_by_css_selector(".product_summary > span:nth-child(2) > span:nth-child(1) > span:nth-child(4)")
+            toggle.click()
+            fulldesc = driver.find_element_by_css_selector(".inline_expanded > span:nth-child(2)")'''
             element = driver.find_element_by_css_selector(".product_summary > span:nth-child(2) > span:nth-child(1) > span:nth-child(4)")
             driver.execute_script("arguments[0].click();", element)
             fulldesc = driver.find_element_by_css_selector(".inline_expanded > span:nth-child(2)")
@@ -1128,9 +1118,11 @@ async def kino(ctx:SlashContext,*,film_name:str):
 
 
 
-    driver.close()'''
+    driver.close()
 
         
+    
+
 
 
 
@@ -1141,13 +1133,8 @@ async def kino(ctx:SlashContext,*,film_name:str):
 
     
         
-@client.command(brief="Send a message with a button!") # Create a command inside a cog
-async def button(ctx):
-    view = discord.ui.View() # Establish an instance of the discord.ui.View class
-    style = discord.ButtonStyle.gray  # The button will be gray in color
-    item = discord.ui.Button(style=style, label="Read the docs!", url="https://discordpy.readthedocs.io/en/master")  # Create an item to pass into the view class.
-    view.add_item(item=item)  # Add that item into the view class
-    await ctx.send("This message has buttons!", view=view)  # Send your message with a button.    
+        
+        
         
         
         
@@ -1163,4 +1150,4 @@ async def button(ctx):
         
         
                                  
-client.run('OTcwMDI4Nzc5MjAyMzEwMTk0.Ym1_sw.vTQE76usr1MvCLXMwdZgORNz16U')
+client.run('ODcyMTk0NzA3MTE0MDQ1NDQw.YQmUng.ZUFMj_ZzY17w-nDKPkxwyLFX6Pg')

@@ -2,7 +2,7 @@ import discord
 from discord.ext import commands
 from pymongo import MongoClient
 from discord.utils import get
-#from discord_slash import cog_ext, SlashContext
+from discord_slash import cog_ext, SlashContext
 
 
 import urllib.parse
@@ -121,8 +121,8 @@ class tagdb(commands.Cog):
     
 
 
-async def setup(client):
-    await client.add_cog(tagdb(client))
+def setup(client):
+    client.add_cog(tagdb(client))
 
 
 
