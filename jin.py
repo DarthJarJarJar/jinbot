@@ -1131,7 +1131,7 @@ async def kino(ctx:SlashContext,*,film_name:str):
     
         
 @client.command(brief="Send a message with a button!") # Create a command inside a cog
-async def button(self, ctx):
+async def button(ctx):
     view = discord.ui.View() # Establish an instance of the discord.ui.View class
     style = discord.ButtonStyle.gray  # The button will be gray in color
     item = discord.ui.Button(style=style, label="Read the docs!", url="https://discordpy.readthedocs.io/en/master")  # Create an item to pass into the view class.
