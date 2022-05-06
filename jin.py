@@ -326,9 +326,9 @@ async def count(ctx,*,name:str):
 
 
 @client.command()
-async def countdown(ctx,yy,m,d):
+async def countdown(ctx,yy,mm,dd):
   
-  delta = datetime.datetime(int(yy),int(m),int(d),0,0)-datetime.datetime.now()
+  delta = datetime.datetime(int(yy),int(mm),int(dd),0,0)-datetime.datetime.now()
   eldendays=str(delta.days)+" days "
   count = 0
   for i in range(len(str(delta))-1):
@@ -340,7 +340,7 @@ async def countdown(ctx,yy,m,d):
   eldenhours = f"{y[0]} hours {y[1]} minutes {round(float(y[2]))} seconds"
   eldentime=eldendays+eldenhours
  
-  await ctx.send(fr"Time until {yy}/{m}/{d}: {eldentime}")
+  await ctx.send(fr"Time until {yy}/{mm}/{dd}: {eldentime}")
  
 @client.command()
 async def jincast(ctx,flag=True):
@@ -687,6 +687,7 @@ async def game(ctx,*,name:str):
     chrome_options.add_argument('--no-sandbox')
     chrome_options.add_argument('--headless')
     chrome_options.add_argument("start-maximized")
+    chrome_options.add_argument('--disable-dev-shm-usage')
     
     driver = webdriver.Chrome(r'/app/.chromedriver/bin/chromedriver',chrome_options=chrome_options)
 
@@ -1044,11 +1045,12 @@ async def kino(ctx:SlashContext,*,film_name:str):
             director_4 = driver.find_element_by_css_selector(".results > li:nth-child(4) > div:nth-child(2) > p:nth-child(3) > a:nth-child(1)").text
             director_5 = driver.find_element_by_css_selector(".results > li:nth-child(5) > div:nth-child(2) > p:nth-child(3) > a:nth-child(1)").text
         except:
-            director_1 = "---"
-            director_2 = "---"
-            director_3 = "---"
-            director_4 = "---"
-            director_5 = "---"
+            director_1 = driver.find_element_by_css_selector(".results > li:nth-child(1) > div:nth-child(2) > p:nth-child(4) > a:nth-child(1)").text
+            
+            director_2 = driver.find_element_by_css_selector(".results > li:nth-child(2) > div:nth-child(2) > p:nth-child(4) > a:nth-child(1)").text
+            director_3 = driver.find_element_by_css_selector(".results > li:nth-child(3) > div:nth-child(2) > p:nth-child(4) > a:nth-child(1)").text
+            director_4 = driver.find_element_by_css_selector(".results > li:nth-child(4) > div:nth-child(2) > p:nth-child(4) > a:nth-child(1)").text
+            director_5 = driver.find_element_by_css_selector(".results > li:nth-child(5) > div:nth-child(2) > p:nth-child(4) > a:nth-child(1)").text
             
         buttons = [
         create_button(style=ButtonStyle.blue, label="1",custom_id="1"),
