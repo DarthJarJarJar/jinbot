@@ -470,7 +470,7 @@ class cog(commands.Cog):
         options.add_argument('--headless')
         options.add_argument('--no-sandbox')
         options.add_argument('--disable-dev-shm-usage')
-        message = await ctx.send("please wait....")
+        message = await ctx.send("<a:loading:920845271892643861>")
         driver = webdriver.Chrome(CHROMEDRIVER_PATH, options=options)
 
         search_url = fr"https://letterboxd.com/search/films/{film_name}/"
@@ -641,7 +641,7 @@ class cog(commands.Cog):
             message = await ctx.send(embed=embed, view=view)
             await view.wait()
             opt = view.value
-            await message.edit(content="please wait...", embed=None, view=None)
+            await message.edit(content="<a:loading:920845271892643861>", embed=None, view=None)
 
             if opt == 1:
                 driver.get(driver.find_element_by_css_selector(
@@ -690,7 +690,7 @@ class cog(commands.Cog):
             await view.wait()
 
             opt = view.value
-            await message.edit(content="please wait...", embed=None, view=None)
+            await message.edit(content="<a:loading:920845271892643861>", embed=None, view=None)
 
             if opt == 1:
                 driver.get(driver.find_element_by_css_selector(
