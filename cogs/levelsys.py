@@ -161,7 +161,7 @@ class levelsys(commands.Cog):
                     pass
                 if i == 11:
                     break
-            await ctx.channel.send(embed=embed)
+            await ctx.send(embed=embed)
         elif num == 2:
             rankings = levelling.find().sort("xp", -1)
             i = 11
