@@ -1,23 +1,20 @@
 import discord
-from discord.ext import commands, tasks
-from bs4 import BeautifulSoup
+from discord import app_commands
+from discord.ext import commands
 from selenium import webdriver
 import re
-from discord_slash import SlashCommand,SlashContext, client,ComponentContext
-import discord_slash
-from discord_slash.utils.manage_commands import create_choice, create_option
-from discord_slash.utils.manage_components import create_button, create_actionrow
-from discord_slash.model import ButtonStyle
-from discord_slash.utils.manage_components import wait_for_component
-from discord_slash.utils.manage_components import create_select, create_select_option, create_actionrow
-from discord_slash import cog_ext, SlashContext
 from selenium.webdriver.common.keys import Keys
 guilds = [826766972204744764]
+guild_id = guilds[0]
+MY_GUILD_ID = discord.Object(826766972204744764)
 
+
+GECKODRIVER_PATH = r"/app/vendor/geckodriver/geckodriver"
 
 '''
 contribution by habim#9767
 '''
+
 
 class Game:
     '''
@@ -73,17 +70,14 @@ class PsnProfile:
         assert checkParam == None, "Input psn profile parameter is invalid."
         foptions = webdriver.FirefoxOptions()
         foptions.binary_location = r'/app/vendor/firefox/firefox'
-                
 
         foptions.add_argument('-headless')
-        browser = webdriver.Firefox(executable_path=r"/app/vendor/geckodriver/geckodriver"
-,
+        browser = webdriver.Firefox(executable_path=GECKODRIVER_PATH
+                                    ,
                                     options=foptions)
         browser.get("https://psnprofiles.com/")
 
         sb = browser.find_element_by_css_selector("#psnId")
-
-
 
         sb.clear()
         sb.send_keys(self.profile_name)
@@ -172,21 +166,17 @@ class PsnProfile:
         return finalMsg
 
 
-
-
 class psn(commands.Cog):
     def __init__(self, client):
         self.client = client
-
 
     @commands.Cog.listener()
     async def on_ready(self):
         print('never gonna make you cry')
 
-
-    @commands.command(name='psn', help="Grabs your profile data from Psnprofile")
-    async def get_psnprofile(self,ctx, profileName: str):
-        
+    @commands.hybrid_command(name="psn")
+    @app_commands.guilds(MY_GUILD_ID)
+    async def get_psnprofile(self, ctx, profileName: str):
         newProfile = PsnProfile(profileName)
         msg1 = await ctx.channel.send("Please wait a moment...")
         newProfile.scrape_psnprofile()
@@ -195,22 +185,9 @@ class psn(commands.Cog):
         newEmbed = discord.Embed(title=titleCard, url=newProfile.profile_url, description=gameData, color=0x2565c4)
         await msg1.edit(embed=newEmbed)
 
-
-    @cog_ext.cog_slash(name="psn", description="Grabs your profile data from Psnprofile",guild_ids=guilds,options=[create_option(name="psn",description="Your psn",required=True,option_type=3)])
-    async def _get_psnprofile(self,ctx:SlashContext, psn: str):
-        if ctx.author == client.user:
-            return
-        newProfile = PsnProfile(psn)
-        msg1 = await ctx.send("Please wait a moment...")
-        newProfile.scrape_psnprofile()
-        titleCard = psn + "'s PSNProfile"
-        gameData, rareData = newProfile.get_profile()
-        newEmbed = discord.Embed(title=titleCard, url=newProfile.profile_url, description=gameData, color=0x2565c4)
-        await msg1.edit(embed=newEmbed)
-        
-    
-
-def setup(client):
-    client.add_cog(psn(client))
+    async def cog_load(self):
+        ...
 
 
+async def setup(client):
+    await client.add_cog(psn(client))
