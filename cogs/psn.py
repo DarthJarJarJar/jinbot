@@ -174,8 +174,7 @@ class psn(commands.Cog):
     async def on_ready(self):
         print('never gonna make you cry')
 
-    @commands.hybrid_command(name="psn")
-    @app_commands.guilds(MY_GUILD_ID)
+    @commands.command(name="psn")
     async def get_psnprofile(self, ctx, profileName: str):
         newProfile = PsnProfile(profileName)
         msg1 = await ctx.channel.send("Please wait a moment...")
