@@ -8,7 +8,7 @@ from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.common.exceptions import NoSuchElementException
 
-guild_id = 926296560172675092
+guild_id = 826766972204744764
 
 TOKEN = "OTcwMDI4Nzc5MjAyMzEwMTk0.G5r3CH.m-YD7lDpP5y6ixblZfq0xpJ6aqt0EQJFgzlI0A"
 MY_GUILD_ID = discord.Object(guild_id)

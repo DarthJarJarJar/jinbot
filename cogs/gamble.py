@@ -10,7 +10,7 @@ from discord.ext import commands
 
 script_dir = Path(__file__).parent
 
-guild_id = 926296560172675092
+guild_id = 826766972204744764
 MY_GUILD_ID = discord.Object(guild_id)
 
 username = urllib.parse.quote_plus('darthjarjar')
