@@ -8,6 +8,7 @@ from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.common.exceptions import NoSuchElementException
 
+
 guild_id = 826766972204744764
 
 TOKEN = "OTcwMDI4Nzc5MjAyMzEwMTk0.G5r3CH.m-YD7lDpP5y6ixblZfq0xpJ6aqt0EQJFgzlI0A"
@@ -336,7 +337,7 @@ class cog(commands.Cog):
     @app_commands.guilds(MY_GUILD_ID)
     async def color(self, ctx):
         view = discord.ui.View().add_item(SelectColor())
-        await ctx.send("Menus!", view=view)
+        await ctx.send(view=view)
 
     @commands.hybrid_command()
     @app_commands.guilds(MY_GUILD_ID)
