@@ -7,6 +7,9 @@ from googlesearch import search
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.common.exceptions import NoSuchElementException
+from pytz import timezone
+from discord.app_commands import Choice
+
 
 
 guild_id = 826766972204744764
@@ -332,6 +335,44 @@ class cog(commands.Cog):
         if member is None:
             member = ctx.author
         await ctx.send(member.avatar.url)
+
+
+    @commands.hybrid_command()
+    @app_commands.guilds(MY_GUILD_ID)
+    @app_commands.describe(fruits="fruites to choose from")
+    @app_commands.choices(fruits=[
+        Choice(name='apple', value=1),
+        Choice(name='banana', value=2),
+        Choice(name='cherry', value=3),
+    ])
+    async def fruit(self, interaction: discord.Interaction, fruits: Choice[int]):
+        await interaction.response.send_message(f"Your favourite fruit is {fruits.name}")
+
+    @commands.hybrid_command()
+    @app_commands.guilds(MY_GUILD_ID)
+    @app_commands.describe(timezones = "Select timezone to view the current time in that timezone")
+    @app_commands.choices(timezones=[
+        Choice(name='EST', value="America/Toronto"),
+        Choice(name='PST', value="America/Vancouver"),
+        Choice(name='CST', value="America/Chicago"),
+        Choice(name='Indian Time', value="Asia/Kolkata"),
+        Choice(name='South Africa', value="Africa/Johannesburg"),
+        Choice(name='UAE', value="Asia/Dubai"),
+
+    ])
+    async def time(self, interaction : discord.Interaction, timezones:Choice[str]):
+        fmt = "%Y-%m-%d %H:%M %Z%z"
+        fmt1 = "%H:%M"
+        fmt2 = "%Y-%m-%d"
+
+        time_tz = datetime.now(tz=timezone(timezones.value))
+        time_to_send = time_tz.strftime(fmt1)
+        date_to_send = time_tz.strftime(fmt2)
+      #  await interaction.send(f"Current time({timezones.name})- **{time_tz.strftime(fmt1)}**")
+        embed = discord.Embed(title=f"Current Ttime({timezones.name})", description=f"**Time:** {time_to_send}\n**Date"
+                                                                                   f":** {date_to_send}",colour=discord.Color.green())
+        await interaction.send(embed=embed)
+
 
     @commands.hybrid_command()
     @app_commands.guilds(MY_GUILD_ID)
