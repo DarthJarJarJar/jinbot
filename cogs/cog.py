@@ -356,8 +356,8 @@ class cog(commands.Cog):
         Choice(name='PST', value="America/Vancouver"),
         Choice(name='CST', value="America/Chicago"),
         Choice(name='Indian Timezone', value="Asia/Kolkata"),
-        Choice(name="South Africa's timezone", value="Africa/Johannesburg"),
-        Choice(name="UAE's timezone", value="Asia/Dubai"),
+        Choice(name="South Africa's Timezone", value="Africa/Johannesburg"),
+        Choice(name="UAE's Timezone", value="Asia/Dubai"),
         Choice(name='Br*tish Timezone', value="Europe/London"),
 
     ])
