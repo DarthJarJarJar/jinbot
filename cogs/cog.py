@@ -369,7 +369,7 @@ class cog(commands.Cog):
         time_to_send = time_tz.strftime(fmt1)
         date_to_send = time_tz.strftime(fmt2)
       #  await interaction.send(f"Current time({timezones.name})- **{time_tz.strftime(fmt1)}**")
-        embed = discord.Embed(title=f"Current Ttime({timezones.name})", description=f"**Time:** {time_to_send}\n**Date"
+        embed = discord.Embed(title=f"Current Time({timezones.name})", description=f"**Time:** {time_to_send}\n**Date"
                                                                                    f":** {date_to_send}",colour=discord.Color.green())
         await interaction.send(embed=embed)
 
