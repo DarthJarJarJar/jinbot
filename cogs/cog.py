@@ -357,7 +357,7 @@ class cog(commands.Cog):
         Choice(name='CST', value="America/Chicago"),
         Choice(name='Indian Time', value="Asia/Kolkata"),
         Choice(name="South Africa", value="Africa/Johannesburg"),
-        Choice(name="UAE' ", value="Asia/Dubai"),
+        Choice(name="UAE", value="Asia/Dubai"),
         Choice(name='Br*tish Time', value="Europe/London"),
 
     ])
