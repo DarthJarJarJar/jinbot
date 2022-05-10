@@ -355,10 +355,10 @@ class cog(commands.Cog):
         Choice(name='EST', value="America/Toronto"),
         Choice(name='PST', value="America/Vancouver"),
         Choice(name='CST', value="America/Chicago"),
-        Choice(name='Indian Timezone', value="Asia/Kolkata"),
-        Choice(name="South Africa's Timezone", value="Africa/Johannesburg"),
-        Choice(name="UAE's Timezone", value="Asia/Dubai"),
-        Choice(name='Br*tish Timezone', value="Europe/London"),
+        Choice(name='Indian Time', value="Asia/Kolkata"),
+        Choice(name="South Africa", value="Africa/Johannesburg"),
+        Choice(name="UAE' ", value="Asia/Dubai"),
+        Choice(name='Br*tish Time', value="Europe/London"),
 
     ])
     async def time(self, interaction : discord.Interaction, timezones:Choice[str]):
