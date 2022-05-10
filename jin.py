@@ -38,6 +38,7 @@ asyncio.run(setup_hook())
 
 
 @client.command()
+@commands.is_owner()
 async def sync(ctx):
     await tree.sync(guild=MY_GUILD_ID)
     await ctx.send('synced commands')
