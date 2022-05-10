@@ -245,16 +245,30 @@ def format_timestamp(timestring: str):
     elif time_unit.lower() == "s":
         timestamp_dict["second"] = time_num
     tzinfo = tz.gettz('America/Toronto')
-    now = datetime.now().astimezone(tz=tzinfo)
+    now = discord.utils.utcnow()
 
     t_dict = timestamp_dict
+    year = now.year + t_dict["year"]
+    month = now.month + t_dict["month"]
+    day = now.day + t_dict["day"]
+    hour = now.hour + t_dict["hour"]
+    minute = now.minute + t_dict["minute"]
+    second = now.second + t_dict["second"]
+    if second>60:
+        minute+=1
+        second-=60
+    if minute>60:
+        hour+=1
+        minute-=60
+    if hour>24:
+        day+=1
+        hour-=24
 
-    newtime = datetime(year=now.year + t_dict["year"], month=now.month + t_dict["month"], day=now.day + t_dict["day"],
-                       hour=now.hour + t_dict["hour"], minute=now.minute + t_dict["minute"],
-                       second=now.second + t_dict["second"], ).astimezone(tz=tzinfo)
+    newtime = datetime(year=year, month=month, day=day,
+                       hour=hour, minute=minute,
+                       second=second, ).astimezone(timezone("Europe/London"))
 
-    return newtime
-
+    return newtime-now
 
 class cog(commands.Cog):
 
