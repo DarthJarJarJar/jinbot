@@ -1,6 +1,5 @@
 import asyncio
 from distutils.log import error
-from click import command
 import discord
 from discord.ext import commands
 from discord.utils import get
