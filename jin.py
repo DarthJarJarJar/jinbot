@@ -9,9 +9,9 @@ import os
 intents = discord.Intents(messages=True, guilds=True, reactions=True, members=True, presences=True,
                           message_content=True, )
 client = commands.Bot(command_prefix='*', intents=intents, case_insensitive=True, )
-guild_id = 826766972204744764
+guild_id = os.environ["GUILD_ID"]
 
-TOKEN = "OTcwMDI4Nzc5MjAyMzEwMTk0.G5r3CH.m-YD7lDpP5y6ixblZfq0xpJ6aqt0EQJFgzlI0A"
+TOKEN = os.environ["TOKEN"]
 MY_GUILD_ID = discord.Object(guild_id)
 cogs = [cog, tagdb, psn, levelsys, gamble]
 tree = client.tree

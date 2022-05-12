@@ -2,13 +2,13 @@ import discord
 from discord import app_commands
 from discord.ext import commands
 from pymongo import MongoClient
-
+import os
 import urllib.parse
 guild_id = 826766972204744764
 MY_GUILD_ID = discord.Object(guild_id)
 
-username = urllib.parse.quote_plus('darthjarjar')
-password = urllib.parse.quote_plus('A@yaan12')
+username = urllib.parse.quote_plus(os.environ["MONGODB_USERNAME"])
+password = urllib.parse.quote_plus(os.environ["MONGODB_PASS"])
 
 cluster = MongoClient(
     'mongodb+srv://%s:%s@cluster0.u6uh4.mongodb.net/myFirstDatabase?retryWrites=true&w=majority' % (username, password))
