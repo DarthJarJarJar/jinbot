@@ -1,8 +1,11 @@
 import asyncio
+from distutils.log import error
+from click import command
 import discord
 from discord.ext import commands
 from discord.utils import get
 from cogs import cog, tagdb, psn, gamble, levelsys
+import os
 
 intents = discord.Intents(messages=True, guilds=True, reactions=True, members=True, presences=True,
                           message_content=True, )
@@ -21,6 +24,7 @@ async def cogscogs():
 
 
 asyncio.run(cogscogs())
+
 
 
 @client.event
@@ -42,6 +46,11 @@ asyncio.run(setup_hook())
 async def sync(ctx):
     await tree.sync(guild=MY_GUILD_ID)
     await ctx.send('synced commands')
+
+@client.command()
+async def checkenv(ctx):
+    item = os.environ["MONGODB_NAME"]
+    await ctx.send(item)
 
 
 @client.event
