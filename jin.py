@@ -48,7 +48,7 @@ async def sync(ctx):
 
 @client.command()
 async def checkenv(ctx):
-    item = os.environ["MONGODB_NAME"]
+    item = os.environ["GUILD_ID"]
     await ctx.send(item)
 
 
