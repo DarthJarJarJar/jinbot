@@ -117,7 +117,7 @@ class gambling(commands.Cog):
 
         stats = levelling.find_one({"id": ctx.author.id})
         if num > stats["credit"]:
-            await ctx.channel.send("You can't gift more credits than what you have")
+            await ctx.send("You can't gift more credits than what you have")
         if num < 0:
             await ctx.send("You can't gift negative credits")
         else:
