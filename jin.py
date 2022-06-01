@@ -20,7 +20,7 @@ tree = client.tree
 async def cogscogs():
     for i in range(len(cogs)):
         await cogs[i].setup(client)
-
+        print("e")
 
 asyncio.run(cogscogs())
 
