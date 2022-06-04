@@ -54,7 +54,7 @@ async def checkenv(ctx):
 
 @client.event
 async def on_member_join(member: discord.Member):
-    if member.guild.id == guild_id:
+    
         channel = client.get_channel(854247382086189066)
         jinchain = client.get_channel(834406006351462420)
         jinrules = client.get_channel(893929998614925322)
@@ -62,10 +62,8 @@ async def on_member_join(member: discord.Member):
             "<:Wjin:865274048988184588><:Ejin:865274113174405131><:Ljin:865274170157432843><:Cjin:865274259353370634><:Ojin:865274346129850408><:Mjin:865274436168450058><:Ejin:865274113174405131>")
         embed1 = discord.Embed(title=f"Welcome {member}!",
                                description=f"Contribute to {jinchain.mention} and check out {jinrules.mention} to get started! Remember to flame on and on and on and on")
-        await channel.send(member.mention)
-        await channel.send(embed=embed1)
-        await channel.send(
-            'https://media.discordapp.net/attachments/826766972204744767/885951474109149274/tumblr_ovbx1zq11b1vo889bo8_400.gifv.gif')
+        embed1.set_image("https://media.discordapp.net/attachments/826766972204744767/885951474109149274/tumblr_ovbx1zq11b1vo889bo8_400.gifv.gif")
+        await channel.send(content=member.mention, embed=embed1)
         role = get(member.guild.roles, id=833781809128669265)
         await member.add_roles(role)
 
