@@ -35,6 +35,7 @@ async def on_ready():
 
 async def setup_hook() -> None:
     client.add_view(cog.PersistentView())
+    
 
 
 asyncio.run(setup_hook())
