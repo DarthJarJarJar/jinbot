@@ -52,6 +52,13 @@ async def checkenv(ctx):
     item = os.environ["GUILD_ID"]
     await ctx.send(item)
 
+@client.command()
+async def check(ctx):
+    member = ctx.author
+    if (discord.utils.utcnow() - member.created_at).days < 5:
+            await ctx.send("Less than 5 days")
+    else:
+        await ctx.send("More than 5 days")
 
 @client.event
 async def on_member_join(member: discord.Member):
