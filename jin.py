@@ -56,10 +56,7 @@ async def checkenv(ctx):
 @client.event
 async def on_member_join(member: discord.Member):
     if member.guild.name == "Jincord":
-        if (discord.utils.utcnow() - member.created_at).days < 5:
-            await member.send("Your account was too young")
-            await member.ban()
-        else:
+      
             channel = client.get_channel(854247382086189066)
             jinchain = client.get_channel(834406006351462420)
             jinrules = client.get_channel(893929998614925322)
