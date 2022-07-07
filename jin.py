@@ -60,6 +60,7 @@ async def check(ctx):
     else:
         await ctx.send("More than 5 days")
 
+
 @client.event
 async def on_member_join(member: discord.Member):
     if member.guild.name == "Jincord":
