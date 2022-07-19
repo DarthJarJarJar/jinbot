@@ -9,6 +9,7 @@ from selenium.webdriver.chrome.options import Options
 from selenium.common.exceptions import NoSuchElementException
 from pytz import timezone
 from discord.app_commands import Choice
+import requests
 
 
 
@@ -17,6 +18,67 @@ guild_id = 826766972204744764
 TOKEN = "OTcwMDI4Nzc5MjAyMzEwMTk0.G5r3CH.m-YD7lDpP5y6ixblZfq0xpJ6aqt0EQJFgzlI0A"
 MY_GUILD_ID = discord.Object(guild_id)
 CHROMEDRIVER_PATH = r"/app/.chromedriver/bin/chromedriver"
+
+import requests
+
+
+class SearchGame():
+    def __init__(self, game):
+        url = "https://api.igdb.com/v4/search/"
+
+        data = requests.post(
+            url=url,
+            headers={
+                'Client-ID': 'o5xvtlqq670n8hhzz05rvwpbr7hjt4',
+                'Authorization': "Bearer sd089a9azgftad7tbbaroxitu6x71k",
+            },
+            data=fr'search "{game}";limit 5; fields name, game.id, game.platforms.name; where game.cover.image_id != null & game.version_parent = null & game.screenshots != null & game.follows != null;'
+        )
+        result = data.json()
+        self.results = result
+
+
+class Game():
+
+    def __init__(self, id):
+
+        url = "https://api.igdb.com/v4/games"
+        data = requests.post(url=url,
+                             data=fr"fields name, genres.name, aggregated_rating, platforms.name, platforms.id, release_dates.human, summary, cover.image_id, involved_companies.company.name; where id = {id};",
+                             headers={
+                                 'Client-ID': 'o5xvtlqq670n8hhzz05rvwpbr7hjt4',
+                                 'Authorization': "Bearer sd089a9azgftad7tbbaroxitu6x71k",
+                             })
+        result = data.json()
+        game_data = result[0]
+        genres = []
+        genre_list = game_data["genres"]
+        for genre in genre_list:
+            genres.append(genre["name"])
+        genre_string = ", ".join(genres)
+        companies = []
+
+        inv_companies = game_data["involved_companies"]
+        for company in inv_companies:
+            companies.append(company["company"]["name"])
+
+        company_string = ", ".join(companies)
+
+        platforms = []
+        platform_data = game_data["platforms"]
+        for platform in platform_data:
+            platforms.append(platform["name"])
+
+        platform_string = ", ".join(platforms)
+
+        self.platforms = platform_string
+        self.genres = genre_string
+        self.devs = company_string
+        self.name = game_data["name"]
+        self.description = game_data["summary"]
+        self.cover = f"https://images.igdb.com/igdb/image/upload/t_cover_big/{game_data['cover']['image_id']}.jpg"
+        self.rating = int(game_data["aggregated_rating"])
+
 
 
 class PersistentView(discord.ui.View):
@@ -437,87 +499,35 @@ class cog(commands.Cog):
 
     @commands.hybrid_command()
     @app_commands.guilds(MY_GUILD_ID)
-    async def game(self, ctx, *, name: str):
-        query = f"{name} metacritic"
-        message: discord.Message = await ctx.send("<a:loading:920845271892643861>")
+    async def game(self, ctx, *, game: str):
+        search = SearchGame(game).results
 
-        chrome_options = Options()
-        chrome_options.add_argument('--no-sandbox')
-        chrome_options.add_argument('--headless')
-        chrome_options.add_argument("start-maximized")
-        chrome_options.add_argument('--disable-dev-shm-usage')
+        search_results = ""
+        for i in range(len(search)):
+            game = search[i]
+            platforms = []
+            platform_data = game["game"]["platforms"]
+            for platform in platform_data:
+                platforms.append(platform["name"])
 
-        driver = webdriver.Chrome(CHROMEDRIVER_PATH, chrome_options=chrome_options)
+            platform_string = ", ".join(platforms)
+            search_results+= f"**{i+1}. {game['name']}**\n{platform_string}\n\n"
 
-        for j in search(query, tld="ca", num=10, stop=10, pause=2):
-            driver.get(j)
-            result = j
-            break
+        embed = discord.Embed(title="Search Results", description=search_results, colour=discord.Color.green())
+        view = Button5()
+        message = await ctx.send(embed=embed, view=view)
+        await view.wait()
+        opt = view.value
 
-        driver.implicitly_wait(5)
+        game_id = search[opt-1]["game"]["id"]
 
-        elem = driver.find_element_by_css_selector(".xlarge > span:nth-child(3)")
-        ms = elem.text
-        link = driver.find_element_by_css_selector("div.must_play > img:nth-child(1)")
-        val = link.get_attribute("src")
-        print(val)
-
-        title = driver.find_element_by_css_selector("a.hover_none > h1:nth-child(1)")
-        print(title.text)
-        try:
-            element = driver.find_element_by_css_selector(
-                ".product_summary > span:nth-child(2) > span:nth-child(1) > span:nth-child(4)")
-            driver.execute_script("arguments[0].click();", element)
-            fulldesc = driver.find_element_by_css_selector(".inline_expanded > span:nth-child(2)")
-        except NoSuchElementException:
-            fulldesc = driver.find_element_by_css_selector(
-                ".product_summary > span:nth-child(2) > span:nth-child(1)")
-
-        if "playstation" in result:
-            print("yes")
-            new_query = f"{name} ps store"
-
-            for j in search(new_query, tld="com", num=10, stop=10, pause=2):
-                storelink = j
-                break
-            view = discord.ui.View()
-            style = discord.ButtonStyle.link
-            item = discord.ui.Button(style=style, label="PS Store", url=result)
-            view.add_item(item=item)
-
-            embed = discord.Embed(title=title.text, colour=discord.Color.green(), url=result)
-            embed.set_thumbnail(url=val)
-            if len(fulldesc.text) > 1000:
-                embed.add_field(name="Game Description: ", value=f"{fulldesc.text[:1000]}...", inline=False)
-
-            else:
-                embed.add_field(name="Game Description: ", value=fulldesc.text, inline=False)
-
-            embed.add_field(name="Metacritic Score: ", value=f"**{ms}**", inline=False)
-            driver.implicitly_wait(15)
-            driver.quit()
-
-            await message.edit(content=None, embed=embed, view=view)
-
-
-
-        else:
-            print("no")
-            embed = discord.Embed(title=title.text, colour=discord.Color.green(), url=result)
-            embed.set_thumbnail(url=val)
-            if len(fulldesc.text) > 1000:
-                embed.add_field(name="Game Description: ", value=f"{fulldesc.text[:1000]}...", inline=False)
-
-            else:
-                embed.add_field(name="Game Description: ", value=fulldesc.text, inline=False)
-
-            embed.add_field(name="Metacritic Score: ", value=f"**{ms}**", inline=False)
-            # flameonandon
-
-            driver.implicitly_wait(15)
-            driver.quit()
-
-            await message.edit(content=None, embed=embed)
+        print(game_id)
+        game = Game(game_id)
+        embed = discord.Embed(title=game.name,
+                              description=f"**Description: **\n{game.description}\n\n**Genres: **{game.genres}\n\n**Platforms: **{game.platforms}\n\n**Developers/Publishers: **{game.devs}\n\n**Rating: **{game.rating}",
+                              colour=discord.Color.green())
+        embed.set_thumbnail(url=game.cover)
+        await message.edit(embed=embed, view=None)
 
     @commands.hybrid_command()
     @app_commands.guilds(MY_GUILD_ID)
@@ -916,6 +926,11 @@ class cog(commands.Cog):
     @app_commands.guilds(MY_GUILD_ID)
     async def pingping(self, ctx: commands.Context):
         await ctx.send("pongpong")
+
+
+   
+
+
 
     async def cog_load(self):
         ...
