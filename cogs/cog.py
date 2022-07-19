@@ -15,7 +15,6 @@ import requests
 
 guild_id = 826766972204744764
 
-TOKEN = "OTcwMDI4Nzc5MjAyMzEwMTk0.G5r3CH.m-YD7lDpP5y6ixblZfq0xpJ6aqt0EQJFgzlI0A"
 MY_GUILD_ID = discord.Object(guild_id)
 CHROMEDRIVER_PATH = r"/app/.chromedriver/bin/chromedriver"
 
