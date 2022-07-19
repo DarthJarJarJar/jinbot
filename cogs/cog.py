@@ -70,11 +70,15 @@ class Game():
 
         platform_string = ", ".join(platforms)
 
+        game_summary = game_data["summary"]
+        if len(game_summary>4000):
+            game_summary = game_summary[:4000]+"..."
+
         self.platforms = platform_string
         self.genres = genre_string
         self.devs = company_string
         self.name = game_data["name"]
-        self.description = game_data["summary"]
+        self.description = game_summary
         self.cover = f"https://images.igdb.com/igdb/image/upload/t_cover_big/{game_data['cover']['image_id']}.jpg"
         self.rating = int(game_data["aggregated_rating"])
         self.date = game_data['release_dates'][0]['human']
