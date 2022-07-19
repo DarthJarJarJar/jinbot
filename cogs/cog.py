@@ -525,7 +525,7 @@ class cog(commands.Cog):
         print(game_id)
         game = Game(game_id)
         embed = discord.Embed(title=game.name,
-                              description=f"**Description: **\n{game.description}\n\n**Release Data: **{game.date}\n\n**Genres: **{game.genres}\n\n**Platforms: **{game.platforms}\n\n**Developers/Publishers: **{game.devs}\n\n**Rating: **{game.rating}",
+                              description=f"**Description: **\n{game.description}\n\n**Release Date: **{game.date}\n\n**Genres: **{game.genres}\n\n**Platforms: **{game.platforms}\n\n**Developers/Publishers: **{game.devs}\n\n**Rating: **{game.rating}",
                               colour=discord.Color.green())
         embed.set_thumbnail(url=game.cover)
         await message.edit(embed=embed, view=None)
