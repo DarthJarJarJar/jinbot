@@ -31,7 +31,7 @@ class SearchGame():
                 'Client-ID': 'o5xvtlqq670n8hhzz05rvwpbr7hjt4',
                 'Authorization': "Bearer sd089a9azgftad7tbbaroxitu6x71k",
             },
-            data=fr'search "{game}";limit 5; fields name, game.id, game.platforms.name; where game.cover.image_id != null & game.version_parent = null & game.screenshots != null & game.follows != null;'
+            data=fr'search "{game}";limit 5; fields name, game.id, game.platforms.name; where game.cover.image_id != null & game.version_parent = null & game.screenshots != null & game.follows != null & game.aggregated_rating != null;'
         )
         result = data.json()
         self.results = result
