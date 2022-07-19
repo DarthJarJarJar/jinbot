@@ -71,8 +71,8 @@ class Game():
         platform_string = ", ".join(platforms)
 
         game_summary = game_data["summary"]
-        if len(game_summary)>2800:
-            game_summary = game_summary[:4000]+"..."
+        if len(game_summary)>3200:
+            game_summary = game_summary[:3200]+"..."
 
         self.platforms = platform_string
         self.genres = genre_string
