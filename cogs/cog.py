@@ -130,7 +130,6 @@ class SelectColor(discord.ui.Select):
             discord.SelectOption(label="Dark Red", description="Adds the Dark Red color role!"),
             discord.SelectOption(label="Black", description="Adds the Black color role!"),
             discord.SelectOption(label="Remove", description="Remove any color roles that you have!"),
-
         ]
 
         super().__init__(placeholder="Select an option", max_values=1, min_values=1, options=options)
