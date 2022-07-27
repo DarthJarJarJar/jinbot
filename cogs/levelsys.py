@@ -151,13 +151,13 @@ class levelsys(commands.Cog):
             rankings = levelling.find().sort("xp", -1)
             i = 1
             embed = discord.Embed(title="Leaderboard", color=discord.Color.green())
-            
+            embed_desc = ""
             for x in rankings:
                 try:
                     temp = ctx.guild.get_member(x["id"])
                     tempxp = x["xp"]
                    # embed.add_field(name=f"{i}: {temp.name}", value=f"{tempxp}", inline=False)
-                    embed_desc = f"**{i}: {temp.name}**  {tempxp}\n"
+                    embed_desc += f"**{i}: {temp.name}**  {tempxp}\n"
                     i += 1
                 except:
                     pass
