@@ -307,6 +307,7 @@ def format_timestamp(timestring: str):
         timestamp_dict["hour"] = time_num
     elif time_unit.lower() == "m":
         timestamp_dict["minute"] = time_num
+        
     elif time_unit.lower() == "s":
         timestamp_dict["second"] = time_num
     tzinfo = tz.gettz('America/Toronto')
