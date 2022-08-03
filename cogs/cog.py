@@ -931,6 +931,11 @@ class cog(commands.Cog):
     async def pingping(self, ctx: commands.Context):
         await ctx.send("pongpong")
 
+    @commands.hybrid_command()
+    async def globalcommand(self, ctx: commands.Context):
+        await ctx.send("this is a global command")
+
+
 
    
 
