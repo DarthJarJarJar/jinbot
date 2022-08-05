@@ -1,14 +1,19 @@
 import asyncio
 from distutils.log import error
+import sys
 import discord
 from discord.ext import commands
 from discord.utils import get
 from cogs import cog, tagdb, psn, gamble, levelsys
 import os
+import io
+import traceback
+import aiohttp
+
 
 intents = discord.Intents(messages=True, guilds=True, reactions=True, members=True, presences=True,
                           message_content=True, )
-client = commands.Bot(command_prefix='*', intents=intents, case_insensitive=True, )
+client = commands.client(command_prefix='*', intents=intents, case_insensitive=True, )
 guild_id = os.environ["GUILD_ID"]
 
 TOKEN = os.environ["TOKEN"]
@@ -40,6 +45,53 @@ async def setup_hook() -> None:
 
 asyncio.run(setup_hook())
 
+
+
+async def try_hastebin(content):
+    """Upload to Hastebin, if possible."""
+    payload = content.encode('utf-8')
+    async with aiohttp.ClientSession(raise_for_status=True) as cs:
+        async with cs.post('https://hastebin.com/documents', data=payload) as res:
+            post = await res.json()
+    uri = post['key']
+    return f'https://hastebin/{uri}'
+
+async def send_to_owner(content):
+    """Send content to owner. If content is small enough, send directly.
+    Otherwise, try Hastebin first, then upload as a File."""
+    owner = client.get_user(client.owner_id)
+    if owner is None:
+        return
+    if len(content) < 1990:
+        await owner.send(f'```\ncontent\n```')
+    else:
+        try:
+            await owner.send(await try_hastebin(content))
+        except aiohttp.ClientResponseError:
+            await owner.send(file=discord.File(io.StringIO(content), filename='traceback.txt'))
+
+@client.event
+async def on_error(event, *args, **kwargs):
+    """Error handler for all events."""
+    s = traceback.format_exc()
+    content = f'Ignoring exception in {event}\n{s}'
+    print(content, file=sys.stderr)
+    await send_to_owner(content)
+
+async def handle_command_error(ctx: commands.Context, exc: Exception):
+    """Handle specific exceptions separately here"""
+    pass
+
+@client.event
+async def on_command_error(ctx: commands.Context, exc: Exception):
+    """Error handler for commands"""
+
+    # Log the error and bug the owner.
+    exc = getattr(exc, 'original', exc)
+    lines = ''.join(traceback.format_exception(exc.__class__, exc, exc.__traceback__))
+    lines = f'Ignoring exception in command {ctx.command}:\n{lines}'
+    print(lines)
+    await send_to_owner(lines)
 
 @client.command()
 @commands.is_owner()

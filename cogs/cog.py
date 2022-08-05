@@ -13,6 +13,7 @@ import requests
 
 
 
+
 guild_id = 826766972204744764
 
 MY_GUILD_ID = discord.Object(guild_id)
