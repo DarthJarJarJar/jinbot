@@ -60,7 +60,7 @@ async def try_hastebin(content):
 async def send_to_owner(content):
     """Send content to owner. If content is small enough, send directly.
     Otherwise, try Hastebin first, then upload as a File."""
-    owner: discord.User = client.fetch_user(client.owner_id)
+    owner = await client.fetch_user(client.owner_id)
     channel = bot.get_channel(872335733287956500)
    
     try:
