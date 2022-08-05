@@ -1,4 +1,5 @@
 import asyncio
+from dis import dis
 from distutils.log import error
 import discord
 from discord.ext import commands
@@ -60,13 +61,11 @@ async def try_hastebin(content):
 async def send_to_owner(content):
     """Send content to owner. If content is small enough, send directly.
     Otherwise, try Hastebin first, then upload as a File."""
-    owner = await client.fetch_user(client.owner_id)
     channel = bot.get_channel(872335733287956500)
    
     try:
         await channel.send(await try_hastebin(content))
     except aiohttp.ClientResponseError:
-        await channel.send(f"{owner.mention} There's an error")
         await channel.send(file=discord.File(io.StringIO(content), filename='traceback.txt'))
 
 @bot.event
