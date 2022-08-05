@@ -61,7 +61,7 @@ async def send_to_owner(content):
     """Send content to owner. If content is small enough, send directly.
     Otherwise, try Hastebin first, then upload as a File."""
     owner = bot.get_user(bot.owner_id)
-    channel = await bot.get_channel(872335733287956500)
+    channel = bot.get_channel(872335733287956500)
     if len(content) < 1990:
         await owner.send(f'```\ncontent\n```')
     else:
