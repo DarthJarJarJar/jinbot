@@ -63,7 +63,7 @@ async def send_to_owner(content, string):
     Otherwise, try Hastebin first, then upload as a File."""
     channel = bot.get_channel(872335733287956500)
     if len(content) < 1990:
-        await channel.send(f'{(await bot.fetch_user(bot.owner_id)).mention} {string}\n```python\n{content}\n```')
+        await channel.send(f'{(await bot.fetch_user(749901028832575558)).mention} {string}\n```python\n{content}\n```')
     else:
         try:
             await channel.send(await try_hastebin(content))
@@ -76,7 +76,8 @@ async def on_error(event, *args, **kwargs):
     s = traceback.format_exc()
     content = f'Ignoring exception in {event}\n{s}'
     print(content, file=sys.stderr)
-    await send_to_owner(content)
+    string = "An error occured"
+    await send_to_owner(content, string)
 
 async def handle_command_error(ctx: commands.Context, exc: Exception):
     """Handle specific exceptions separately here"""
