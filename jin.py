@@ -1,6 +1,5 @@
 import asyncio
 from distutils.log import error
-import sys
 import discord
 from discord.ext import commands
 from discord.utils import get
@@ -9,11 +8,13 @@ import os
 import io
 import traceback
 import aiohttp
+import sys
 
 
 intents = discord.Intents(messages=True, guilds=True, reactions=True, members=True, presences=True,
                           message_content=True, )
-client = commands.client(command_prefix='*', intents=intents, case_insensitive=True, )
+client = commands.Bot(command_prefix='*', intents=intents, case_insensitive=True, )
+bot = client
 guild_id = os.environ["GUILD_ID"]
 
 TOKEN = os.environ["TOKEN"]
@@ -59,7 +60,7 @@ async def try_hastebin(content):
 async def send_to_owner(content):
     """Send content to owner. If content is small enough, send directly.
     Otherwise, try Hastebin first, then upload as a File."""
-    owner = client.get_user(client.owner_id)
+    owner = bot.get_user(bot.owner_id)
     if owner is None:
         return
     if len(content) < 1990:
@@ -70,7 +71,7 @@ async def send_to_owner(content):
         except aiohttp.ClientResponseError:
             await owner.send(file=discord.File(io.StringIO(content), filename='traceback.txt'))
 
-@client.event
+@bot.event
 async def on_error(event, *args, **kwargs):
     """Error handler for all events."""
     s = traceback.format_exc()
@@ -82,7 +83,7 @@ async def handle_command_error(ctx: commands.Context, exc: Exception):
     """Handle specific exceptions separately here"""
     pass
 
-@client.event
+@bot.event
 async def on_command_error(ctx: commands.Context, exc: Exception):
     """Error handler for commands"""
 
