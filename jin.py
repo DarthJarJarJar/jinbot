@@ -58,17 +58,17 @@ async def try_hastebin(content):
     uri = post['key']
     return f'https://hastebin/{uri}'
 
-async def send_to_owner(content):
+async def send_to_owner(content, string):
     """Send content to owner. If content is small enough, send directly.
     Otherwise, try Hastebin first, then upload as a File."""
     channel = bot.get_channel(872335733287956500)
     if len(content) < 1990:
-        await channel.send(f'```python\n{content}\n```')
+        await channel.send(f'{string}\n```python\n{content}\n```')
     else:
         try:
             await channel.send(await try_hastebin(content))
         except aiohttp.ClientResponseError:
-            await channel.send(file=discord.File(io.StringIO(content), filename='traceback.txt'))
+            await channel.send(content=string, file=discord.File(io.StringIO(content), filename='traceback.txt'))
 
 @bot.event
 async def on_error(event, *args, **kwargs):
@@ -92,8 +92,8 @@ async def on_command_error(ctx: commands.Context, exc: Exception):
     lines = f'Ignoring exception in command {ctx.command}:\n{lines}'
     print(lines)
     channel = bot.get_channel(872335733287956500)
-    await channel.send(f"Error in command. Command called in message {ctx.message.jump_url}")
-    await send_to_owner(lines)
+    string = f"Error in command. Command called in message {ctx.message.jump_url}"
+    await send_to_owner(lines, string)
 
 @client.command()
 @commands.is_owner()
