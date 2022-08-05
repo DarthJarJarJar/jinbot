@@ -62,13 +62,11 @@ async def send_to_owner(content):
     Otherwise, try Hastebin first, then upload as a File."""
     owner = bot.get_user(bot.owner_id)
     channel = bot.get_channel(872335733287956500)
-    if len(content) < 1990:
-        await channel.send(f'```\ncontent\n```')
-    else:
-        try:
-            await channel.send(await try_hastebin(content))
-        except aiohttp.ClientResponseError:
-            await channel.send(file=discord.File(io.StringIO(content), filename='traceback.txt'))
+   
+    try:
+        await channel.send(await try_hastebin(content))
+    except aiohttp.ClientResponseError:
+        await channel.send(file=discord.File(io.StringIO(content), filename='traceback.txt'))
 
 @bot.event
 async def on_error(event, *args, **kwargs):
