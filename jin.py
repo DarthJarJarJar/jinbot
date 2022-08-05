@@ -91,6 +91,8 @@ async def on_command_error(ctx: commands.Context, exc: Exception):
     lines = ''.join(traceback.format_exception(exc.__class__, exc, exc.__traceback__))
     lines = f'Ignoring exception in command {ctx.command}:\n{lines}'
     print(lines)
+    channel = bot.get_channel(872335733287956500)
+    await channel.send(f"Error in command. Command called in message {ctx.message.jump_url}")
     await send_to_owner(lines)
 
 @client.command()
