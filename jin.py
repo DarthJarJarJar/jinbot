@@ -63,7 +63,7 @@ async def send_to_owner(content):
     owner = bot.get_user(bot.owner_id)
     channel = bot.get_channel(872335733287956500)
     if len(content) < 1990:
-        await owner.send(f'```\ncontent\n```')
+        await channel.send(f'```\ncontent\n```')
     else:
         try:
             await channel.send(await try_hastebin(content))
