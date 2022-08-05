@@ -62,11 +62,13 @@ async def send_to_owner(content):
     """Send content to owner. If content is small enough, send directly.
     Otherwise, try Hastebin first, then upload as a File."""
     channel = bot.get_channel(872335733287956500)
-   
-    try:
-        await channel.send(await try_hastebin(content))
-    except aiohttp.ClientResponseError:
-        await channel.send(file=discord.File(io.StringIO(content), filename='traceback.txt'))
+    if len(content) < 1990:
+        await channel.send(f'```python\n{content}\n```')
+    else:
+        try:
+            await channel.send(await try_hastebin(content))
+        except aiohttp.ClientResponseError:
+            await channel.send(file=discord.File(io.StringIO(content), filename='traceback.txt'))
 
 @bot.event
 async def on_error(event, *args, **kwargs):
