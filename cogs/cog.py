@@ -461,7 +461,7 @@ class cog(commands.Cog):
     async def now(self, interaction: discord.Interaction, timezone: str):
         url = f"https://worldtimeapi.org/api/timezone/{timezone}"
         res = requests.get(url)
-        result = json.loads(res)
+        result = json.loads(res.text)
         time = result['datetime']
 
 
