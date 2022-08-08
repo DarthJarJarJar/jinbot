@@ -482,6 +482,8 @@ class cog(commands.Cog):
                                                                                    f":** {date_to_send}",colour=discord.Color.green())
         await interaction.send(embed=embed)
 
+    
+
 
     @commands.hybrid_command()
     @app_commands.guilds(MY_GUILD_ID)
