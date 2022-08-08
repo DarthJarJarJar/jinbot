@@ -445,16 +445,6 @@ class cog(commands.Cog):
         await ctx.send(member.avatar.url)
 
 
-    @commands.hybrid_command()
-    @app_commands.guilds(MY_GUILD_ID)
-    @app_commands.describe(fruits="fruites to choose from")
-    @app_commands.choices(fruits=[
-        Choice(name='apple', value=1),
-        Choice(name='banana', value=2),
-        Choice(name='cherry', value=3),
-    ])
-    async def fruit(self, interaction: discord.Interaction, fruits: Choice[int]):
-        await interaction.response.send_message(f"Your favourite fruit is {fruits.name}")
 
     @commands.hybrid_command()
     @app_commands.guilds(MY_GUILD_ID)
