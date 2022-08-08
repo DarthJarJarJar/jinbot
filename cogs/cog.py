@@ -391,8 +391,8 @@ class cog(commands.Cog):
         }
 
         response = requests.request("GET", url, headers=headers, data = payload)
+        res = response.text
         try:
-            res = response.text
             result = json.loads(res)
 
 
@@ -402,6 +402,7 @@ class cog(commands.Cog):
             await ctx.send(embed=embed)
 
         except:
+            print(res)
             await ctx.send("There was an error. Make sure you specify the correct three letter code for the currencies")
 
     @commands.command()
