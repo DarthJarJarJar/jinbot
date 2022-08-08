@@ -379,6 +379,30 @@ class cog(commands.Cog):
         await member.timeout(None)
         await ctx.send(f"{member.name} was unmuted")
 
+    @commands.hybrid_command()
+    @app_commands.guilds(MY_GUILD_ID)
+    async def currency(ctx, convert:str, amount:int, convertTo:str):
+        url = f"https://api.apilayer.com/exchangerates_data/convert?to={to}&from={fromCUR}&amount={amount}"
+
+        payload = {}
+        headers= {
+        "apikey": "qK21tx0R6l5Age8yx1lppVq4O6tbS3i2"
+        }
+
+        response = requests.request("GET", url, headers=headers, data = payload)
+        try:
+            result = response.text
+            embed = discord.Embed(title=f"{result['query']['amount']} {result['query']['from']} to {result['query']['to']}", timestamp=datetime.fromtimestamp(f"{result['info']['timestamp']}"))
+            embed.description = f"{result['result']}"
+            embed.set_footer(text=f"Exchange Rate: {result['info']['rate']}")
+            await ctx.send(embed=embed)
+
+        except:
+            await ctx.send("There was an error. Make sure you specify the correct three letter code for the currencies")
+
+      
+        
+
     @commands.command()
     async def jumbo(self, ctx, emoji: discord.Emoji):
         await ctx.send(emoji.url)
