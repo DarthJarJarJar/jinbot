@@ -392,18 +392,16 @@ class cog(commands.Cog):
 
         response = requests.request("GET", url, headers=headers, data = payload)
         res = response.text
-        try:
-            result = json.loads(res)
+        
+        result = json.loads(res)
 
 
-            embed = discord.Embed(title=f"{result['query']['amount']} {result['query']['from']} to {result['query']['to']}", timestamp=datetime.fromtimestamp(f"{result['info']['timestamp']}"))
-            embed.description = f"{result['result']}"
-            embed.set_footer(text=f"Exchange Rate: {result['info']['rate']}")
-            await ctx.send(embed=embed)
+        embed = discord.Embed(title=f"{result['query']['amount']} {result['query']['from']} to {result['query']['to']}", timestamp=datetime.fromtimestamp(f"{result['info']['timestamp']}"))
+        embed.description = f"{result['result']}"
+        embed.set_footer(text=f"Exchange Rate: {result['info']['rate']}")
+        await ctx.send(embed=embed)
 
-        except:
-            print(res)
-            await ctx.send("There was an error. Make sure you specify the correct three letter code for the currencies")
+        
 
     @commands.command()
     async def jumbo(self, ctx, emoji: discord.Emoji):
