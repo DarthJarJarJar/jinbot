@@ -1,172 +1,110 @@
+import asyncio
+import json
 import discord
 from discord import app_commands
+from discord.app_commands import Choice
 from discord.ext import commands
-from selenium import webdriver
-import re
-from selenium.webdriver.common.keys import Keys
-guilds = [826766972204744764]
-guild_id = guilds[0]
-MY_GUILD_ID = discord.Object(826766972204744764)
+import aiohttp
+
+guild_id = 826766972204744764
+MY_GUILD_ID = discord.Object(guild_id)
 
 
-GECKODRIVER_PATH = r"/app/vendor/geckodriver/geckodriver"
-
-'''
-contribution by habim#9767
-'''
-
-
-class Game:
-    '''
-    Class to hold the data for each game in the main psn profile trophy page
-    '''
-
-    def __init__(self, game_name, game_trophy_count, game_console, game_rank, game_bronze, game_silver, game_gold,
-                 game_plat_rarity):
-        self.game_name = game_name
-        self.game_trophy_count = game_trophy_count
-        self.game_console = game_console
-        self.game_rank = game_rank
-        self.game_bronze = game_bronze
-        self.game_silver = game_silver
-        self.game_gold = game_gold
-        self.game_plat_rarity = game_plat_rarity
-
-    def __str__(self):
-        return f"{self.game_name} ({self.game_console}) [{self.game_plat_rarity}] - {self.game_trophy_count} - B({self.game_bronze}), S({self.game_silver}), G({self.game_gold})"
+async def get_data(username, page):
+    async with aiohttp.ClientSession() as session:
+        async with session.get(f"https://peaceful-river-36217.herokuapp.com/user/trophies/{username}/{page}") as resp:
+            print(await resp.read())
+            content = json.loads(await resp.read())
+            print(content)
+            return content
 
 
-class Trophy:
-    '''
-    Class to hold trophies as objects.
-    NOTE: trophy_type= 0-bronze, 1-silver, 2-gold, 3-platinum
-    '''
-
-    def __init__(self, trophy_name, trophy_game_name, trophy_type, trophy_percent, trophy_rarity, img_url):
-        self.trophy_name = trophy_name
-        self.trophy_game_name = trophy_game_name
-        self.trophy_type = trophy_type
-        self.trophy_percent = trophy_percent
-        self.trophy_rarity = trophy_rarity
-        self.trophy_image_url = img_url
-
-    def __str__(self):
-        return f"{self.trophy_game_name} - {self.trophy_name} ({self.trophy_percent} - {self.trophy_rarity}) [{self.trophy_type}]"
+async def get_trophy_count(username):
+    async with aiohttp.ClientSession() as session:
+        async with session.get(f"https://peaceful-river-36217.herokuapp.com/user/trophies/{username}/0") as resp:
+            content = json.loads(await resp.read())
+            print(content)
+            return content
 
 
-class PsnProfile:
-    def __init__(self, profile_name):
-        self.profile_name = profile_name
-        self.plat_count = 0
-        self.gold_count = 0
-        self.silver_count = 0
-        self.bronze_count = 0
-        self.rare_trophies = []
-        self.games = []
-        self.profile_url = f"https://psnprofiles.com/{self.profile_name}"
+def make_bold(string):
+    initial = "**"
+    middle = initial + str(string)
+    final = middle + initial
+    return final
 
-    def scrape_psnprofile(self):
-        checkParam = re.search("[~!#$%^&*()+{}:;\\']", self.profile_name)
-        assert checkParam == None, "Input psn profile parameter is invalid."
-        foptions = webdriver.FirefoxOptions()
-        foptions.binary_location = r'/app/vendor/firefox/firefox'
 
-        foptions.add_argument('-headless')
-        browser = webdriver.Firefox(executable_path=GECKODRIVER_PATH
-                                    ,
-                                    options=foptions)
-        browser.get("https://psnprofiles.com/")
+def get_trophy_value_string(earnedTrophies):
+    emojis = Emojis()
+    space = emojis.blank + emojis.blank + emojis.blank
+    trophy_details = f"{emojis.gold} {make_bold(earnedTrophies['bronze'])}{space}{emojis.silver} {make_bold(earnedTrophies['silver'])}{space}{emojis.gold} {make_bold(earnedTrophies['gold'])}{space}{emojis.platinum} {make_bold(earnedTrophies['platinum'])} "
+    return trophy_details
 
-        sb = browser.find_element_by_css_selector("#psnId")
 
-        sb.clear()
-        sb.send_keys(self.profile_name)
-        sb.send_keys(Keys.RETURN)
-        browser.get(f"https://psnprofiles.com/{self.profile_name}")
-        # Grabbing Rare Trophies
-        rare_trophy_tr = browser.find_elements_by_xpath(
-            "/html/body/div[6]/div[3]/div/div[2]/div[2]/div[4]/table/tbody/tr")
-        for tr in rare_trophy_tr:
-            tds = tr.find_elements_by_tag_name('td')
-            trophyImgUrl = tds[0].find_element_by_tag_name("a").find_element_by_tag_name(
-                "picture").find_element_by_tag_name("img").get_attribute("src")
-            trophyName = tds[1].find_element_by_class_name("small-title").text
-            trophyGameName = tds[1].find_elements_by_tag_name('div')[1].find_element_by_tag_name('a').text
-            trophyPercent = tds[2].find_element_by_class_name("typo-top").text
-            trophyRarity = tds[2].find_element_by_class_name("typo-bottom").text
-            trophyURL = tds[3].find_element_by_tag_name('span').find_element_by_tag_name('img').get_attribute('src')
-            trophyType = None
-            if "bronze" in trophyURL:
-                trophyType = "B"
-            elif "silver" in trophyURL:
-                trophyType = "S"
-            elif "gold" in trophyURL:
-                trophyType = "G"
-            elif "platinum" in trophyURL:
-                trophyType = "P"
-            rtrophy = Trophy(trophyName, trophyGameName, trophyType, trophyPercent, trophyRarity, trophyImgUrl)
-            self.rare_trophies.append(rtrophy)
+def make_trophy_embed(username, gameobject, page, count):
+    embed = discord.Embed(title=f"`{username}`'s Trophies", colour=discord.Color.green())
+    for game in gameobject:
+        trophy_details = get_trophy_value_string(game['earnedTrophies'])
+        embed.add_field(name=f"{game['trophyTitleName']} ({game['trophyTitlePlatform']})", value=trophy_details,
+                        inline=False)
+        embed.set_footer(text=f"Page {page}/{count}")
+    return embed
 
-        # Grabbing Top 10 games
-        game_tr = browser.find_elements_by_xpath("/html/body/div[6]/div[3]/div/div[2]/div[1]/div[3]/table[2]/tbody/tr")
-        count = 0
-        for tr2 in game_tr:
-            if count == 15:
-                break
-            tds = tr2.find_elements_by_tag_name('td')
-            gameName = tds[1].find_element_by_class_name('title').text
-            gameTrophyCount = tds[1].find_element_by_class_name('small-info').text.replace("<b>", " ").replace("</b>",
-                                                                                                               " ")
-            gameConsole = tds[2].find_element_by_class_name("platforms").find_element_by_tag_name("span").text
-            gameRank = tds[3].find_element_by_class_name("game-rank").text
-            trophyCountSpans = tds[4].find_element_by_class_name("trophy-count").find_elements_by_tag_name("span")
-            gameBronze = trophyCountSpans[5].text
-            gameSilver = trophyCountSpans[3].text
-            gameGold = trophyCountSpans[1].text
-            gamePlatRarity = trophyCountSpans[6].text
-            newGame = Game(gameName, gameTrophyCount, gameConsole, gameRank, gameBronze, gameSilver, gameGold,
-                           gamePlatRarity)
-            self.games.append(newGame)
-            count += 1
-        browser.quit()
 
-    def dbg_rare_trophies(self):
-        print("Rare Trophies")
-        print("--------------")
-        for t in self.rare_trophies:
-            print(t)
+class Emojis:
+    def __init__(self):
+        self.bronze = "<:bronze:1003401053401796788>"
+        self.silver = "<:silver:1003401877016297562>"
+        self.gold = "<:gold:1003401075979726980>"
+        self.platinum = "<:plat:1003401209585078363>"
+        self.blank = "<:blank:1003408619376742441>"
+        self.bronze1PROFILE = "<:b1:1003434859362005052>"
+        self.bronze2PROFILE = "<:b2:1003434879373017129>"
+        self.bronze3PROFILE = "<:b3:1003434893893709855>"
+        self.silver1PROFILE = "<:s1:1003434996637380628>"
+        self.silver2PROFILE = "<:s2:1003435020939165776>"
+        self.silver3PROFILE = "<:s3:1003435049456242760>"
+        self.gold1PROFILE = "<:g1:1003434915146252418>"
+        self.gold2PROFILE = "<:g2:1003434934037397576>"
+        self.gold3PROFILE = "<:g3:1003434968984338558>"
+        self.platinumPROFILE = "<:p_:1003435077159620629>"
+        self.loading = "<a:loading:920845271892643861>"
 
-    def dbg_games(self):
-        print("\nGames")
-        print("--------------")
-        for g in self.games:
-            print(g)
 
-    def get_profile(self):
-        rareTrophyData = self.get_rare_trophies()
-        profileGames = self.get_games()
-        rareTrophies = ""
-        finalMsg = ""
-        rareTrophies += "**Rare Trophies**\n"
-        rareTrophies += rareTrophyData + "\n"
-        finalMsg += "**Game Trophies**\n"
-        finalMsg += profileGames
-        return finalMsg, rareTrophies
+class Counter(discord.ui.View):
+    def __init__(self, username: str, max: int):
+        super().__init__()
+        self.page = 1
+        self.max = max
+        self.username = username
 
-    def get_rare_trophies(self):
-        finalMsg = ""
-        for t in self.rare_trophies:
-            finalMsg += str(t) + "\n"
-        return finalMsg
+    @discord.ui.button(label="<<", style=discord.ButtonStyle.green, disabled=True)
+    async def backward(self, interaction: discord.Interaction, button: discord.ui.Button):
 
-    def get_games(self):
-        finalMsg = ""
-        for g in self.games:
-            finalMsg += str(g) + "\n"
-        return finalMsg
+        self.page -= 1
+        if self.page == 1:
+            self.backward.disabled = True
+        if self.page < 10:
+            self.forward.disabled = False
+        data = await get_data(self.username, self.page)
+        embed = make_trophy_embed(self.username, data, self.page, self.max)
+        await interaction.response.edit_message(view=self, embed=embed)
+
+    @discord.ui.button(label=">>", style=discord.ButtonStyle.green)
+    async def forward(self, interaction: discord.Interaction, button: discord.ui.Button):
+
+        self.page += 1
+        if self.page > 1:
+            self.backward.disabled = False
+        if self.page == self.max:
+            self.forward.disabled = True
+        data = await get_data(self.username, self.page)
+        embed = make_trophy_embed(self.username, data, self.page, self.max)
+        await interaction.response.edit_message(view=self, embed=embed)
 
 
 class psn(commands.Cog):
+
     def __init__(self, client):
         self.client = client
 
@@ -174,15 +112,14 @@ class psn(commands.Cog):
     async def on_ready(self):
         print('never gonna make you cry')
 
-    @commands.command(name="psn")
-    async def get_psnprofile(self, ctx, profileName: str):
-        newProfile = PsnProfile(profileName)
-        msg1 = await ctx.channel.send("Please wait a moment...")
-        newProfile.scrape_psnprofile()
-        titleCard = profileName + "'s PSNProfile"
-        gameData, rareData = newProfile.get_profile()
-        newEmbed = discord.Embed(title=titleCard, url=newProfile.profile_url, description=gameData, color=0x2565c4)
-        await msg1.edit(embed=newEmbed)
+    @commands.hybrid_command()
+    @app_commands.guilds(MY_GUILD_ID)
+    async def psn(self, ctx: commands.Context, username):
+        message = await ctx.send(Emojis().loading)
+        data = await get_data(username, 1)
+        count = await get_trophy_count(username)
+        embed = make_trophy_embed(username, data, 1, ((int(count["count"])) // 10) + 1)
+        await message.edit(content=None, embed=embed, view=Counter(username, ((int(count["count"])) // 10) + 1))
 
     async def cog_load(self):
         ...

@@ -4,7 +4,7 @@ from distutils.log import error
 import discord
 from discord.ext import commands
 from discord.utils import get
-from cogs import cog, tagdb, psn, gamble, levelsys, psnp
+from cogs import cog, psn, tagdb, gamble, levelsys
 import os
 import io
 import traceback
@@ -20,7 +20,7 @@ guild_id = os.environ["GUILD_ID"]
 
 TOKEN = os.environ["TOKEN"]
 MY_GUILD_ID = discord.Object(guild_id)
-cogs = [cog, tagdb, psn, levelsys, gamble, psnp]
+cogs = [cog, tagdb, levelsys, gamble, psn]
 tree = client.tree
 
 
