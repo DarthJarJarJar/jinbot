@@ -468,7 +468,7 @@ class cog(commands.Cog):
         embed = discord.Embed(title=f"Current time in {timezone}", color=discord.Color.green())
         embed.add_field(name="Time: ", value=f"**{time}**")
         embed.add_field(name="Date:", value=f"**{date}**")
-        embed.add_field(name="Timezone: ", value="**{tz}**")
+        embed.add_field(name="Timezone: ", value=f"**{tz}**")
         await interaction.response.send_message(embed=embed)
    
 
