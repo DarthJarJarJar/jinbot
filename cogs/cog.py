@@ -1,6 +1,6 @@
 from typing import List
 import discord
-from discord import app_commands
+from discord import app_commands, embeds
 from discord.ext import commands
 from dateutil import tz
 from datetime import datetime
@@ -463,9 +463,11 @@ class cog(commands.Cog):
         res = requests.get(url)
         result = json.loads(res.text)
         time = result['datetime']
-
-
-        await interaction.response.send_message(time)
+        tz = result['abbreviation']
+        embed = discord.Embed(title=f"Current time in {timezone}")
+        embed.add_field(name="Time: ", value=time)
+        embed.add_field(name="Timezone: ", value=tz)
+        await interaction.response.send_message(embed=embed)
    
 
     @commands.hybrid_command()
