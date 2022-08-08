@@ -6,6 +6,7 @@ from datetime import datetime
 from pytz import timezone
 from discord.app_commands import Choice
 import requests
+import json
 
 
 
@@ -391,7 +392,10 @@ class cog(commands.Cog):
 
         response = requests.request("GET", url, headers=headers, data = payload)
         try:
-            result = response.text
+            res = response.text
+            result = json.loads(res)
+
+
             embed = discord.Embed(title=f"{result['query']['amount']} {result['query']['from']} to {result['query']['to']}", timestamp=datetime.fromtimestamp(f"{result['info']['timestamp']}"))
             embed.description = f"{result['result']}"
             embed.set_footer(text=f"Exchange Rate: {result['info']['rate']}")
