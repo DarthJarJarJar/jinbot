@@ -462,10 +462,12 @@ class cog(commands.Cog):
         url = f"https://worldtimeapi.org/api/timezone/{timezone}"
         res = requests.get(url)
         result = json.loads(res.text)
-        time = result['datetime']
+        time = result['datetime'][11:16]
+        date = result['datetime'][0:10]
         tz = result['abbreviation']
-        embed = discord.Embed(title=f"Current time in {timezone}")
+        embed = discord.Embed(title=f"Current time in {timezone}", color=discord.Color.green())
         embed.add_field(name="Time: ", value=time)
+        embed.add_field(name="Date:", value=date)
         embed.add_field(name="Timezone: ", value=tz)
         await interaction.response.send_message(embed=embed)
    
