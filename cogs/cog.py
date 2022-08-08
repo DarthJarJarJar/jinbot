@@ -458,7 +458,11 @@ class cog(commands.Cog):
     @app_commands.command()
     @app_commands.guilds(MY_GUILD_ID)
     @app_commands.autocomplete(fruit=fruit_autocomplete)
-    async def fruits(self, interaction: discord.Interaction, fruit: str):
+    async def now(self, interaction: discord.Interaction, fruit: str):
+        url = f"https://worldtimeapi.org/api/timezone/{fruit}"
+        res = requests.get(url)
+        print(res)
+
         await interaction.response.send_message(f'Your favourite fruit seems to be {fruit}')
    
 
