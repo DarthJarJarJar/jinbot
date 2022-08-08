@@ -379,7 +379,7 @@ class cog(commands.Cog):
         await member.timeout(None)
         await ctx.send(f"{member.name} was unmuted")
 
-    @commands.hybrid_command()
+    '''@commands.hybrid_command(name="convert")
     @app_commands.guilds(MY_GUILD_ID)
     async def convert(ctx, convert:str, amount:int, convertTo:str):
         url = f"https://api.apilayer.com/exchangerates_data/convert?to={convert}&from={convertTo}&amount={amount}"
@@ -398,10 +398,7 @@ class cog(commands.Cog):
             await ctx.send(embed=embed)
 
         except:
-            await ctx.send("There was an error. Make sure you specify the correct three letter code for the currencies")
-
-      
-        
+            await ctx.send("There was an error. Make sure you specify the correct three letter code for the currencies")'''
 
     @commands.command()
     async def jumbo(self, ctx, emoji: discord.Emoji):
