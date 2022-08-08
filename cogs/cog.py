@@ -461,7 +461,7 @@ class cog(commands.Cog):
     async def now(self, interaction: discord.Interaction, fruit: str):
         url = f"https://worldtimeapi.org/api/timezone/{fruit}"
         res = requests.get(url)
-        print(res)
+        print(res.text)
 
         await interaction.response.send_message(f'Your favourite fruit seems to be {fruit}')
    
