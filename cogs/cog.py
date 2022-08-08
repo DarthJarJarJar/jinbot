@@ -1,3 +1,4 @@
+from typing import List
 import discord
 from discord import app_commands
 from discord.ext import commands
@@ -444,7 +445,22 @@ class cog(commands.Cog):
             member = ctx.author
         await ctx.send(member.avatar.url)
 
+    async def fruit_autocomplete(
+    interaction: discord.Interaction,
+    current: str,
+    ) -> List[app_commands.Choice[str]]:
+        fruits = ['Banana', 'Pineapple', 'Apple', 'Watermelon', 'Melon', 'Cherry']
+        return [
+            app_commands.Choice(name=fruit, value=fruit)
+            for fruit in fruits if current.lower() in fruit.lower()
+        ]
 
+    @app_commands.command()
+    @app_commands.guilds(MY_GUILD_ID)
+    @app_commands.autocomplete(fruit=fruit_autocomplete)
+    async def fruits(interaction: discord.Interaction, fruit: str):
+        await interaction.response.send_message(f'Your favourite fruit seems to be {fruit}')
+   
 
     @commands.hybrid_command()
     @app_commands.guilds(MY_GUILD_ID)
