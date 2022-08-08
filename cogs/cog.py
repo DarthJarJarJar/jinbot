@@ -397,8 +397,8 @@ class cog(commands.Cog):
             result = json.loads(res)
 
 
-            embed = discord.Embed(title=f"{result['query']['amount']} {result['query']['from']} to {result['query']['to']}", timestamp=datetime.fromtimestamp(int(result['info']['timestamp'])))
-            embed.description = f"{result['result']}"
+            embed = discord.Embed(title=f"{result['query']['amount']} {result['query']['from']} to {result['query']['to']}", color=discord.Color.green(),timestamp=datetime.fromtimestamp(int(result['info']['timestamp'])))
+            embed.description = f"**{result['result']}**"
             embed.set_footer(text=f"Exchange Rate: {result['info']['rate']}")
             await ctx.send(embed=embed)
         except:
