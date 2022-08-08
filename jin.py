@@ -104,25 +104,7 @@ async def sync(ctx):
     await tree.sync(guild=MY_GUILD_ID)
     await ctx.send('synced commands')
     
-async def fruit_autocomplete(
-    interaction: discord.Interaction,
-    current: str,
-) -> List[app_commands.Choice[str]]:
-    fruits = ['Banana', 'Pineapple', 'Apple', 'Watermelon', 'Melon', 'Cherry']
-    return [
-        app_commands.Choice(name=fruit, value=fruit)
-        for fruit in fruits if current.lower() in fruit.lower()
-    ]
 
-@app_commands.command()
-@app_commands.guilds(MY_GUILD_ID)
-@app_commands.autocomplete(fruit=fruit_autocomplete)
-async def fruits(interaction: discord.Interaction, fruit: str):
-    await interaction.response.send_message(f'Your favourite fruit seems to be {fruit}')
-@client.command()
-async def checkenv(ctx):
-    item = os.environ["GUILD_ID"]
-    await ctx.send(item)
 
 @client.command()
 async def check(ctx):
