@@ -384,7 +384,7 @@ class cog(commands.Cog):
     @commands.hybrid_command()
     @app_commands.guilds(MY_GUILD_ID)
     async def currency(self, ctx, convert:str, amount:int, to:str):
-        url = f"https://api.apilayer.com/exchangerates_data/convert?to={convert}&from={to}&amount={amount}"
+        url = f"https://api.apilayer.com/exchangerates_data/convert?to={to}&from={convert}&amount={amount}"
 
         payload = {}
         headers= {
