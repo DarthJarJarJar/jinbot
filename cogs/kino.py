@@ -6,7 +6,7 @@ import discord
 from discord.ext import commands
 from discord import app_commands
 
-from cogs.cog import MY_GUILD_ID
+from cogs.cog import MY_GUILD_ID, Button5
 
 
 def filter(list, key, value):
@@ -67,10 +67,13 @@ class Movie(commands.Cog):
         desc = ""
         counter = 1
         for kino in results[:5]:
-            desc += f"**{counter}. {kino['name']}** ({kino['date']})\n\n"
+            desc += f"**{counter}. {kino['name']}** ({kino['date'][:4]})\n\n"
             counter += 1
         embed.description = desc
-        await ctx.send(embed=embed)
+        view = Button5()
+        await view.wait()
+        opt = view.value
+        await ctx.send(embed=embed,view=view)
 
     async def cog_load(self):
         ...

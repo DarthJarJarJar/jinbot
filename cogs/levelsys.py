@@ -4,6 +4,8 @@ from discord.ext import commands
 from pymongo import MongoClient
 import os
 import urllib.parse
+from dotenv import load_dotenv
+load_dotenv()
 guild_id = 826766972204744764
 MY_GUILD_ID = discord.Object(guild_id)
 
