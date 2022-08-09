@@ -9,13 +9,9 @@ from discord.app_commands import Choice
 import requests
 import json
 
-
-
-
 guild_id = 826766972204744764
 
 MY_GUILD_ID = discord.Object(guild_id)
-
 
 import requests
 
@@ -70,8 +66,8 @@ class Game():
         platform_string = ", ".join(platforms)
 
         game_summary = game_data["summary"]
-        if len(game_summary)>3200:
-            game_summary = game_summary[:3200]+"..."
+        if len(game_summary) > 3200:
+            game_summary = game_summary[:3200] + "..."
 
         self.platforms = platform_string
         self.genres = genre_string
@@ -81,7 +77,6 @@ class Game():
         self.cover = f"https://images.igdb.com/igdb/image/upload/t_cover_big/{game_data['cover']['image_id']}.jpg"
         self.rating = int(game_data["aggregated_rating"])
         self.date = game_data['release_dates'][0]['human']
-
 
 
 class PersistentView(discord.ui.View):
@@ -306,7 +301,7 @@ def format_timestamp(timestring: str):
         timestamp_dict["hour"] = time_num
     elif time_unit.lower() == "m":
         timestamp_dict["minute"] = time_num
-        
+
     elif time_unit.lower() == "s":
         timestamp_dict["second"] = time_num
     tzinfo = tz.gettz('America/Toronto')
@@ -319,21 +314,22 @@ def format_timestamp(timestring: str):
     hour = now.hour + t_dict["hour"]
     minute = now.minute + t_dict["minute"]
     second = now.second + t_dict["second"]
-    if second>60:
-        minute+=1
-        second-=60
-    if minute>60:
-        hour+=1
-        minute-=60
-    if hour>24:
-        day+=1
-        hour-=24
+    if second > 60:
+        minute += 1
+        second -= 60
+    if minute > 60:
+        hour += 1
+        minute -= 60
+    if hour > 24:
+        day += 1
+        hour -= 24
 
     newtime = datetime(year=year, month=month, day=day,
                        hour=hour, minute=minute,
                        second=second, ).astimezone(timezone("Europe/London"))
 
-    return newtime-now
+    return newtime - now
+
 
 class cog(commands.Cog):
 
@@ -383,33 +379,28 @@ class cog(commands.Cog):
 
     @commands.hybrid_command()
     @app_commands.guilds(MY_GUILD_ID)
-    async def currency(self, ctx, convert:str, amount:int, to:str):
+    async def currency(self, ctx, convert: str, amount: int, to: str):
         url = f"https://api.apilayer.com/exchangerates_data/convert?to={to}&from={convert}&amount={amount}"
 
         payload = {}
-        headers= {
-        "apikey": "qK21tx0R6l5Age8yx1lppVq4O6tbS3i2"
+        headers = {
+            "apikey": "qK21tx0R6l5Age8yx1lppVq4O6tbS3i2"
         }
 
-        response = requests.request("GET", url, headers=headers, data = payload)
+        response = requests.request("GET", url, headers=headers, data=payload)
         res = response.text
         try:
-       
+
             result = json.loads(res)
 
-
-            embed = discord.Embed(title=f"{result['query']['amount']} {result['query']['from']} to {result['query']['to']}", color=discord.Color.green(),timestamp=datetime.fromtimestamp(int(result['info']['timestamp'])))
+            embed = discord.Embed(
+                title=f"{result['query']['amount']} {result['query']['from']} to {result['query']['to']}",
+                color=discord.Color.green(), timestamp=datetime.fromtimestamp(int(result['info']['timestamp'])))
             embed.description = f"**{result['result']}**"
             embed.set_footer(text=f"Exchange Rate: {result['info']['rate']}")
             await ctx.send(embed=embed)
         except:
             await ctx.send("There was an error. Make sure you specify the correct three letter code for the currencies")
-
-
-
-
-   
-        
 
     @commands.command()
     async def jumbo(self, ctx, emoji: discord.Emoji):
@@ -446,10 +437,89 @@ class cog(commands.Cog):
         await ctx.send(member.avatar.url)
 
     async def timezone_autocomplete(self,
-    interaction: discord.Interaction,
-    current: str,
-    ) -> List[app_commands.Choice[str]]:
-        timezones = ["Africa/Abidjan","Africa/Accra","Africa/Algiers","Africa/Bissau","Africa/Cairo","Africa/Casablanca","Africa/Ceuta","Africa/El_Aaiun","Africa/Johannesburg","Africa/Juba","Africa/Khartoum","Africa/Lagos","Africa/Maputo","Africa/Monrovia","Africa/Nairobi","Africa/Ndjamena","Africa/Sao_Tome","Africa/Tripoli","Africa/Tunis","Africa/Windhoek","America/Adak","America/Anchorage","America/Araguaina","America/Argentina/Buenos_Aires","America/Argentina/Catamarca","America/Argentina/Cordoba","America/Argentina/Jujuy","America/Argentina/La_Rioja","America/Argentina/Mendoza","America/Argentina/Rio_Gallegos","America/Argentina/Salta","America/Argentina/San_Juan","America/Argentina/San_Luis","America/Argentina/Tucuman","America/Argentina/Ushuaia","America/Asuncion","America/Atikokan","America/Bahia","America/Bahia_Banderas","America/Barbados","America/Belem","America/Belize","America/Blanc-Sablon","America/Boa_Vista","America/Bogota","America/Boise","America/Cambridge_Bay","America/Campo_Grande","America/Cancun","America/Caracas","America/Cayenne","America/Chicago","America/Chihuahua","America/Costa_Rica","America/Creston","America/Cuiaba","America/Curacao","America/Danmarkshavn","America/Dawson","America/Dawson_Creek","America/Denver","America/Detroit","America/Edmonton","America/Eirunepe","America/El_Salvador","America/Fort_Nelson","America/Fortaleza","America/Glace_Bay","America/Goose_Bay","America/Grand_Turk","America/Guatemala","America/Guayaquil","America/Guyana","America/Halifax","America/Havana","America/Hermosillo","America/Indiana/Indianapolis","America/Indiana/Knox","America/Indiana/Marengo","America/Indiana/Petersburg","America/Indiana/Tell_City","America/Indiana/Vevay","America/Indiana/Vincennes","America/Indiana/Winamac","America/Inuvik","America/Iqaluit","America/Jamaica","America/Juneau","America/Kentucky/Louisville","America/Kentucky/Monticello","America/La_Paz","America/Lima","America/Los_Angeles","America/Maceio","America/Managua","America/Manaus","America/Martinique","America/Matamoros","America/Mazatlan","America/Menominee","America/Merida","America/Metlakatla","America/Mexico_City","America/Miquelon","America/Moncton","America/Monterrey","America/Montevideo","America/Nassau","America/New_York","America/Nipigon","America/Nome","America/Noronha","America/North_Dakota/Beulah","America/North_Dakota/Center","America/North_Dakota/New_Salem","America/Nuuk","America/Ojinaga","America/Panama","America/Pangnirtung","America/Paramaribo","America/Phoenix","America/Port-au-Prince","America/Port_of_Spain","America/Porto_Velho","America/Puerto_Rico","America/Punta_Arenas","America/Rainy_River","America/Rankin_Inlet","America/Recife","America/Regina","America/Resolute","America/Rio_Branco","America/Santarem","America/Santiago","America/Santo_Domingo","America/Sao_Paulo","America/Scoresbysund","America/Sitka","America/St_Johns","America/Swift_Current","America/Tegucigalpa","America/Thule","America/Thunder_Bay","America/Tijuana","America/Toronto","America/Vancouver","America/Whitehorse","America/Winnipeg","America/Yakutat","America/Yellowknife","Antarctica/Casey","Antarctica/Davis","Antarctica/DumontDUrville","Antarctica/Macquarie","Antarctica/Mawson","Antarctica/Palmer","Antarctica/Rothera","Antarctica/Syowa","Antarctica/Troll","Antarctica/Vostok","Asia/Almaty","Asia/Amman","Asia/Anadyr","Asia/Aqtau","Asia/Aqtobe","Asia/Ashgabat","Asia/Atyrau","Asia/Baghdad","Asia/Baku","Asia/Bangkok","Asia/Barnaul","Asia/Beirut","Asia/Bishkek","Asia/Brunei","Asia/Chita","Asia/Choibalsan","Asia/Colombo","Asia/Damascus","Asia/Dhaka","Asia/Dili","Asia/Dubai","Asia/Dushanbe","Asia/Famagusta","Asia/Gaza","Asia/Hebron","Asia/Ho_Chi_Minh","Asia/Hong_Kong","Asia/Hovd","Asia/Irkutsk","Asia/Jakarta","Asia/Jayapura","Asia/Jerusalem","Asia/Kabul","Asia/Kamchatka","Asia/Karachi","Asia/Kathmandu","Asia/Khandyga","Asia/Kolkata","Asia/Krasnoyarsk","Asia/Kuala_Lumpur","Asia/Kuching","Asia/Macau","Asia/Magadan","Asia/Makassar","Asia/Manila","Asia/Nicosia","Asia/Novokuznetsk","Asia/Novosibirsk","Asia/Omsk","Asia/Oral","Asia/Pontianak","Asia/Pyongyang","Asia/Qatar","Asia/Qostanay","Asia/Qyzylorda","Asia/Riyadh","Asia/Sakhalin","Asia/Samarkand","Asia/Seoul","Asia/Shanghai","Asia/Singapore","Asia/Srednekolymsk","Asia/Taipei","Asia/Tashkent","Asia/Tbilisi","Asia/Tehran","Asia/Thimphu","Asia/Tokyo","Asia/Tomsk","Asia/Ulaanbaatar","Asia/Urumqi","Asia/Ust-Nera","Asia/Vladivostok","Asia/Yakutsk","Asia/Yangon","Asia/Yekaterinburg","Asia/Yerevan","Atlantic/Azores","Atlantic/Bermuda","Atlantic/Canary","Atlantic/Cape_Verde","Atlantic/Faroe","Atlantic/Madeira","Atlantic/Reykjavik","Atlantic/South_Georgia","Atlantic/Stanley","Australia/Adelaide","Australia/Brisbane","Australia/Broken_Hill","Australia/Darwin","Australia/Eucla","Australia/Hobart","Australia/Lindeman","Australia/Lord_Howe","Australia/Melbourne","Australia/Perth","Australia/Sydney","CET","CST6CDT","EET","EST","EST5EDT","Etc/GMT","Etc/GMT+1","Etc/GMT+10","Etc/GMT+11","Etc/GMT+12","Etc/GMT+2","Etc/GMT+3","Etc/GMT+4","Etc/GMT+5","Etc/GMT+6","Etc/GMT+7","Etc/GMT+8","Etc/GMT+9","Etc/GMT-1","Etc/GMT-10","Etc/GMT-11","Etc/GMT-12","Etc/GMT-13","Etc/GMT-14","Etc/GMT-2","Etc/GMT-3","Etc/GMT-4","Etc/GMT-5","Etc/GMT-6","Etc/GMT-7","Etc/GMT-8","Etc/GMT-9","Etc/UTC","Europe/Amsterdam","Europe/Andorra","Europe/Astrakhan","Europe/Athens","Europe/Belgrade","Europe/Berlin","Europe/Brussels","Europe/Bucharest","Europe/Budapest","Europe/Chisinau","Europe/Copenhagen","Europe/Dublin","Europe/Gibraltar","Europe/Helsinki","Europe/Istanbul","Europe/Kaliningrad","Europe/Kiev","Europe/Kirov","Europe/Lisbon","Europe/London","Europe/Luxembourg","Europe/Madrid","Europe/Malta","Europe/Minsk","Europe/Monaco","Europe/Moscow","Europe/Oslo","Europe/Paris","Europe/Prague","Europe/Riga","Europe/Rome","Europe/Samara","Europe/Saratov","Europe/Simferopol","Europe/Sofia","Europe/Stockholm","Europe/Tallinn","Europe/Tirane","Europe/Ulyanovsk","Europe/Uzhgorod","Europe/Vienna","Europe/Vilnius","Europe/Volgograd","Europe/Warsaw","Europe/Zaporozhye","Europe/Zurich","HST","Indian/Chagos","Indian/Christmas","Indian/Cocos","Indian/Kerguelen","Indian/Mahe","Indian/Maldives","Indian/Mauritius","Indian/Reunion","MET","MST","MST7MDT","PST8PDT","Pacific/Apia","Pacific/Auckland","Pacific/Bougainville","Pacific/Chatham","Pacific/Chuuk","Pacific/Easter","Pacific/Efate","Pacific/Enderbury","Pacific/Fakaofo","Pacific/Fiji","Pacific/Funafuti","Pacific/Galapagos","Pacific/Gambier","Pacific/Guadalcanal","Pacific/Guam","Pacific/Honolulu","Pacific/Kiritimati","Pacific/Kosrae","Pacific/Kwajalein","Pacific/Majuro","Pacific/Marquesas","Pacific/Nauru","Pacific/Niue","Pacific/Norfolk","Pacific/Noumea","Pacific/Pago_Pago","Pacific/Palau","Pacific/Pitcairn","Pacific/Pohnpei","Pacific/Port_Moresby","Pacific/Rarotonga","Pacific/Tahiti","Pacific/Tarawa","Pacific/Tongatapu","Pacific/Wake","Pacific/Wallis","WET"]
+                                    interaction: discord.Interaction,
+                                    current: str,
+                                    ) -> List[app_commands.Choice[str]]:
+        timezones = ["Africa/Abidjan", "Africa/Accra", "Africa/Algiers", "Africa/Bissau", "Africa/Cairo",
+                     "Africa/Casablanca", "Africa/Ceuta", "Africa/El_Aaiun", "Africa/Johannesburg", "Africa/Juba",
+                     "Africa/Khartoum", "Africa/Lagos", "Africa/Maputo", "Africa/Monrovia", "Africa/Nairobi",
+                     "Africa/Ndjamena", "Africa/Sao_Tome", "Africa/Tripoli", "Africa/Tunis", "Africa/Windhoek",
+                     "America/Adak", "America/Anchorage", "America/Araguaina", "America/Argentina/Buenos_Aires",
+                     "America/Argentina/Catamarca", "America/Argentina/Cordoba", "America/Argentina/Jujuy",
+                     "America/Argentina/La_Rioja", "America/Argentina/Mendoza", "America/Argentina/Rio_Gallegos",
+                     "America/Argentina/Salta", "America/Argentina/San_Juan", "America/Argentina/San_Luis",
+                     "America/Argentina/Tucuman", "America/Argentina/Ushuaia", "America/Asuncion", "America/Atikokan",
+                     "America/Bahia", "America/Bahia_Banderas", "America/Barbados", "America/Belem", "America/Belize",
+                     "America/Blanc-Sablon", "America/Boa_Vista", "America/Bogota", "America/Boise",
+                     "America/Cambridge_Bay", "America/Campo_Grande", "America/Cancun", "America/Caracas",
+                     "America/Cayenne", "America/Chicago", "America/Chihuahua", "America/Costa_Rica", "America/Creston",
+                     "America/Cuiaba", "America/Curacao", "America/Danmarkshavn", "America/Dawson",
+                     "America/Dawson_Creek", "America/Denver", "America/Detroit", "America/Edmonton",
+                     "America/Eirunepe", "America/El_Salvador", "America/Fort_Nelson", "America/Fortaleza",
+                     "America/Glace_Bay", "America/Goose_Bay", "America/Grand_Turk", "America/Guatemala",
+                     "America/Guayaquil", "America/Guyana", "America/Halifax", "America/Havana", "America/Hermosillo",
+                     "America/Indiana/Indianapolis", "America/Indiana/Knox", "America/Indiana/Marengo",
+                     "America/Indiana/Petersburg", "America/Indiana/Tell_City", "America/Indiana/Vevay",
+                     "America/Indiana/Vincennes", "America/Indiana/Winamac", "America/Inuvik", "America/Iqaluit",
+                     "America/Jamaica", "America/Juneau", "America/Kentucky/Louisville", "America/Kentucky/Monticello",
+                     "America/La_Paz", "America/Lima", "America/Los_Angeles", "America/Maceio", "America/Managua",
+                     "America/Manaus", "America/Martinique", "America/Matamoros", "America/Mazatlan",
+                     "America/Menominee", "America/Merida", "America/Metlakatla", "America/Mexico_City",
+                     "America/Miquelon", "America/Moncton", "America/Monterrey", "America/Montevideo", "America/Nassau",
+                     "America/New_York", "America/Nipigon", "America/Nome", "America/Noronha",
+                     "America/North_Dakota/Beulah", "America/North_Dakota/Center", "America/North_Dakota/New_Salem",
+                     "America/Nuuk", "America/Ojinaga", "America/Panama", "America/Pangnirtung", "America/Paramaribo",
+                     "America/Phoenix", "America/Port-au-Prince", "America/Port_of_Spain", "America/Porto_Velho",
+                     "America/Puerto_Rico", "America/Punta_Arenas", "America/Rainy_River", "America/Rankin_Inlet",
+                     "America/Recife", "America/Regina", "America/Resolute", "America/Rio_Branco", "America/Santarem",
+                     "America/Santiago", "America/Santo_Domingo", "America/Sao_Paulo", "America/Scoresbysund",
+                     "America/Sitka", "America/St_Johns", "America/Swift_Current", "America/Tegucigalpa",
+                     "America/Thule", "America/Thunder_Bay", "America/Tijuana", "America/Toronto", "America/Vancouver",
+                     "America/Whitehorse", "America/Winnipeg", "America/Yakutat", "America/Yellowknife",
+                     "Antarctica/Casey", "Antarctica/Davis", "Antarctica/DumontDUrville", "Antarctica/Macquarie",
+                     "Antarctica/Mawson", "Antarctica/Palmer", "Antarctica/Rothera", "Antarctica/Syowa",
+                     "Antarctica/Troll", "Antarctica/Vostok", "Asia/Almaty", "Asia/Amman", "Asia/Anadyr", "Asia/Aqtau",
+                     "Asia/Aqtobe", "Asia/Ashgabat", "Asia/Atyrau", "Asia/Baghdad", "Asia/Baku", "Asia/Bangkok",
+                     "Asia/Barnaul", "Asia/Beirut", "Asia/Bishkek", "Asia/Brunei", "Asia/Chita", "Asia/Choibalsan",
+                     "Asia/Colombo", "Asia/Damascus", "Asia/Dhaka", "Asia/Dili", "Asia/Dubai", "Asia/Dushanbe",
+                     "Asia/Famagusta", "Asia/Gaza", "Asia/Hebron", "Asia/Ho_Chi_Minh", "Asia/Hong_Kong", "Asia/Hovd",
+                     "Asia/Irkutsk", "Asia/Jakarta", "Asia/Jayapura", "Asia/Jerusalem", "Asia/Kabul", "Asia/Kamchatka",
+                     "Asia/Karachi", "Asia/Kathmandu", "Asia/Khandyga", "Asia/Kolkata", "Asia/Krasnoyarsk",
+                     "Asia/Kuala_Lumpur", "Asia/Kuching", "Asia/Macau", "Asia/Magadan", "Asia/Makassar", "Asia/Manila",
+                     "Asia/Nicosia", "Asia/Novokuznetsk", "Asia/Novosibirsk", "Asia/Omsk", "Asia/Oral",
+                     "Asia/Pontianak", "Asia/Pyongyang", "Asia/Qatar", "Asia/Qostanay", "Asia/Qyzylorda", "Asia/Riyadh",
+                     "Asia/Sakhalin", "Asia/Samarkand", "Asia/Seoul", "Asia/Shanghai", "Asia/Singapore",
+                     "Asia/Srednekolymsk", "Asia/Taipei", "Asia/Tashkent", "Asia/Tbilisi", "Asia/Tehran",
+                     "Asia/Thimphu", "Asia/Tokyo", "Asia/Tomsk", "Asia/Ulaanbaatar", "Asia/Urumqi", "Asia/Ust-Nera",
+                     "Asia/Vladivostok", "Asia/Yakutsk", "Asia/Yangon", "Asia/Yekaterinburg", "Asia/Yerevan",
+                     "Atlantic/Azores", "Atlantic/Bermuda", "Atlantic/Canary", "Atlantic/Cape_Verde", "Atlantic/Faroe",
+                     "Atlantic/Madeira", "Atlantic/Reykjavik", "Atlantic/South_Georgia", "Atlantic/Stanley",
+                     "Australia/Adelaide", "Australia/Brisbane", "Australia/Broken_Hill", "Australia/Darwin",
+                     "Australia/Eucla", "Australia/Hobart", "Australia/Lindeman", "Australia/Lord_Howe",
+                     "Australia/Melbourne", "Australia/Perth", "Australia/Sydney", "CET", "CST6CDT", "EET", "EST",
+                     "EST5EDT", "Etc/GMT", "Etc/GMT+1", "Etc/GMT+10", "Etc/GMT+11", "Etc/GMT+12", "Etc/GMT+2",
+                     "Etc/GMT+3", "Etc/GMT+4", "Etc/GMT+5", "Etc/GMT+6", "Etc/GMT+7", "Etc/GMT+8", "Etc/GMT+9",
+                     "Etc/GMT-1", "Etc/GMT-10", "Etc/GMT-11", "Etc/GMT-12", "Etc/GMT-13", "Etc/GMT-14", "Etc/GMT-2",
+                     "Etc/GMT-3", "Etc/GMT-4", "Etc/GMT-5", "Etc/GMT-6", "Etc/GMT-7", "Etc/GMT-8", "Etc/GMT-9",
+                     "Etc/UTC", "Europe/Amsterdam", "Europe/Andorra", "Europe/Astrakhan", "Europe/Athens",
+                     "Europe/Belgrade", "Europe/Berlin", "Europe/Brussels", "Europe/Bucharest", "Europe/Budapest",
+                     "Europe/Chisinau", "Europe/Copenhagen", "Europe/Dublin", "Europe/Gibraltar", "Europe/Helsinki",
+                     "Europe/Istanbul", "Europe/Kaliningrad", "Europe/Kiev", "Europe/Kirov", "Europe/Lisbon",
+                     "Europe/London", "Europe/Luxembourg", "Europe/Madrid", "Europe/Malta", "Europe/Minsk",
+                     "Europe/Monaco", "Europe/Moscow", "Europe/Oslo", "Europe/Paris", "Europe/Prague", "Europe/Riga",
+                     "Europe/Rome", "Europe/Samara", "Europe/Saratov", "Europe/Simferopol", "Europe/Sofia",
+                     "Europe/Stockholm", "Europe/Tallinn", "Europe/Tirane", "Europe/Ulyanovsk", "Europe/Uzhgorod",
+                     "Europe/Vienna", "Europe/Vilnius", "Europe/Volgograd", "Europe/Warsaw", "Europe/Zaporozhye",
+                     "Europe/Zurich", "HST", "Indian/Chagos", "Indian/Christmas", "Indian/Cocos", "Indian/Kerguelen",
+                     "Indian/Mahe", "Indian/Maldives", "Indian/Mauritius", "Indian/Reunion", "MET", "MST", "MST7MDT",
+                     "PST8PDT", "Pacific/Apia", "Pacific/Auckland", "Pacific/Bougainville", "Pacific/Chatham",
+                     "Pacific/Chuuk", "Pacific/Easter", "Pacific/Efate", "Pacific/Enderbury", "Pacific/Fakaofo",
+                     "Pacific/Fiji", "Pacific/Funafuti", "Pacific/Galapagos", "Pacific/Gambier", "Pacific/Guadalcanal",
+                     "Pacific/Guam", "Pacific/Honolulu", "Pacific/Kiritimati", "Pacific/Kosrae", "Pacific/Kwajalein",
+                     "Pacific/Majuro", "Pacific/Marquesas", "Pacific/Nauru", "Pacific/Niue", "Pacific/Norfolk",
+                     "Pacific/Noumea", "Pacific/Pago_Pago", "Pacific/Palau", "Pacific/Pitcairn", "Pacific/Pohnpei",
+                     "Pacific/Port_Moresby", "Pacific/Rarotonga", "Pacific/Tahiti", "Pacific/Tarawa",
+                     "Pacific/Tongatapu", "Pacific/Wake", "Pacific/Wallis", "WET"]
         return [
             app_commands.Choice(name=timezone, value=timezone)
             for timezone in timezones if current.lower() in timezone.lower()
@@ -470,11 +540,10 @@ class cog(commands.Cog):
         embed.add_field(name="Date:", value=f"**{date}**")
         embed.add_field(name="Timezone: ", value=f"**{tz}**")
         await interaction.response.send_message(embed=embed)
-   
 
     @commands.hybrid_command()
     @app_commands.guilds(MY_GUILD_ID)
-    @app_commands.describe(timezones = "Select timezone to view the current time in that timezone")
+    @app_commands.describe(timezones="Select timezone to view the current time in that timezone")
     @app_commands.choices(timezones=[
         Choice(name='EST', value="America/Toronto"),
         Choice(name='PST', value="America/Vancouver"),
@@ -485,7 +554,7 @@ class cog(commands.Cog):
         Choice(name='Br*tish Time', value="Europe/London"),
 
     ])
-    async def time(self, interaction : discord.Interaction, timezones:Choice[str]):
+    async def time(self, interaction: discord.Interaction, timezones: Choice[str]):
         fmt = "%Y-%m-%d %H:%M %Z%z"
         fmt1 = "%H:%M"
         fmt2 = "%Y-%m-%d"
@@ -493,13 +562,11 @@ class cog(commands.Cog):
         time_tz = datetime.now(tz=timezone(timezones.value))
         time_to_send = time_tz.strftime(fmt1)
         date_to_send = time_tz.strftime(fmt2)
-      #  await interaction.send(f"Current time({timezones.name})- **{time_tz.strftime(fmt1)}**")
+        #  await interaction.send(f"Current time({timezones.name})- **{time_tz.strftime(fmt1)}**")
         embed = discord.Embed(title=f"Current Time({timezones.name})", description=f"**Time:** {time_to_send}\n**Date"
-                                                                                   f":** {date_to_send}",colour=discord.Color.green())
+                                                                                   f":** {date_to_send}",
+                              colour=discord.Color.green())
         await interaction.send(embed=embed)
-
-    
-
 
     @commands.hybrid_command()
     @app_commands.guilds(MY_GUILD_ID)
@@ -525,8 +592,6 @@ class cog(commands.Cog):
 
         await ctx.send(fr"Time until {yy}/{mm}/{dd}: {eldentime}")
 
-   
-
     @commands.hybrid_command()
     @app_commands.guilds(MY_GUILD_ID)
     async def game(self, ctx, *, game: str):
@@ -541,7 +606,7 @@ class cog(commands.Cog):
                 platforms.append(platform["name"])
 
             platform_string = ", ".join(platforms)
-            search_results+= f"**{i+1}. {game['name']}**\n{platform_string}\n\n"
+            search_results += f"**{i + 1}. {game['name']}**\n{platform_string}\n\n"
 
         embed = discord.Embed(title="Search Results", description=search_results, colour=discord.Color.green())
         view = Button5()
@@ -549,7 +614,7 @@ class cog(commands.Cog):
         await view.wait()
         opt = view.value
 
-        game_id = search[opt-1]["game"]["id"]
+        game_id = search[opt - 1]["game"]["id"]
 
         print(game_id)
         game = Game(game_id)
@@ -587,12 +652,6 @@ class cog(commands.Cog):
     @commands.hybrid_command()
     async def globalcommand(self, ctx: commands.Context):
         await ctx.send("this is a global command")
-
-
-
-   
-
-
 
     async def cog_load(self):
         ...
