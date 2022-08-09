@@ -5,7 +5,7 @@ from typing import List
 import discord
 from discord.ext import commands
 from discord.utils import get
-from cogs import cog, psn, tagdb, gamble, levelsys
+from cogs import cog, psn, tagdb, gamble, levelsys, kino
 import os
 import io
 import traceback
@@ -22,7 +22,7 @@ guild_id = os.environ["GUILD_ID"]
 
 TOKEN = os.environ["TOKEN"]
 MY_GUILD_ID = discord.Object(guild_id)
-cogs = [cog, tagdb, levelsys, gamble, psn]
+cogs = [cog, tagdb, levelsys, gamble, psn, kino]
 tree = client.tree
 
 
