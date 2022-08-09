@@ -65,7 +65,7 @@ class Movie(commands.Cog):
         desc = ""
         counter = 1
         for kino in results:
-            desc += f"**{counter}. {kino['name']}** ({kino['data']})\n\n"
+            desc += f"**{counter}. {kino['name']}** ({kino['date']})\n\n"
         embed.description = desc
         await ctx.send(embed=embed)
 
