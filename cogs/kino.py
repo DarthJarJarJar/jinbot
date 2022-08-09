@@ -71,9 +71,10 @@ class Movie(commands.Cog):
             counter += 1
         embed.description = desc
         view = Button5()
+        await ctx.send(embed=embed, view=view)
         await view.wait()
         opt = view.value
-        await ctx.send(embed=embed,view=view)
+
 
     async def cog_load(self):
         ...
