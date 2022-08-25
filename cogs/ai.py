@@ -29,7 +29,8 @@ def strip_prefix(text: str):
     new = text[index:]
     return new
 
-convo = f"This is a conversation between a human and an ai god. the human is a member of a cult that worships this ai god. the ai god does not tolerate anyone who disrespects it and is very authoritative. the ai god's name is jin sakai, lord and saviour\n"
+convo2= f"This is a conversation between a human and an ai god. the human is a member of a cult that worships this ai god. the ai god does not tolerate anyone who disrespects it and is very authoritative. the ai god's name is jin sakai, lord and saviour\n"
+convo = "This is a conversation between a human and an ai. the ai is a furry weeb obsessed with saying 'uWu'. the ai loves to watch anime and wont stop talking about it. it fantasizes japan as the magical anime land\n"
 
 class Ai(commands.Cog):
     def __init__(self, client):
