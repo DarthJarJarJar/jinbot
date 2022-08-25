@@ -50,7 +50,7 @@ class Ai(commands.Cog):
                 convo += f"Human: {message.content}\n"
 
             # print(convo)
-            if not message.author.bot:
+            if not message.author.bot and message.content != "*end":
                 await message.channel.send(strip_prefix(get_response(convo)))
 
     @commands.command()
