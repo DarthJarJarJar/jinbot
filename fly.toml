@@ -1,0 +1,8 @@
+# fly.toml file generated for jin on 2022-09-02T01:02:44-04:00
+
+app = "jin"
+kill_signal = "SIGINT"
+kill_timeout = 5
+processes = []
+
+[env]
