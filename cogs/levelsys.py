@@ -136,10 +136,20 @@ class levelsys(commands.Cog):
         rank = 0
 
         rankings = levelling.find().sort("xp", -1)
+        # for x in rankings:
+        #     rank += 1
+        #     if stats["id"] == x["id"]:
+        #         break
+
         for x in rankings:
-            rank += 1
-            if stats["id"] == x["id"]:
-                break
+            try:
+                temp = ctx.guild.get_member(x["id"])
+                rank += 1
+                if stats["id"] == x["id"]:
+                    break
+            except:
+                pass
+
         embed = discord.Embed(title=f'**Level: {usrlevel}** (Rank {rank})', description=f"{xp} XP",
                               color=discord.Color.green())
         embed.set_author(name=ctx.author.name, icon_url=ctx.author.avatar.url)

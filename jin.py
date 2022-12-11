@@ -13,7 +13,6 @@ import aiohttp
 import sys
 from discord import app_commands
 
-
 intents = discord.Intents(messages=True, guilds=True, reactions=True, members=True, presences=True,
                           message_content=True, )
 client = commands.Bot(command_prefix='*', intents=intents, case_insensitive=True, )
@@ -31,8 +30,8 @@ async def cogscogs():
         await cogs[i].setup(client)
         print("e")
 
-asyncio.run(cogscogs())
 
+asyncio.run(cogscogs())
 
 
 @client.event
@@ -44,11 +43,9 @@ async def on_ready():
 
 async def setup_hook() -> None:
     client.add_view(cog.PersistentView())
-    
 
 
 asyncio.run(setup_hook())
-
 
 
 async def try_hastebin(content):
@@ -60,17 +57,19 @@ async def try_hastebin(content):
     uri = post['key']
     return f'https://hastebin/{uri}'
 
+
 async def send_to_owner(content, string):
     """Send content to owner. If content is small enough, send directly.
     Otherwise, try Hastebin first, then upload as a File."""
     channel = bot.get_channel(872335733287956500)
     if len(content) < 1990:
-        await channel.send(f'{(await bot.fetch_user(749901028832575558)).mention} {string}\n```python\n{content}\n```')
+        await channel.send(f' {string}\n```python\n{content}\n```')
     else:
         try:
             await channel.send(await try_hastebin(content))
         except aiohttp.ClientResponseError:
             await channel.send(content=string, file=discord.File(io.StringIO(content), filename='traceback.txt'))
+
 
 @bot.event
 async def on_error(event, *args, **kwargs):
@@ -81,9 +80,11 @@ async def on_error(event, *args, **kwargs):
     string = "An error occured"
     await send_to_owner(content, string)
 
+
 async def handle_command_error(ctx: commands.Context, exc: Exception):
     """Handle specific exceptions separately here"""
     pass
+
 
 @bot.event
 async def on_command_error(ctx: commands.Context, exc: Exception):
@@ -98,19 +99,19 @@ async def on_command_error(ctx: commands.Context, exc: Exception):
     string = f"Error in the command called in message {ctx.message.jump_url}"
     await send_to_owner(lines, string)
 
+
 @client.command()
 @commands.is_owner()
 async def sync(ctx):
     await tree.sync(guild=MY_GUILD_ID)
     await ctx.send('synced commands')
-    
 
 
 @client.command()
 async def check(ctx):
     member = ctx.author
     if (discord.utils.utcnow() - member.created_at).days < 5:
-            await ctx.send("Less than 5 days")
+        await ctx.send("Less than 5 days")
     else:
         await ctx.send("More than 5 days")
 
@@ -118,18 +119,18 @@ async def check(ctx):
 @client.event
 async def on_member_join(member: discord.Member):
     if member.guild.name == "Jincord":
-      
-            channel = client.get_channel(854247382086189066)
-            jinchain = client.get_channel(834406006351462420)
-            jinrules = client.get_channel(893929998614925322)
-            await channel.send(
-                "<:Wjin:865274048988184588><:Ejin:865274113174405131><:Ljin:865274170157432843><:Cjin:865274259353370634><:Ojin:865274346129850408><:Mjin:865274436168450058><:Ejin:865274113174405131>")
-            embed1 = discord.Embed(title=f"Welcome {member}!",
-                                description=f"Contribute to {jinchain.mention} and check out {jinrules.mention} to get started! Remember to flame on and on and on and on")
-            embed1.set_image(url="https://media.discordapp.net/attachments/826766972204744767/885951474109149274/tumblr_ovbx1zq11b1vo889bo8_400.gifv.gif")
-            await channel.send(content=member.mention, embed=embed1)
-            role = get(member.guild.roles, id=833781809128669265)
-            await member.add_roles(role)
+        channel = client.get_channel(854247382086189066)
+        jinchain = client.get_channel(834406006351462420)
+        jinrules = client.get_channel(893929998614925322)
+        await channel.send(
+            "<:Wjin:865274048988184588><:Ejin:865274113174405131><:Ljin:865274170157432843><:Cjin:865274259353370634><:Ojin:865274346129850408><:Mjin:865274436168450058><:Ejin:865274113174405131>")
+        embed1 = discord.Embed(title=f"Welcome {member}!",
+                               description=f"Contribute to {jinchain.mention} and check out {jinrules.mention} to get started! Remember to flame on and on and on and on")
+        embed1.set_image(
+            url="https://media.discordapp.net/attachments/826766972204744767/885951474109149274/tumblr_ovbx1zq11b1vo889bo8_400.gifv.gif")
+        await channel.send(content=member.mention, embed=embed1)
+        role = get(member.guild.roles, id=833781809128669265)
+        await member.add_roles(role)
 
 
 client.run(TOKEN)
